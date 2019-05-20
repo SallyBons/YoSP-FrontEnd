@@ -5,6 +5,7 @@ import {
 import RegistrationForm from '../RegistrationForm';
 import MainPage from '../MainPage';
 import 'uikit/dist/css/uikit.min.css';
+import LogIn from '../LogIn';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -19,6 +20,10 @@ class App extends PureComponent {
        <Route
               path="/registration"
               render={() => <RegistrationForm />}
+            />
+            <Route
+              path="/login"
+              render={() => <LogIn />}
             />
        </Switch>
       </BrowserRouter>

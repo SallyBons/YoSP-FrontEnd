@@ -5,12 +5,12 @@ import {
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from './InputField.js';
-// import { 
-//     required, minLengthOverview, matchesPassword, email
-// } from './validation';
- import { addNewUser} from '../components/auth/auth';
+import {
+    required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax,passwordMin,
+} from './validation';
+import { addNewUser } from '../components/auth/auth';
 
- import { loadUser } from '../reducer/user';
+import { loadUser } from '../reducer/user';
 
 import './styles.css';
 
@@ -28,7 +28,7 @@ class RegistrationForm extends PureComponent {
                     label="Name"
                     type="text"
                     component={InputField}
-                // validate={[required, minLengthOverview]}
+                    validate={[required, maxLengthName, specialSymbols]}
                 />
 
                 <Field
@@ -36,14 +36,14 @@ class RegistrationForm extends PureComponent {
                     label="Surname"
                     type="text"
                     component={InputField}
-                // validate={[required, minLengthOverview]}
+                    validate={[required, maxLengthSurname, specialSymbols]}
                 />
                 <Field
                     name="email"
                     label="E-mail"
                     type="text"
                     component={InputField}
-                // validate={[required, email, validateUserEmailRegistraion]}
+                    validate={[required, email]}
                 />
 
                 <Field
@@ -51,7 +51,7 @@ class RegistrationForm extends PureComponent {
                     label="Password"
                     type="text"
                     component={InputField}
-                // validate={[required, minLengthOverview]}
+                    validate={[required, passwordMax,passwordMin]}
                 />
 
 
@@ -60,7 +60,7 @@ class RegistrationForm extends PureComponent {
                     label="Confirm Password"
                     type="text"
                     component={InputField}
-                // validate={[required, matchesPassword]}
+                    validate={[required, matchesPassword]}
                 />
 
 
@@ -77,6 +77,20 @@ class RegistrationForm extends PureComponent {
     }
 }
 
+const request = (name, surname, email, password) => {
+    fetch(`http://192.168.0.100:8888/user/add?name=${name}&surname=${surname}&email=${email}&password=${password}`, {mode: 'cors'})
+        .then(result => { 
+            console.log(result)
+            result.json() 
+        })
+        .then((result) => {
+            alert(result);
+            // if (result.lenght !== 0) {
+            //     alert(result);
+            // }
+
+        });
+};
 
 const selector = formValueSelector('RegistrationForm');
 
@@ -85,14 +99,18 @@ const mapStateToProps = state => ({
     formData: getFormValues('RegistrationForm')(state)
 });
 
+
+
 export default compose(
-    connect(null, { mapStateToProps,loadUser}),
+    connect(null, { mapStateToProps, loadUser }),
     reduxForm({
         form: 'RegistrationForm',
         enableReinitialize: true,
         onSubmit: (values, props, state) => {
-            const user = addNewUser(values.name, values.surname, values.password, values.email);
-            state.loadUser(user);
+            // const user = addNewUser(values.name, values.surname, values.password, values.email);
+            // state.loadUser(user);
+            console.log('Fired')
+            request(values.name, values.surname, values.email, values.password)
         }
     })
 )(RegistrationForm);
