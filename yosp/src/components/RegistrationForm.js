@@ -10,6 +10,7 @@ import {
 } from './validation';
 
 import { loadUser } from '../reducer/user';
+import GLOBAL_CONFIG from '../config';
 
 import './styles.css';
 
@@ -77,10 +78,9 @@ class RegistrationForm extends PureComponent {
 }
 
 const addNewUser = (name, surname, email, password) => {
-    fetch(`http://192.168.0.100:8888/user/add?name=${name}&surname=${surname}&email=${email}&password=${password}`, {mode: 'cors'})
+    fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${name}&surname=${surname}&email=${email}&password=${password}`)
         .then(result => result.text())
         .then(result => {
-            console.log(result);
             console.log(JSON.parse(result));
         });
 };
