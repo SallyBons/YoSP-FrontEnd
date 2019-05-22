@@ -8,7 +8,6 @@ import InputField from './InputField.js';
 import {
     required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax,passwordMin,
 } from './validation';
-import { addNewUser } from '../components/auth/auth';
 
 import { loadUser } from '../reducer/user';
 
@@ -77,18 +76,12 @@ class RegistrationForm extends PureComponent {
     }
 }
 
-const request = (name, surname, email, password) => {
+const addNewUser = (name, surname, email, password) => {
     fetch(`http://192.168.0.100:8888/user/add?name=${name}&surname=${surname}&email=${email}&password=${password}`, {mode: 'cors'})
-        .then(result => { 
-            console.log(result)
-            result.json() 
-        })
-        .then((result) => {
-            alert(result);
-            // if (result.lenght !== 0) {
-            //     alert(result);
-            // }
-
+        .then(result => result.text())
+        .then(result => {
+            console.log(result);
+            console.log(JSON.parse(result));
         });
 };
 
@@ -109,8 +102,8 @@ export default compose(
         onSubmit: (values, props, state) => {
             // const user = addNewUser(values.name, values.surname, values.password, values.email);
             // state.loadUser(user);
-            console.log('Fired')
-            request(values.name, values.surname, values.email, values.password)
+            addNewUser(values.name, values.surname, values.email, values.password)
+            // request(values.name, values.surname, values.email, values.password)
         }
     })
 )(RegistrationForm);

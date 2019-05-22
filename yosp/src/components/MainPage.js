@@ -13,6 +13,7 @@ class MainPage extends PureComponent {
       <div>
         <Link to="/registration">Registration</Link>
         <Link to="/login">Login</Link>
+        <Link to="/userAgent">User Agent</Link>
       </div>
 
     );
