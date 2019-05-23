@@ -6,22 +6,36 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from './InputField.js';
 import {
-    required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax,passwordMin,
+    required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin,
 } from './validation';
 
 import { loadUser } from '../reducer/user';
 import GLOBAL_CONFIG from '../config';
-
+import Spiner from '../components/Spiner'
 import './styles.css';
+import { setTimeout } from 'timers';
 
 class RegistrationForm extends PureComponent {
+    state = {
+        showSpiner: false,
+    }
+
+    addNewUser = (values) => {
+        this.setState({showSpiner:true})
+        fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${values.name}&surname=${values.surname}&email=${values.email}&password=${values.password}`)
+            .then(result => result.text())
+            .then(result => {
+                console.log(JSON.parse(result));
+                this.setState({showSpiner:false})
+            });
+    };
 
     render() {
         const { handleSubmit, invalid } = this.props;
+        const { showSpiner } = this.state;
         return (
 
-
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(this.addNewUser)} test="test">
 
                 <Field
                     name="name"
@@ -51,9 +65,8 @@ class RegistrationForm extends PureComponent {
                     label="Password"
                     type="text"
                     component={InputField}
-                    validate={[required, passwordMax,passwordMin]}
+                    validate={[required, passwordMax, passwordMin]}
                 />
-
 
                 <Field
                     name="confirmPassword"
@@ -63,27 +76,20 @@ class RegistrationForm extends PureComponent {
                     validate={[required, matchesPassword]}
                 />
 
-
-
-
-
-
                 <div className="form__button--wrapper">
                     <button type="submit" className="form__button send" disabled={invalid}>Confirm registration</button>
                 </div>
+
+                {showSpiner ? 
+                   <Spiner />
+                : 
+                    ''
+                }
 
             </form>
         );
     }
 }
-
-const addNewUser = (name, surname, email, password) => {
-    fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${name}&surname=${surname}&email=${email}&password=${password}`)
-        .then(result => result.text())
-        .then(result => {
-            console.log(JSON.parse(result));
-        });
-};
 
 const selector = formValueSelector('RegistrationForm');
 
@@ -92,18 +98,17 @@ const mapStateToProps = state => ({
     formData: getFormValues('RegistrationForm')(state)
 });
 
-
-
 export default compose(
     connect(null, { mapStateToProps, loadUser }),
     reduxForm({
         form: 'RegistrationForm',
-        enableReinitialize: true,
-        onSubmit: (values, props, state) => {
-            // const user = addNewUser(values.name, values.surname, values.password, values.email);
-            // state.loadUser(user);
-            addNewUser(values.name, values.surname, values.email, values.password)
-            // request(values.name, values.surname, values.email, values.password)
-        }
+        enableReinitialize: false,
+        // onSubmit: (values, props, state) => {
+        //     console.log(state);
+        //     // addNewUser(values.name, values.surname, values.email, values.password)
+        //     setTimeout(() => {
+        //         console.log("hello")
+        //     }, 1);
+        // }
     })
 )(RegistrationForm);
