@@ -5,22 +5,38 @@ import {
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import InputField from './InputField';
-import {authentificateUser, validateUserEmail, validateUserPassword} from '../components/auth/auth';
-// import {
-//   required, email
-// } from './validation';
-
+import Spiner from '../components/Spiner'
+import {
+  required, email
+} from '../components/validation';
+import GLOBAL_CONFIG from '../config';
 import {loadUser} from '../reducer/user';
 
 
 class LogIn extends PureComponent {
+  state = {
+    showSpiner: false,
+}
+loginFunction=(values)=>{
+  let {loadUser} = this.props;
+  this.setState({showSpiner:true})
+   fetch(`${GLOBAL_CONFIG.backendUrl}/user/auth?email=${values.email}&password=${values.password}`)
+  .then(result => result.text())
+  .then(result => {
+      let user = JSON.parse(result);
+      if (user.name) {
+        loadUser(user); 
+      }
+      this.setState({showSpiner:false})
+  });
+}
 
     render() {
     const {handleSubmit, invalid} = this.props;
-
+    const { showSpiner } = this.state;
     return (
      
-     <form onSubmit={handleSubmit}>
+     <form onSubmit={handleSubmit(this.loginFunction)}>
 
          
             <Field
@@ -28,7 +44,7 @@ class LogIn extends PureComponent {
               label="E-mail"
               type="text"
               component={InputField}
-            //   validate={[email, validateUserEmail, required]}
+              validate={[email, required]}
             />
          
 
@@ -38,14 +54,18 @@ class LogIn extends PureComponent {
               label="Password"
               type="text"
               component={InputField}
-            //   validate={[required, validateUserPassword]}
+             validate={[required]}
             />
           
 
           
 
             <button type="submit" className="form__button send" disabled={invalid}>Login</button>
-        
+            {showSpiner ? 
+                   <Spiner />
+                : 
+                    ''
+                }
 
         </form>
       
@@ -65,9 +85,5 @@ export default compose(
   reduxForm({
     form: 'LogInForm',
     enableReinitialize: true,
-    onSubmit: (values, props, state) => {
-      const user = authentificateUser(values.email, values.password);
-      state.loadUser(user);
-    }
-  })
+     })
 )(LogIn);

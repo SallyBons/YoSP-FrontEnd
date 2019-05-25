@@ -6,18 +6,20 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from './InputField.js';
 import {
-    required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin,
+    required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin, asyncValidateEmail
 } from './validation';
-
+import {
+    Redirect
+  } from 'react-router-dom';
 import { loadUser } from '../reducer/user';
 import GLOBAL_CONFIG from '../config';
-import Spiner from '../components/Spiner'
+import Spiner from '../components/Spiner';
 import './styles.css';
-import { setTimeout } from 'timers';
 
 class RegistrationForm extends PureComponent {
     state = {
         showSpiner: false,
+        registrationSucseed:false,
     }
 
     addNewUser = (values) => {
@@ -26,13 +28,14 @@ class RegistrationForm extends PureComponent {
             .then(result => result.text())
             .then(result => {
                 console.log(JSON.parse(result));
-                this.setState({showSpiner:false})
+                this.setState({showSpiner:false});
+                this.setState({registrationSucseed:true})
             });
     };
 
     render() {
         const { handleSubmit, invalid } = this.props;
-        const { showSpiner } = this.state;
+        const { showSpiner,registrationSucseed } = this.state;
         return (
 
             <form onSubmit={handleSubmit(this.addNewUser)} test="test">
@@ -82,6 +85,11 @@ class RegistrationForm extends PureComponent {
 
                 {showSpiner ? 
                    <Spiner />
+                : 
+                    ''
+                }
+                {registrationSucseed ? 
+                   <Redirect to="/" />
                 : 
                     ''
                 }
