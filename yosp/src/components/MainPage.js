@@ -10,10 +10,17 @@ class MainPage extends PureComponent {
   render() {
     return (
 
-      <div>
-        <Link to="/registration">Registration</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/userAgent">User Agent</Link>
+      <div className="uk-margin">
+        <div >
+          <Link to="/registration">Registration</Link>
+        </div>
+        <div >
+          <Link to="/login">Login</Link>
+        </div>
+        <div >
+          <Link to="/userAgent">User Agent</Link>
+        </div>
+
       </div>
 
     );

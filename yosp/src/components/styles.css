@@ -5,10 +5,35 @@
     width: 3em;
     height: 3em;
     animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
+}
+
+@keyframes spin {
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
+
+.login-form-wrapper {
+    max-width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.login-form-wrapper form{
+  width: 100%;
+}
+.user-agent-wrapper{
+  max-width: 450px;
+  margin: 0 auto;
+}
+.alert-wrapper{
+  max-width: 300px;
+  margin: 0 auto;
+  position: absolute;
+  right:20px;
+  top:20px;
+  /* margin-top:20px; */
+  /* margin-right:20px; */
+}

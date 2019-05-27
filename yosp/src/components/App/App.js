@@ -5,8 +5,9 @@ import {
 import RegistrationForm from '../RegistrationForm';
 import MainPage from '../MainPage';
 import 'uikit/dist/css/uikit.min.css';
+import 'uikit/dist/js/uikit.min.js';
 import LogIn from '../LogIn';
-import UserAgent from '../UserAgent';
+import UserAgent from '../UserAgents/UserAgent';
 
 class App extends PureComponent {
   componentDidMount() {
