@@ -5,6 +5,11 @@ import 'uikit/dist/css/uikit.min.css';
 
 class Alert extends PureComponent {
 
+    state = {
+        type: "primary",
+        message: "Missing alert text"
+    }
+
     render() {
         const { alertText } = this.props
         return (

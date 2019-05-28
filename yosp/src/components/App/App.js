@@ -8,6 +8,7 @@ import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit.min.js';
 import LogIn from '../LogIn';
 import UserAgent from '../UserAgents/UserAgent';
+import AlertPanel from '../AlertPanel';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -17,6 +18,8 @@ class App extends PureComponent {
   render() {
     return (
       <BrowserRouter>
+      <div>
+      <AlertPanel />
        <Switch>
        <Route path="/" component={MainPage} exact />
        <Route
@@ -32,7 +35,10 @@ class App extends PureComponent {
               render={() => <UserAgent />}
             />
        </Switch>
+       </div>
       </BrowserRouter>
+      
+      
     );
   }
 }
