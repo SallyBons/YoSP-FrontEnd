@@ -1,24 +1,40 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { deleteAlert } from '../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
 
 class Alert extends PureComponent {
+    handleDeleteAlert = (alert) => {
+        const { deleteAlert } = this.props;
+        setTimeout(() => {
+            deleteAlert(alert);
+        }, 100);
+    }
 
-    state = {
-        type: "primary",
-        message: "Missing alert text"
+    returnAlertClass = (type) => {
+        switch (type) {
+            case "danger":
+                return "uk-alert-danger";
+            case "success":
+                return "uk-alert-success";
+            case "warning":
+                return "uk-alert-warning";
+            default:
+                return "uk-alert-primary";
+        }
     }
 
     render() {
-        const { alertText } = this.props
+        const { incommingAlert } = this.props
         return (
             <div className="alert-wrapper">
-                <div className="uk-alert-danger" data-uk-alert>
+                <div className={this.returnAlertClass(incommingAlert.type)} data-uk-alert>
 
-                    <a className="uk-alert-close" data-uk-close></a>
+                    <a className="uk-alert-close" data-uk-close onClick={() => this.handleDeleteAlert(incommingAlert)} ></a>
                     <h3>Notice</h3>
-                    <p>{alertText}</p>
+                    <p>{incommingAlert.text}</p>
                 </div>
             </div>
 
@@ -26,5 +42,8 @@ class Alert extends PureComponent {
         );
     }
 }
+const mapDispatchToProps = {
+    deleteAlert,
+};
 
-export default Alert;
+export default connect(null, mapDispatchToProps)(Alert);

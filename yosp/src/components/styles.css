@@ -29,11 +29,25 @@
   margin: 0 auto;
 }
 .alert-wrapper{
-  max-width: 300px;
+  font-size: 14px;
+}
+
+.alert-wrapper h3{
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.alert-wrapper p{
+  margin-top: initial
+}
+
+.alert_panel--wrapper{
+max-width: 300px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   right:20px;
   top:20px;
-  /* margin-top:20px; */
-  /* margin-right:20px; */
 }

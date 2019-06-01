@@ -15,6 +15,11 @@ import 'uikit/dist/css/uikit.min.css';
 
 
 class LogIn extends PureComponent {
+
+  componentDidMount() {
+    document.title = 'YoSP: Login';
+}
+
   state = {
     showSpiner: false,
   }

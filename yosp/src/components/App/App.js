@@ -31,7 +31,7 @@ class App extends PureComponent {
               render={() => <LogIn />}
             />
             <Route
-              path="/userAgent"
+              path="/dashboard/useragents"
               render={() => <UserAgent />}
             />
        </Switch>

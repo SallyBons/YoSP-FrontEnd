@@ -14,45 +14,42 @@ import {
 import GLOBAL_CONFIG from '../config';
 import Spiner from '../components/Spiner';
 import Alert from '../components/Alert';
+import { addAlert } from '../reducer/alerts';
 import './styles.css';
 import 'uikit/dist/css/uikit.min.css';
 
 class RegistrationForm extends PureComponent {
+
+    componentDidMount() {
+        document.title = 'YoSP: Registration';
+    }
+
+
     state = {
         showSpiner: false,
-        registrationSucseed: false,
-        showAlert: false,
-        alertText: ''
+        registrationSucceed: false,
+
     }
 
     addNewUser = (values) => {
         this.setState({ showSpiner: true })
+        const { addAlert } = this.props;
         fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${values.name}&surname=${values.surname}&email=${values.email}&password=${values.password}`)
             .then(result => result.text())
             .then(result => {
-                console.log(JSON.parse(result));
                 let answer = JSON.parse(result);
                 this.setState({ showSpiner: false });
                 if (answer.error) {
-                    this.showAlert(answer.error);
+                    addAlert("danger", answer.error);
                 } else {
-                    this.setState({ registrationSucseed: true })
+                    this.setState({ registrationSucceed: true })
                 }
-
-
             });
     };
 
-    showAlert = (error) => {
-        this.setState({
-            showAlert: true,
-            alertText: error
-        })
-    }
-
     render() {
         const { handleSubmit, invalid } = this.props;
-        const { showSpiner, registrationSucseed, showAlert, alertText } = this.state;
+        const { showSpiner, registrationSucceed, } = this.state;
         return (
             <div>
                 <div className="login-form-wrapper">
@@ -106,7 +103,7 @@ class RegistrationForm extends PureComponent {
                             :
                             ''
                         }
-                        {registrationSucseed ?
+                        {registrationSucceed ?
                             <Redirect to="/login" />
                             :
                             ''
@@ -114,11 +111,6 @@ class RegistrationForm extends PureComponent {
 
                     </form>
                 </div>
-                {showAlert ?
-                    <Alert alertText={alertText} />
-                    :
-                    ''
-                }
 
             </div>
 
@@ -133,9 +125,13 @@ const mapStateToProps = state => ({
     name: selector(state, 'name', 'surname'),
     formData: getFormValues('RegistrationForm')(state)
 });
+const mapDispatchToProps = {
+    addAlert,
+};
+
 
 export default compose(
-    connect(null, { mapStateToProps }),
+    connect(mapStateToProps, mapDispatchToProps),
     reduxForm({
         form: 'RegistrationForm',
         enableReinitialize: false,
