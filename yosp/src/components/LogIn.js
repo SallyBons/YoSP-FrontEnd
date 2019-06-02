@@ -6,25 +6,29 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from './InputField';
 import Spiner from '../components/Spiner'
-import {
-  required, email
-} from '../components/validation';
 import GLOBAL_CONFIG from '../config';
 import { loadUser } from '../reducer/user';
+import { addAlert } from '../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
+import Cookies from 'universal-cookie';
+import {
+  Redirect
+} from 'react-router-dom';
 
 
 class LogIn extends PureComponent {
 
   componentDidMount() {
     document.title = 'YoSP: Login';
-}
+  }
 
   state = {
     showSpiner: false,
+    authorisationSucceed: false,
   }
   loginFunction = (values) => {
-    let { loadUser } = this.props;
+    const cookies = new Cookies();
+    let { loadUser, addAlert } = this.props;
     this.setState({ showSpiner: true })
     fetch(`${GLOBAL_CONFIG.backendUrl}/user/auth?email=${values.email}&password=${values.password}`)
       .then(result => result.text())
@@ -32,14 +36,25 @@ class LogIn extends PureComponent {
         let user = JSON.parse(result);
         if (user.name) {
           loadUser(user);
+          cookies.set('user', user, { path: '/' });
+          this.setState({ showSpiner: false })
+          this.setState({ authorisationSucceed: true });
         }
-        this.setState({ showSpiner: false })
+        if (user.error) {
+          addAlert("warning", user.error);
+          this.setState({ showSpiner: false })
+        }
       });
   }
 
   render() {
     const { handleSubmit, invalid } = this.props;
-    const { showSpiner } = this.state;
+    const { showSpiner, authorisationSucceed } = this.state;
+
+    if (authorisationSucceed) {
+      return <Redirect to="/dashboard" />
+    }
+
     return (
 
       <div className="login-form-wrapper">
@@ -51,7 +66,6 @@ class LogIn extends PureComponent {
               label="E-mail"
               type="text"
               component={InputField}
-              validate={[email, required]}
             />
           </div>
 
@@ -62,7 +76,6 @@ class LogIn extends PureComponent {
               label="Password"
               type="text"
               component={InputField}
-              validate={[required]}
             />
           </div>
 
@@ -93,9 +106,13 @@ const mapStateToProps = state => ({
   name: selector(state, 'email', 'password'),
   formData: getFormValues('LogInForm')(state)
 });
+const mapDispatchToProps = {
+  addAlert,
+  loadUser,
+};
 
 export default compose(
-  connect(null, { mapStateToProps, loadUser }),
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'LogInForm',
     enableReinitialize: true,

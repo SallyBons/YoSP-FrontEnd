@@ -4,7 +4,7 @@ import './styles.css';
 class Spiner extends PureComponent {
     render() {
         return (
-            <div className="spiner"></div>
+            <div uk-spinner="ratio: 1"></div>
         )
     }
 }

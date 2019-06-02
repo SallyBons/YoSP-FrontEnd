@@ -13,7 +13,6 @@ import {
 } from 'react-router-dom';
 import GLOBAL_CONFIG from '../config';
 import Spiner from '../components/Spiner';
-import Alert from '../components/Alert';
 import { addAlert } from '../reducer/alerts';
 import './styles.css';
 import 'uikit/dist/css/uikit.min.css';
@@ -40,9 +39,10 @@ class RegistrationForm extends PureComponent {
                 let answer = JSON.parse(result);
                 this.setState({ showSpiner: false });
                 if (answer.error) {
-                    addAlert("danger", answer.error);
+                    addAlert("warning", answer.error);
                 } else {
-                    this.setState({ registrationSucceed: true })
+                    this.setState({ registrationSucceed: true });
+                    addAlert("success","Registration successful");
                 }
             });
     };
