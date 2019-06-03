@@ -10,8 +10,9 @@ class AlertPanel extends PureComponent {
     const { alerts } = this.props
     return (
       <div className="alert_panel--wrapper">
+        <p className="alert-text">Recent alerts:</p>
         {alerts.map((alert, index) => (
-          <Alert incommingAlert={alert} key={alert.id}/>
+          <Alert incommingAlert={alert} key={alert.id} />
         ))}
       </div>
 

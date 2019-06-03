@@ -8,7 +8,8 @@ import 'uikit/dist/css/uikit.min.css';
 import 'uikit/dist/js/uikit.min.js';
 import LogIn from '../LogIn';
 import UserAgent from '../UserAgents/UserAgent';
-import AlertPanel from '../AlertPanel';
+// import AlertPanel from '../AlertPanel';
+import Sidebars from '../Sidebars';
 import Dashboard from '../Dashboard/Dashboard'
 import Cookies from 'universal-cookie';
 import { loadUser } from '../../reducer/user';
@@ -28,7 +29,8 @@ class App extends PureComponent {
     return (
       <BrowserRouter>
         <div>
-          <AlertPanel />
+          {/* <AlertPanel /> */}
+           <Sidebars />
           <Switch>
             <Route path="/" component={MainPage} exact />
             <Route
