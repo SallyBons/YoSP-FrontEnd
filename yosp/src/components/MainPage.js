@@ -10,7 +10,7 @@ class MainPage extends PureComponent {
   render() {
     return (
 
-      <div className="uk-margin">
+      <div className="test">
         <div >
           <Link to="/registration">Registration</Link>
         </div>

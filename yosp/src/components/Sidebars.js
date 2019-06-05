@@ -12,8 +12,8 @@ class Sidebars extends PureComponent {
     render() {
 
         return (
-            <div className="">
-                <div className="sidebar_wrapper">
+            <div className="sidebar_wrapper ">
+                <div className="logout_wrapper">
                     <NavLink to="/logout">Log Out</NavLink>
                 </div>
                 <div className="alert-panel">
