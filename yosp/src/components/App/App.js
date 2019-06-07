@@ -17,21 +17,21 @@ import { addAlert } from '../../reducer/alerts';
 import { connect } from 'react-redux';
 
 class App extends PureComponent {
+  checkBack = () => {
+    let { addAlert } = this.props;
+    fetch(`${GLOBAL_CONFIG.backendUrl}/ping`)//request for status
+      .catch(() => {
+       addAlert("danger", "BackEnd is not responding");
+      })
+  }
   componentDidMount() {
-    let { loadUser,addAlert } = this.props;
+    let { loadUser} = this.props;
     const cookies = new Cookies();
     document.title = 'YoSP: Dashboard';
     cookies.get('user');
     console.log(cookies.get('user'));
     loadUser(cookies.get('user'));
-    fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=&surname=&email=&password=`)//request for status
-            .then(result => result.text())
-            .then(result => {
-                let answer = JSON.parse(result);
-                if (answer.error) {
-                    addAlert("ganger", "BackEnd is not responding");
-                } 
-            });
+    this.checkBack();
   }
 
   render() {
@@ -39,7 +39,7 @@ class App extends PureComponent {
       <BrowserRouter>
         <div>
           {/* <AlertPanel /> */}
-           <Sidebars />
+          <Sidebars />
           <Switch>
             <Route path="/" component={MainPage} exact />
             <Route

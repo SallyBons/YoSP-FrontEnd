@@ -4,7 +4,7 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import TextArea from '../TextArea'; 
+import TextArea from '../TextArea';
 
 
 
@@ -16,21 +16,16 @@ class UserAgentsDesktop extends PureComponent {
     return (
       <div>
         <form onSubmit={handleSubmit}>
-
-
           <Field
             name="textarea1"
             label="TA 1"
             type="text"
             component={TextArea}
           />
-          <button type="submit" className="uk-button uk-button-default" disabled={invalid}>Confirm</button>
+           <button type="submit" className="uk-button uk-button-default">save</button>
+          <button type="submit" className="uk-button uk-button-default" disabled={invalid}>load Defaults</button>
         </form>
-
-        
       </div>
-
-
     );
   }
 }
@@ -43,12 +38,14 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-  connect(null, { mapStateToProps }),
+  connect(mapStateToProps),
   reduxForm({
     form: 'UserAgentDefault',
     enableReinitialize: true,
-    onSubmit: (values, props, state) => {
-
+    onSubmit: (values, state, props) => {
+      const textAreaInputValue = values.textarea1;
+      const lines = textAreaInputValue.split('\n');
+      props.setStatistics(lines.length,'desktop');
     }
   })
 )(UserAgentsDesktop);
