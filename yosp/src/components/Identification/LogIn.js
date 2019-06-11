@@ -4,11 +4,11 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import InputField from './InputField';
-import Spiner from '../components/Spiner'
-import GLOBAL_CONFIG from '../config';
-import { loadUser } from '../reducer/user';
-import { addAlert } from '../reducer/alerts';
+import InputField from '../Special/InputField';
+import Spiner from '../Special/Spiner'
+import GLOBAL_CONFIG from '../../config';
+import { loadUser } from '../../reducer/user';
+import { addAlert } from '../../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
 import Cookies from 'universal-cookie';
 import {

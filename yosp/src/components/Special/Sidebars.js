@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './styles.css';
 // import { connect } from 'react-redux';
 // import { selectUser } from '../reducer/user';
-import AlertPanel from './AlertPanel';
+import AlertPanel from '../Alerts/AlertPanel';
 import 'uikit/dist/css/uikit.min.css';
 
 class Sidebars extends PureComponent {
@@ -22,7 +22,10 @@ class Sidebars extends PureComponent {
                 <div className="right-menu_wrapper" >
                     <ul className="uk-navbar-left">
                         <li>
-                        <Link to="/dashboard/useragents">User Agent</Link>
+                            <Link to="/useragents">User Agent</Link>
+                        </li>
+                        <li>
+                            <Link to="/proxies">Proxies</Link>
                         </li>
                     </ul>
                 </div>

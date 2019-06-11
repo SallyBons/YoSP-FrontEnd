@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { deleteAlert } from '../reducer/alerts';
+import { deleteAlert } from '../../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
 
 class Alert extends PureComponent {

@@ -4,48 +4,99 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import TextArea from '../TextArea';
+import TextArea from '../Special/TextArea';
+import GLOBAL_CONFIG from '../../config';
+import { addAlert } from '../../reducer/alerts';
+import { selectUser } from '../../reducer/user';
 
 
 
 class UserAgentsDesktop extends PureComponent {
+  componentDidMount() {
+    this.handleInitialize()
+  }
+
+  handleInitialize() {
+    setTimeout(() => {
+      let { user } = this.props;
+      this.getDataFromBackEnd(user)
+    }, 1);
+  }
+
+  getDataFromBackEnd = (user) => {
+    fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/get?token=${user.token}&useragent_type=desktop`)
+      .then(result => result.text())
+      .then(result => {
+        let answer = JSON.parse(result);
+        if (answer.useragents) {
+          let parsedUserAgents = JSON.parse(answer.useragents);
+          
+          
+
+          this.props.change('textarea1',parsedUserAgents.join('\n'));
+        }
+      });
+  }
 
   render() {
-    const { handleSubmit, invalid } = this.props;
+    const { handleSubmit} = this.props;
 
     return (
       <div>
         <form onSubmit={handleSubmit}>
           <Field
             name="textarea1"
-            label="TA 1"
+            label="Desktop  useragents"
             type="text"
             component={TextArea}
           />
-           <button type="submit" className="uk-button uk-button-default">save</button>
-          <button type="submit" className="uk-button uk-button-default" disabled={invalid}>load Defaults</button>
+          <div className='form__button--wrapper'>
+            <button className="uk-button uk-button-default">load Defaults</button>
+            <button type="submit" className="uk-button uk-button-default">save</button>
+          </div>
+
+          {/* onClick={()=>getDataFromBackEnd(user)} */}
+
         </form>
       </div>
     );
   }
 }
 
-const selector = formValueSelector('UserAgentDefault');
+const selector = formValueSelector('UserAgentDesktop');
+
+const setDataToBackEnd = (values, user, props) => {
+  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}&useragent_type=desktop&useragent=${JSON.stringify(values.textarea1.split('\n'))}`)
+    .then(result => result.text())
+    .then(result => {
+      let answer = JSON.parse(result);
+      if (answer.status === 200) {
+        props.addAlert("success", "Useragents are successfully updated")
+      }
+    });
+};
 
 const mapStateToProps = state => ({
   name: selector(state, 'textarea1'),
-  formData: getFormValues('UserAgentDefault')(state)
+  formData: getFormValues('UserAgentDesktop')(state),
+  user: selectUser(state),
 });
 
+const mapDispatchToProps = {
+  addAlert
+};
+
+
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'UserAgentDefault',
     enableReinitialize: true,
     onSubmit: (values, state, props) => {
       const textAreaInputValue = values.textarea1;
       const lines = textAreaInputValue.split('\n');
-      props.setStatistics(lines.length,'desktop');
+      props.setStatistics(lines.length, 'desktop');
+      setDataToBackEnd(values, props.user, props);
     }
   })
 )(UserAgentsDesktop);

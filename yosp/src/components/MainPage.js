@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import 'uikit/dist/css/uikit.min.css';
+import './styles.css';
 
 class MainPage extends PureComponent {
   componentDidMount() {
@@ -17,9 +18,9 @@ class MainPage extends PureComponent {
         <div >
           <Link to="/login">Login</Link>
         </div>
-        <div >
+        {/* <div className="useragets" >
           <Link to="/dashboard/useragents">User Agent</Link>
-        </div>
+        </div> */}
 
       </div>
 

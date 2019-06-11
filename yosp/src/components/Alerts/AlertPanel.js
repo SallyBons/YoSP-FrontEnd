@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import './styles.css';
 import { connect } from 'react-redux';
-import Alert from '../components/Alert';
-import { selectAllAlerts } from '../reducer/alerts'
+import Alert from './Alert';
+import { selectAllAlerts } from '../../reducer/alerts'
 
 
 class AlertPanel extends PureComponent {

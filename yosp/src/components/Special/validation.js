@@ -1,4 +1,4 @@
-import GLOBAL_CONFIG from '../config';
+import GLOBAL_CONFIG from '../../config';
 import { setTimeout } from 'timers';
 
 const required = value => (value ? undefined : 'This field is required');

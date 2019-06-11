@@ -4,14 +4,16 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import TextArea from '../TextArea';
+import TextArea from '../Special/TextArea';
+import GLOBAL_CONFIG from '../../config';
+import { selectUser } from '../../reducer/user';
 
 
 
 class UserAgentsMobile extends PureComponent {
 
   render() {
-    const { handleSubmit, invalid } = this.props;
+    const { handleSubmit } = this.props;
 
     return (
       <div>
@@ -20,12 +22,15 @@ class UserAgentsMobile extends PureComponent {
 
           <Field
             name="textarea2"
-            label="TA 2"
+            label="Mobile useragents"
             type="text"
             component={TextArea}
           />
-          <button type="submit" className="uk-button uk-button-default">save</button>
-          <button type="submit" className="uk-button uk-button-default" disabled={invalid}>load Defaults</button>
+          <div className='form__button--wrapper'>
+            <button className="uk-button uk-button-default">load Defaults</button>
+            <button type="submit" className="uk-button uk-button-default">save</button>
+          </div>
+
 
         </form>
 
@@ -41,18 +46,30 @@ const selector = formValueSelector('UserAgentMobile');
 
 const mapStateToProps = state => ({
   name: selector(state, 'textarea2'),
-  formData: getFormValues('UserAgentMobile')(state)
+  formData: getFormValues('UserAgentMobile')(state),
+  user: selectUser(state)
 });
+const getDataToBackEnd = (values, user) => {
+  // let { addAlert} = this.props;
+  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}&useragent_type=mobile&useragent=${values.textarea2}`)
+    .then(result => result.text())
+    .then(result => {
+      console.log(result);
+    });
+
+
+}
 
 export default compose(
   connect(mapStateToProps),
   reduxForm({
     form: 'UserAgentDefault',
     enableReinitialize: true,
-    onSubmit: (values, state, props ) => {
+    onSubmit: (values, state, props) => {
       const textAreaInputValue = values.textarea2;
       const lines = textAreaInputValue.split('\n');
       props.setStatistics(lines.length, 'mobile');
+      getDataToBackEnd(values, props.user);
     }
   })
 )(UserAgentsMobile);

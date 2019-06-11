@@ -33,9 +33,10 @@ class UserAgent extends PureComponent {
     const { statisticsCountD, statisticsCountM } = this.state;
     return (
       <div className="user-agent-wrapper">
-        <h1 className="statistic-text">
-          Statistic
-        </h1>
+        <h1 className="statistic-text">Useragents</h1>
+        <h2 className="statistic-text">
+          Statistics
+        </h2>
         <div className="statistic-windows">
           <div className="statistics-panel desktop">
             <h3 className="headerd">Desktop useragents</h3>

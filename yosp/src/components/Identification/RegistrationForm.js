@@ -4,16 +4,16 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import InputField from './InputField.js';
+import InputField from '../Special/InputField';
 import {
     required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin
-} from './validation';
+} from '../../components/Special/validation';
 import {
     Redirect
 } from 'react-router-dom';
-import GLOBAL_CONFIG from '../config';
-import Spiner from '../components/Spiner';
-import { addAlert } from '../reducer/alerts';
+import GLOBAL_CONFIG from '../../config';
+import Spiner from '../Special/Spiner';
+import { addAlert } from '../../reducer/alerts';
 import './styles.css';
 import 'uikit/dist/css/uikit.min.css';
 
@@ -36,7 +36,9 @@ class RegistrationForm extends PureComponent {
         fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${values.name}&surname=${values.surname}&email=${values.email}&password=${values.password}`)
             .then(result => result.text())
             .then(result => {
+                console.log(result);
                 let answer = JSON.parse(result);
+                
                 this.setState({ showSpiner: false });
                 if (answer.error) {
                     addAlert("warning", answer.error);
@@ -44,7 +46,9 @@ class RegistrationForm extends PureComponent {
                     this.setState({ registrationSucceed: true });
                     addAlert("success","Registration successful");
                 }
-            });
+            }).catch(() => {
+                addAlert("danger", "BackEnd connection lost. Please, check your network or get your provider pizdi");
+               });
     };
 
     render() {
