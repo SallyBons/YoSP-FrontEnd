@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Proxy from './Proxy'
 import './styles.css';
 import 'uikit/dist/css/uikit.min.css';
@@ -28,13 +28,13 @@ class Proxies extends PureComponent {
                 <div className="proxy-header">
                     <h2 className="proxy-main-header"> Proxies</h2>
                     <div className="add-button-wrapper" >
-                        <NavLink className="uk-button uk-button-default" to="/proxies/add">ADD</NavLink>
+                        <Link className="uk-button uk-button-default" to="/proxies/add">ADD</Link>
                     </div>
                    
 
                 </div>
                 <div className="proxy-content-wrapper">
-                        <Proxy incomingProxy= {proxy}/>
+                        <Proxy incomingProxy={proxy}/>
                     </div>
             </div>
 

@@ -19,6 +19,8 @@ import Logout from '../Identification/Logout';
 import Proxies from '../Proxies/Proxies'
 
 import './styles.css';
+import AddProxy from '../Proxies/AddProxy';
+import EditProxy from '../Proxies/EditProxy';
 
 class App extends PureComponent {
   checkBack = () => {
@@ -46,7 +48,7 @@ class App extends PureComponent {
           <div className="page-content">
             <Switch>
 
-              <Route path="/" component={MainPage} exact />
+              <Route exact path="/" component={MainPage} />
               <Route
                 path="/registration"
                 render={() => <RegistrationForm />}
@@ -63,10 +65,19 @@ class App extends PureComponent {
                 path="/useragents"
                 render={() => <UserAgent />}
               />
-              <Route
+              <Route exact
                 path="/proxies"
                 render={() => <Proxies />}
               />
+              <Route exact
+                path="/proxies/add"
+                component={AddProxy}
+              />
+              <Route exact
+                path="/proxies/edit"
+                component={EditProxy}
+              />
+
               <Route
                 path="/dashboard/"
                 render={() => <Dashboard />}

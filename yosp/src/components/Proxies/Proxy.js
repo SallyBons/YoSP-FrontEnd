@@ -7,7 +7,7 @@ class Proxy extends PureComponent {
 
 
     state = {
-indicatorFlag:"down",
+        indicatorFlag: "down",
     }
     returnIndicatorClass = (type) => {
         switch (type) {
@@ -23,7 +23,7 @@ indicatorFlag:"down",
     }
 
     render() {
-        const{incomingProxy}=this.props;
+        const { incomingProxy } = this.props;
         return (
             <div className="proxy-element-wrapper">
                 <div className="status-indicator">
@@ -43,7 +43,9 @@ indicatorFlag:"down",
                     <span> Updated:{incomingProxy.updated}</span>
                 </div>
                 <div className="proxy-buttons-wrapper">
-                    <Link to="/proxies/edit">Edit</Link>
+                    {/* <Link to="/proxies/edit" incomingProxy={incomingProxy}>Edit</Link> */}
+                    <Link to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link>
+
                     <button>X</button>
                 </div>
 
