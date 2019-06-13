@@ -7,13 +7,19 @@ import 'uikit/dist/css/uikit.min.css';
 
 class Proxies extends PureComponent {
     state = {
-
+proxies:[],
     }
-
+    handleDeleteProxy = (id) => {
+        const {proxies} = this.state;
+         let newProxies = proxies.filter(proxy => proxy.id !== id);
+        this.setState({proxies: newProxies});
+        
+      }
 
 
     render() {
-        const proxy ={
+        let {proxies}=this.state;
+        const proxyStart ={
             id:'123',
             status:'down',
             ip:'1.45.65.78',
@@ -34,7 +40,15 @@ class Proxies extends PureComponent {
 
                 </div>
                 <div className="proxy-content-wrapper">
-                        <Proxy incomingProxy={proxy}/>
+                        {/* <Proxy incomingProxy={proxy}/> */}
+                        {/* {proxies.map(proxy => ( */}
+              <Proxy 
+                // key={proxy.id}
+                toggleDeleteButton={this.handleDeleteProxy}
+                incomingProxy={proxyStart}
+                // {...proxy}
+              />
+            {/* ))}  */}
                     </div>
             </div>
 

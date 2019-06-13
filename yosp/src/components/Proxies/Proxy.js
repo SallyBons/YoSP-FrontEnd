@@ -21,6 +21,10 @@ class Proxy extends PureComponent {
                 return "down";
         }
     }
+    handleDeleteButton = () => {
+        const {toggleDeleteButton, id} = this.props;
+        toggleDeleteButton(id);
+      }
 
     render() {
         const { incomingProxy } = this.props;
@@ -44,9 +48,9 @@ class Proxy extends PureComponent {
                 </div>
                 <div className="proxy-buttons-wrapper">
                     {/* <Link to="/proxies/edit" incomingProxy={incomingProxy}>Edit</Link> */}
-                    <Link to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link>
+                    <Link className="uk-button uk-button-default" to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link>
 
-                    <button>X</button>
+                    <button className="uk-button uk-button-default" onClick={this.handleDeleteButton}>Delete</button>
                 </div>
 
 

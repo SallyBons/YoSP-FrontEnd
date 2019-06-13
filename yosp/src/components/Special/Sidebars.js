@@ -14,7 +14,9 @@ class Sidebars extends PureComponent {
         return (
             <div className="sidebar_wrapper ">
                 <div className="logout_wrapper">
-                    <NavLink to="/logout">Log Out</NavLink>
+                    <NavLink to="/login">Log In</NavLink>
+                    <NavLink to="/registration">Registration</NavLink>
+                    <NavLink to="/logout">Log Out</NavLink>                  
                 </div>
                 <div className="alert-panel">
                     <AlertPanel />

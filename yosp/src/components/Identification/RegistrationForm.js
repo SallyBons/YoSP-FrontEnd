@@ -47,7 +47,7 @@ class RegistrationForm extends PureComponent {
                     addAlert("success","Registration successful");
                 }
             }).catch(() => {
-                addAlert("danger", "BackEnd connection lost. Please, check your network or get your provider pizdi");
+                addAlert("danger", "BackEnd connection lost. Please, check your network ");
                });
     };
 

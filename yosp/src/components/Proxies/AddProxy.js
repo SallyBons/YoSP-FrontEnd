@@ -55,7 +55,7 @@ const sendProxyToBack = (values, props) => {
         .then(result => {
             let answer = JSON.parse(result);
             if (answer.status === 200) {
-                props.addAlert("success", "Proxies are successfully updated")
+                props.addAlert("success", "Proxies are successfully added")
             }
         });
 }

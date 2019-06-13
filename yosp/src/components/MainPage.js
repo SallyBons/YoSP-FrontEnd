@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import 'uikit/dist/css/uikit.min.css';
 import './styles.css';
-
+import Sidebars from '../components/Special/Sidebars';
 class MainPage extends PureComponent {
   componentDidMount() {
     document.title = 'YoSP: Dashboard';
@@ -12,16 +12,14 @@ class MainPage extends PureComponent {
     return (
 
       <div className="test">
-        <div >
+         <Sidebars />
+        {/* <div >
           <Link to="/registration">Registration</Link>
-        </div>
-        <div >
+        </div> */}
+        {/* <div >
           <Link to="/login">Login</Link>
-        </div>
-        <div className="useragets" >
-          <Link to="/add">add</Link>
-        </div>
-
+        </div> */}
+        
       </div>
 
     );

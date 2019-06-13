@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from '../Special/InputField';
 import { selectProxy,loadProxy } from '../../reducer/proxies';
+import { addAlert } from '../../reducer/alerts';
 import './styles.css';
 
 
@@ -11,15 +12,17 @@ class EditProxy extends Component {
     componentDidMount(){
         const {incomingProxy}=this.props.location;
         // console.log(this.props)
-        this.props.change('ip',incomingProxy.id);
+        this.props.change('ip',incomingProxy.ip);
         this.props.change('port',incomingProxy.port);
         this.props.change('user',incomingProxy.user);
         this.props.change('password',incomingProxy.password);
     }
+    
 
     render() {
-        // console.log(this.props.location.incomingProxy)
+        
         const { handleSubmit } = this.props;
+
         return (
 
             <div className="form add-new-movie">
@@ -84,8 +87,20 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    loadProxy ,
+    loadProxy,
+    addAlert,
 };
+const updateProxyOnBack = (values, props) => {
+    fetch(``)//endpoint to proxies
+        .then(result => result.text())
+        .then(result => {
+            let answer = JSON.parse(result);
+            if (answer.status === 200) {
+                props.addAlert("success", "Proxies are successfully updated")
+            }
+        });
+}
+
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
@@ -102,8 +117,10 @@ export default compose(
                 updated:values.updated,
             };
 
-            props.loadProxy ( newProxy);
-            props.reset();
+        //    props.loadProxy ( newProxy);
+           
+            updateProxyOnBack(newProxy);
+             props.reset();
         }
     })
 )(EditProxy);

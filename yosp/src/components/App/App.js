@@ -9,7 +9,6 @@ import 'uikit/dist/js/uikit.min.js';
 import LogIn from '../Identification/LogIn';
 import UserAgent from '../UserAgents/UserAgent';
 import GLOBAL_CONFIG from '../../config';
-import Sidebars from '../Special/Sidebars';
 import Dashboard from '../Dashboard/Dashboard'
 import Cookies from 'universal-cookie';
 import { loadUser } from '../../reducer/user';
@@ -42,12 +41,9 @@ class App extends PureComponent {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          {/* <AlertPanel /> */}
-          <Sidebars />
+        <div>       
           <div className="page-content">
             <Switch>
-
               <Route exact path="/" component={MainPage} />
               <Route
                 path="/registration"
