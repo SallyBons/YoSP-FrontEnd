@@ -12,7 +12,7 @@ import { addAlert } from '../../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
 import Cookies from 'universal-cookie';
 import {
-  Redirect
+  Redirect, Link
 } from 'react-router-dom';
 
 
@@ -82,8 +82,9 @@ class LogIn extends PureComponent {
 
 
 
-          <div className="uk-margin">
+          <div className="button-wrapper">
             <button type="submit" className="uk-button uk-button-default" disabled={invalid}>Login</button>
+            <Link className="uk-button uk-button-default" to="/registration">Registration</Link>
           </div>
 
           {showSpiner ?

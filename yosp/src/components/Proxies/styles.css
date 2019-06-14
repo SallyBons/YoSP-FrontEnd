@@ -32,7 +32,7 @@
 }
 
 .indicator {
-    border: 10px solid transparent;
+    border: 7px solid transparent;
     border-radius: 100%;
 }
 .indicator.active{

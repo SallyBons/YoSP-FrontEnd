@@ -1,5 +1,12 @@
-.page-content{
-    margin: 50px 380px 50px 380px;
-    border: 1px solid lightgrey;
+.page-content {
     padding: 25px;
+    position: relative;
+}
+
+.app-content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 70px;
+    padding: 0px 15px;
 }

@@ -9,3 +9,7 @@
 .login-form-wrapper form {
     width: 100%;
 }
+.button-wrapper{
+    display: flex;  
+    justify-content: space-between;
+}
