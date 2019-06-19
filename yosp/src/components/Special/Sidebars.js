@@ -16,7 +16,7 @@ class Sidebars extends PureComponent {
 
         return (
 
-            user.name ?
+            user !== undefined && user.name ?
                 <React.Fragment>
                     <div className="logout_wrapper">
                         <NavLink className="uk-button uk-button-default" to="/logout">Log Out</NavLink>

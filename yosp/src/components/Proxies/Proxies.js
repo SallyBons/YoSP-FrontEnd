@@ -1,14 +1,44 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import Proxy from './Proxy'
+import Proxy from './Proxy';
+import { connect } from 'react-redux';
 import './styles.css';
 import 'uikit/dist/css/uikit.min.css';
+import GLOBAL_CONFIG from '../../config';
+import { selectUser } from '../../reducer/user';
+import { addAlert } from '../../reducer/alerts';
 
 
 class Proxies extends PureComponent {
     state = {
         proxies: [],
     }
+    componentDidMount() {
+        this.handleInitialize()
+    }
+
+    handleInitialize() {
+        setTimeout(() => {
+            let { user } = this.props;
+            this.getListOfProxies(user)
+        }, 1);
+    }
+
+    // componentDidMount() {
+
+    //     this.setState({
+    //         proxies: [{
+    //             id: '123',
+    //             status: 'down',
+    //             ip: '1.45.65.78',
+    //             port: '404',
+    //             user: 'Sally',
+    //             password: '111',
+    //             added: '01.01.2019',
+    //             updated: '01.04.2019'
+    //         }]
+    //     })
+    // }
 
     handleDeleteProxy = (id) => {
         const { proxies } = this.state;
@@ -16,19 +46,27 @@ class Proxies extends PureComponent {
         this.setState({ proxies: newProxies });
     }
 
-    componentDidMount() {
-        this.setState({
-            proxies: [{
-                id: '123',
-                status: 'down',
-                ip: '1.45.65.78',
-                port: '404',
-                user: 'Sally',
-                password: '111',
-                added: '01.01.2019',
-                updated: '01.04.2019'
-            }]
-        })
+
+    getListOfProxies = (user) => {
+        let { addAlert } = this.props;
+        fetch(`${GLOBAL_CONFIG.backendUrl}/proxies/get?token=${user.token}`)
+            .then(result => result.text())
+            .then(result => {
+                let answer = JSON.parse(result);
+                console.log(answer);
+                if (answer.error){
+                    addAlert("warning", answer.error);
+                }else{
+                    this.setState({proxies:answer.proxies})
+                }
+                // if (answer.useragents) {
+                //   let parsedUserAgents = JSON.parse(answer.useragents);
+
+
+
+                //   this.props.change('textarea1',parsedUserAgents.join('\n'));
+                // }
+            });
     }
 
 
@@ -60,7 +98,15 @@ class Proxies extends PureComponent {
         );
     }
 }
+const mapStateToProps = state => ({
+    user: selectUser(state),
+});
+const mapDispatchToProps = {
+    addAlert
+};
 
 
 
-export default (Proxies);
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Proxies)

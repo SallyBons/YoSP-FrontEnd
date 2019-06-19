@@ -19,7 +19,7 @@ import Sidebars from '../../components/Special/Sidebars';
 import AlertPanel from '../Alerts/AlertPanel'
 import './styles.css';
 import AddProxy from '../Proxies/AddProxy';
-import EditProxy from '../Proxies/EditProxy';
+// import EditProxy from '../Proxies/EditProxy';
 import { selectUser } from '../../reducer/user';
 
 class App extends PureComponent {
@@ -95,10 +95,10 @@ class App extends PureComponent {
                 path="/proxies/add"
                 component={AddProxy}
               />
-              <Route exact
+              {/* <Route exact
                 path="/proxies/edit"
                 component={EditProxy}
-              />
+              /> */}
               <Route
                 path="/dashboard"
                 render={() => <Dashboard />}

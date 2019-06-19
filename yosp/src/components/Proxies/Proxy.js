@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 
@@ -48,7 +48,7 @@ class Proxy extends PureComponent {
                 </div>
                 <div className="proxy-buttons-wrapper">
                     {/* <Link to="/proxies/edit" incomingProxy={incomingProxy}>Edit</Link> */}
-                    <Link className="uk-button uk-button-default" to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link>
+                    {/* <Link className="uk-button uk-button-default" to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link> */}
 
                     <button className="uk-button uk-button-default" onClick={this.handleDeleteButton}>Delete</button>
                 </div>
