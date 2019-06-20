@@ -20,30 +20,33 @@ class Proxies extends PureComponent {
     handleInitialize() {
         setTimeout(() => {
             let { user } = this.props;
-            this.getListOfProxies(user)
+            this.getListOfProxies(user)//without this we have empty user at props on initialazing
         }, 1);
     }
 
-    // componentDidMount() {
 
-    //     this.setState({
-    //         proxies: [{
-    //             id: '123',
-    //             status: 'down',
-    //             ip: '1.45.65.78',
-    //             port: '404',
-    //             user: 'Sally',
-    //             password: '111',
-    //             added: '01.01.2019',
-    //             updated: '01.04.2019'
-    //         }]
-    //     })
-    // }
 
-    handleDeleteProxy = (id) => {
-        const { proxies } = this.state;
-        let newProxies = proxies.filter(proxy => proxy.id !== id);
-        this.setState({ proxies: newProxies });
+    handleDeleteProxy = (id, login, password, ip, port) => {
+        let { user, addAlert } = this.props;
+        // let newProxies = proxies.filter(proxy => proxy.id !== id);
+        // this.setState({ proxies: newProxies });
+        fetch(`${GLOBAL_CONFIG.backendUrl}/proxies/remove?token=${user.token}`, {
+            method: 'post',
+            body: JSON.stringify({
+                "proxies": [`${login}:${password}@${ip}:${port}`],
+            })
+        })//endpoint to delete proxies
+            .then(result => result.text())
+            .then(result => {
+                let answer = JSON.parse(result);
+                if (answer.status === 200) {
+                    addAlert("success", "Proxies are removed successfully");
+                    this.getListOfProxies(user);
+                } else {
+                    addAlert("warning", answer.error);
+                }
+
+            })
     }
 
 
@@ -53,21 +56,14 @@ class Proxies extends PureComponent {
             .then(result => result.text())
             .then(result => {
                 let answer = JSON.parse(result);
-                console.log(answer);
-                if (answer.error){
+                if (answer.error) {
                     addAlert("warning", answer.error);
-                }else{
-                    this.setState({proxies:answer.proxies})
+                } else {
+                    this.setState({ proxies: answer.proxies })
                 }
-                // if (answer.useragents) {
-                //   let parsedUserAgents = JSON.parse(answer.useragents);
-
-
-
-                //   this.props.change('textarea1',parsedUserAgents.join('\n'));
-                // }
             });
     }
+
 
 
     render() {
@@ -109,4 +105,4 @@ const mapDispatchToProps = {
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(Proxies)
+export default connect(mapStateToProps, mapDispatchToProps)(Proxies)

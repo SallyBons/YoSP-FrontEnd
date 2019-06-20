@@ -22,9 +22,9 @@ class Proxy extends PureComponent {
         }
     }
     handleDeleteButton = () => {
-        const {toggleDeleteButton, id} = this.props;
-        toggleDeleteButton(id);
-      }
+        const { toggleDeleteButton, id, login, password, ip, port } = this.props;
+        toggleDeleteButton(id, login, password, ip, port);
+    }
 
     render() {
         const { incomingProxy } = this.props;
@@ -38,7 +38,7 @@ class Proxy extends PureComponent {
                     <span> Port:{incomingProxy.port}</span>
                 </div>
                 <div className="user-info">
-                    <span> User:{incomingProxy.user}</span>
+                    <span> User:{incomingProxy.login}</span>
                     <span>Password:{incomingProxy.password}</span>
 
                 </div>
