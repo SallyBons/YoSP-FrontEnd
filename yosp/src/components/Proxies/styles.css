@@ -1,4 +1,4 @@
-.proxy-wrapper {
+.proxy-manager-wrapper {
     min-height: 60px;
     background-color: #fff;
     margin-bottom: 50px;
@@ -6,29 +6,28 @@
     position: relative;
 }
 
-.proxy-header {
+.proxy-manager__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     /* border-bottom: 1px solid lightgrey; */
 }
 
-.proxy-main-header {
+.proxy-manager__header__headline {
     width: fit-content;
 }
 
-.proxy-content-wrapper {
+.proxy-manager__content {
     display: flex;
     flex-direction:column;
-    justify-content: space-between;
-   
+       
 }
-.proxy-buttons-wrapper{
+.proxy__buttons-wrapper{
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.proxy-element-wrapper {
+.proxy-wrapper {
     display: flex;
     -webkit-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     -moz-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
@@ -37,23 +36,23 @@
     margin-bottom:20px;
 }
 
-.indicator {
+.proxy__status-indicator {
     border: 7px solid transparent;
     border-radius: 100%;
 }
-.indicator.active{
+.proxy__status-indicator.active{
     border-color: green;
 }
-.indicator.suspended{
+.proxy__status-indicator.suspended{
     border-color: grey;
 }
-.indicator.pending{
+.proxy__status-indicator.pending{
     border-color: yellow;
 }
-.indicator.down{
+.proxy__status-indicator.down{
     border-color: red;
 }
-.status-indicator {
+.proxy__status-indicator-wrapper {
     height: 60px;
     width: 60px;
     display: flex;
@@ -61,7 +60,7 @@
     justify-content: center;
 }
 
-.server-info, .user-info, .additional-info{
+.proxy__server-info, .proxy__user-info, .proxy__additional-info{
     display: flex;
     flex-direction: column;
     padding: 6px 15px 6px 0px;

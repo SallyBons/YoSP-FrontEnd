@@ -1,4 +1,4 @@
-.login-form-wrapper {
+.login-form-wrapper,.registration-form-wrapper {
     max-width: 450px;
     display: flex;
     align-items: center;
@@ -6,10 +6,10 @@
     margin: 0 auto;
 }
 
-.login-form-wrapper form {
+.login-form__form,.registration-form__form {
     width: 100%;
 }
-.button-wrapper{
+.login-form__button-wrapper{
     display: flex;  
     justify-content: space-between;
 }

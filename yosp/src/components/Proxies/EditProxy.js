@@ -25,13 +25,13 @@ class EditProxy extends Component {
 
         return (
 
-            <div className="form add-new-movie">
+            <div className="edit-proxy-form-wrapper">
 
-                <h1 className="form__headline">Edit proxies</h1>
+                <h1 className="edit-proxy-form__headline">Edit proxies</h1>
 
                 <form onSubmit={handleSubmit}>
 
-                    <div className="form__input title">
+                    <div className="edit-proxy-form__input">
                         <Field
                             name="ip"
                             label="IP"
@@ -40,7 +40,7 @@ class EditProxy extends Component {
                         />
                     </div>
 
-                    <div className="form__input overview">
+                    <div className="edit-proxy-form__input">
                         <Field
                             name="port"
                             label="Port"
@@ -49,7 +49,7 @@ class EditProxy extends Component {
                         />
                     </div>
 
-                    <div className="form__input poster">
+                    <div className="edit-proxy-form__input">
                         <Field
                             name="user"
                             label="User"
@@ -58,7 +58,7 @@ class EditProxy extends Component {
                         />
                     </div>
 
-                    <div className="form__input popularity">
+                    <div className="edit-proxy-form__input">
                         <Field
                             name="password"
                             label="Password"
@@ -69,8 +69,8 @@ class EditProxy extends Component {
 
                     
                    
-                    <div className="form__button--wrapper">
-                        <button type="submit"  className="uk-button uk-button-default" >Edit </button>
+                    <div className="add-proxy-form__button-wrapper">
+                        <button type="submit"  className="edit-proxy-form__buttonuk-button uk-button-default" >Edit </button>
                     </div>
 
                 </form>

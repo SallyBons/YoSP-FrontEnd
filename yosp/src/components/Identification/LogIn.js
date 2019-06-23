@@ -58,9 +58,10 @@ class LogIn extends PureComponent {
     return (
 
       <div className="login-form-wrapper">
-        <form onSubmit={handleSubmit(this.loginFunction)}>
 
-          <div className="">
+        <form className="login-form__form" onSubmit={handleSubmit(this.loginFunction)}>
+
+          <div className="login-form__input">
             <Field
               name="email"
               label="E-mail"
@@ -70,7 +71,7 @@ class LogIn extends PureComponent {
           </div>
 
 
-          <div>
+          <div className="login-form__input">
             <Field
               name="password"
               label="Password"
@@ -82,8 +83,8 @@ class LogIn extends PureComponent {
 
 
 
-          <div className="button-wrapper">
-            <button type="submit" className="uk-button uk-button-default" disabled={invalid}>Login</button>
+          <div className="login-form__button-wrapper">
+            <button type="submit" className="login-form__button uk-button uk-button-default" disabled={invalid}>Login</button>
             <Link className="uk-button uk-button-default" to="/registration">Registration</Link>
           </div>
 

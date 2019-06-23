@@ -14,7 +14,7 @@ import { loadUser } from '../../reducer/user';
 import { addAlert } from '../../reducer/alerts';
 import { connect } from 'react-redux';
 import Logout from '../Identification/Logout';
-import Proxies from '../Proxies/Proxies'
+import ProxyManager from '../Proxies/ProxyManager'
 import Sidebars from '../../components/Special/Sidebars';
 import AlertPanel from '../Alerts/AlertPanel'
 import './styles.css';
@@ -54,10 +54,10 @@ class App extends PureComponent {
       <BrowserRouter>
         <div className="app-content">
 
-          <div className="alert-panel">
+          <div className="alert-panel-container">
             <AlertPanel />
           </div>
-          
+
           <Sidebars />
 
           <Route exact path="/" render={() => (
@@ -73,7 +73,6 @@ class App extends PureComponent {
               <Route exact
                 path="/login"
                 render={() => <LogIn />}
-              // render={() => <Sidebars />}
               />
               <Route
                 path="/registration"
@@ -89,7 +88,7 @@ class App extends PureComponent {
               />
               <Route exact
                 path="/proxies"
-                render={() => <Proxies />}
+                render={() => <ProxyManager />}
               />
               <Route exact
                 path="/proxies/add"

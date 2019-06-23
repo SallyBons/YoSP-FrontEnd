@@ -14,7 +14,7 @@ import { selectUser } from '../../reducer/user';
 
 
 class AddProxy extends Component {
-    
+
     state = {
         operationSuccessfull: false,
     }
@@ -44,22 +44,24 @@ class AddProxy extends Component {
         const { operationSuccessfull } = this.state;
         return (
 
-            <div className="form add-new-movie">
+            <div className="add-proxy-form-wrapper">
 
-                <h1 className="form__headline">Add new proxies</h1>
+                <h1 className="add-proxy-form__headline">Add new proxies</h1>
 
-                <form onSubmit={handleSubmit(this.sendProxyToBack)}>
+                <form  className="add-proxy-form__form"onSubmit={handleSubmit(this.sendProxyToBack)}>
+                    <div className="add-proxy-form__input" >
+                        <Field
+                            name="proxies"
+                            label="Proxies"
+                            type="text"
+                            component={TextArea}
+                        />
+                    </div>
 
-                    <Field
-                        name="proxies"
-                        label="Proxies"
-                        type="text"
-                        component={TextArea}
-                    />
 
 
-                    <div className="form__button--wrapper">
-                        <button type="submit" className="uk-button uk-button-default" > Add </button>
+                    <div className="add-proxy-form__button-wrapper">
+                        <button type="submit" className="add-proxy-form__button uk-button uk-button-default" > Add </button>
                     </div>
                     {operationSuccessfull ?
                         <Redirect to="/proxies" />

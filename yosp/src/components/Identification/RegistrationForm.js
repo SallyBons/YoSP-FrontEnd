@@ -38,17 +38,17 @@ class RegistrationForm extends PureComponent {
             .then(result => {
                 console.log(result);
                 let answer = JSON.parse(result);
-                
+
                 this.setState({ showSpiner: false });
                 if (answer.error) {
                     addAlert("warning", answer.error);
                 } else {
                     this.setState({ registrationSucceed: true });
-                    addAlert("success","Registration successful");
+                    addAlert("success", "Registration successful");
                 }
             }).catch(() => {
                 addAlert("danger", "BackEnd connection lost. Please, check your network ");
-               });
+            });
     };
 
     render() {
@@ -56,50 +56,63 @@ class RegistrationForm extends PureComponent {
         const { showSpiner, registrationSucceed, } = this.state;
         return (
             <div>
-                <div className="login-form-wrapper">
-                    <form onSubmit={handleSubmit(this.addNewUser)} >
+                <div className="registration-form-wrapper">
+                    <form className="registration-form__form" onSubmit={handleSubmit(this.addNewUser)} >
+                        <div className="registration-form__input">
+                            <Field
+                                name="name"
+                                label="Name"
+                                type="text"
+                                component={InputField}
+                                validate={[required, maxLengthName, specialSymbols]}
+                            />
+                        </div>
 
-                        <Field
-                            name="name"
-                            label="Name"
-                            type="text"
-                            component={InputField}
-                            validate={[required, maxLengthName, specialSymbols]}
-                        />
+                        <div className="registration-form__input">
+                            <Field
+                                name="surname"
+                                label="Surname"
+                                type="text"
+                                component={InputField}
+                                validate={[required, maxLengthSurname, specialSymbols]}
+                            />
+                        </div>
+                        <div className="registration-form__input">
+                            <Field
+                                name="email"
+                                label="E-mail"
+                                type="text"
+                                component={InputField}
+                                validate={[required, email]}
+                            />
+                        </div>
+                        <div className="registration-form__input">
+                            <Field
+                                name="password"
+                                label="Password"
+                                type="text"
+                                component={InputField}
+                                validate={[required, passwordMax, passwordMin]}
+                            />
+                        </div>
+                        <div className="registration-form__input"> 
 
-                        <Field
-                            name="surname"
-                            label="Surname"
-                            type="text"
-                            component={InputField}
-                            validate={[required, maxLengthSurname, specialSymbols]}
-                        />
-                        <Field
-                            name="email"
-                            label="E-mail"
-                            type="text"
-                            component={InputField}
-                            validate={[required, email]}
-                        />
+                            <Field
+                                name="confirmPassword"
+                                label="Confirm Password"
+                                type="text"
+                                component={InputField}
+                                validate={[required, matchesPassword]}
+                            />
+                        </div>
 
-                        <Field
-                            name="password"
-                            label="Password"
-                            type="text"
-                            component={InputField}
-                            validate={[required, passwordMax, passwordMin]}
-                        />
 
-                        <Field
-                            name="confirmPassword"
-                            label="Confirm Password"
-                            type="text"
-                            component={InputField}
-                            validate={[required, matchesPassword]}
-                        />
 
-                        <div className="uk-margin">
-                            <button type="submit" className="uk-button uk-button-default" disabled={invalid}>Confirm registration</button>
+
+
+
+                        <div className="registration-form__button-wrapper">
+                            <button type="submit" className=" registration-form__button uk-button uk-button-default" disabled={invalid}>Confirm registration</button>
                         </div>
 
                         {showSpiner ?

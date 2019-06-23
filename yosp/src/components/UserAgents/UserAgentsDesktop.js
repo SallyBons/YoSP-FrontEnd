@@ -42,17 +42,20 @@ class UserAgentsDesktop extends PureComponent {
     const { handleSubmit} = this.props;
 
     return (
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="user-agent-desktop-form-wrapper">
+        <form  className="user-agent-desktop-form__form" onSubmit={handleSubmit}>
+          <div className="user-agent-desktop-form__input">
           <Field
             name="textarea1"
             label="Desktop  useragents"
             type="text"
             component={TextArea}
           />
-          <div className='form__button--wrapper'>
-            <button className="uk-button uk-button-default">load Defaults</button>
-            <button type="submit" className="uk-button uk-button-default">save</button>
+          </div>
+         
+          <div className="user-agent-desktop-form__button-wrapper">
+            <button className="user-agent-desktop-form__button uk-button uk-button-default">load Defaults</button>
+            <button type="submit" className="user-agent-desktop-form__button uk-button uk-button-default">save</button>
           </div>
 
           {/* onClick={()=>getDataFromBackEnd(user)} */}

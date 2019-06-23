@@ -9,7 +9,7 @@ import { selectUser } from '../../reducer/user';
 import { addAlert } from '../../reducer/alerts';
 
 
-class Proxies extends PureComponent {
+class ProxyManager extends PureComponent {
     state = {
         proxies: [],
     }
@@ -70,14 +70,14 @@ class Proxies extends PureComponent {
         let { proxies } = this.state;
 
         return (
-            <div className="proxy-wrapper">
-                <div className="proxy-header">
-                    <h2 className="proxy-main-header"> Proxies</h2>
-                    <div className="add-button-wrapper" >
+            <div className="proxy-manager-wrapper">
+                <div className="proxy-manager__header">
+                    <h2 className="proxy-manager__header__headline"> Proxies</h2>
+                    <div className="proxy-manager__header__button" >
                         <Link className="uk-button uk-button-default" to="/proxies/add">ADD</Link>
                     </div>
                 </div>
-                <div className="proxy-content-wrapper">
+                <div className="proxy-manager__content">
                     {/* <Proxy incomingProxy={proxy}/> */}
                     {proxies.map(proxy => (
                         <Proxy
@@ -105,4 +105,4 @@ const mapDispatchToProps = {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Proxies)
+export default connect(mapStateToProps, mapDispatchToProps)(ProxyManager)

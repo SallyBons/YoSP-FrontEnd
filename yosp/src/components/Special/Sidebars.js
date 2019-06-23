@@ -18,11 +18,11 @@ class Sidebars extends PureComponent {
 
             user !== undefined && user.name ?
                 <React.Fragment>
-                    <div className="logout_wrapper">
+                    <div className="sidebars__logout-wrapper">
                         <NavLink className="uk-button uk-button-default" to="/logout">Log Out</NavLink>
                     </div>
-                    <div className="right-menu_wrapper" >
-                        <ul className="uk-navbar-left">
+                    <div className="sidebars__right-menu-wrapper" >
+                        <ul className="sidebars__right-menu-wrapper__menu uk-navbar-left">
                             <li>
                                 <Link to="/useragents">User Agent</Link>
                             </li>
