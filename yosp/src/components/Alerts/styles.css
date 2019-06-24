@@ -1,11 +1,18 @@
-
-
-.alert-panel__text {
+.alert-panel__header__text {
     text-transform: uppercase;
     font-weight: 600;
     text-decoration: none;
     color: #000;
     line-height: 16px;
+    margin-bottom: 0px;
+}
+
+.alert-panel__header__button{
+    margin-left:10px;
+    padding-left:10px;
+    padding-right:10px;
+    font-size:12px;
+    line-height: 34px;
 }
 .alert-wrapper {
     font-size: 14px;
@@ -21,6 +28,13 @@
     margin-top: initial
 } */
 
-.alert-panel-wrapper{
+.alert-panel-wrapper {
     width: 100%;
+}
+
+.alert-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }

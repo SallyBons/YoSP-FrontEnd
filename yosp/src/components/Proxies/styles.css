@@ -65,3 +65,9 @@
     flex-direction: column;
     padding: 6px 15px 6px 0px;
 }
+.proxy-manager__header__button:nth-of-type(1){
+margin-left: 15px;
+}
+.edit-proxy-form__input{
+    width:450px;
+}

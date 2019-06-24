@@ -6,6 +6,7 @@ const initialValues = {
 
 const ADD_ALERT = 'ADD_ALERT';
 const DELETE_ALERT = 'DELETE_ALERT';
+const LOAD_ALERTS = 'LOAD_ALERTS';
 
 // Reducer
 
@@ -21,6 +22,11 @@ const alerts = (state = initialValues, action) => {
         ...state,
         alerts: [...state.alerts.filter(alert => alert.id !== action.payload.id)]
       }
+      case LOAD_ALERTS:
+        return {
+          ...state,
+          alerts: action.payload
+        };
     default:
       return state;
   }
@@ -39,6 +45,12 @@ const deleteAlert = alert => (dispatch) => {
     payload: alert
   });
 };
+const loadAlerts = alert => (dispatch) => {
+  dispatch({
+    type: LOAD_ALERTS,
+    payload: alert
+  });
+};
 
 const getState = state => state.alerts;
 const selectAllAlerts = state => getState(state).alerts;
@@ -48,6 +60,7 @@ export {
   // actions
   addAlert,
   deleteAlert,
+  loadAlerts,
   // selectors
   selectAllAlerts,
 };

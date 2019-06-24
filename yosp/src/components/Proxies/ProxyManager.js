@@ -68,20 +68,22 @@ class ProxyManager extends PureComponent {
 
     render() {
         let { proxies } = this.state;
-
+        let { user } = this.props;
         return (
             <div className="proxy-manager-wrapper">
                 <div className="proxy-manager__header">
                     <h2 className="proxy-manager__header__headline"> Proxies</h2>
-                    <div className="proxy-manager__header__button" >
-                        <Link className="uk-button uk-button-default" to="/proxies/add">ADD</Link>
+                    <div className="proxy-manager__header__button-wrapper" >
+                        <button className="proxy-manager__header__button uk-button uk-button-default" onClick={() => this.getListOfProxies(user)} >UPDATE</button>
+                        <Link className="proxy-manager__header__button uk-button uk-button-default" to="/proxies/add">ADD</Link>
+
                     </div>
                 </div>
                 <div className="proxy-manager__content">
                     {/* <Proxy incomingProxy={proxy}/> */}
                     {proxies.map(proxy => (
                         <Proxy
-                            key={proxy.id}
+                            key={Math.random()}
                             toggleDeleteButton={this.handleDeleteProxy}
                             incomingProxy={proxy}
                             {...proxy}
