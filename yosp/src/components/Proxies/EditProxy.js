@@ -144,18 +144,5 @@ export default compose(
     reduxForm({
         form: 'EditProxy',
         enableReinitialize: true,
-        // onSubmit: (values, state, props) => {
-        //     const newProxy = {
-        //         ip: values.ip,
-        //         port: values.port,
-        //         user: values.user,
-        //         password: values.password
-        //     };
-
-        //     //    props.loadProxy ( newProxy);
-
-        //     this.updateProxyOnBack(newProxy);
-        //     props.reset();
-        // }
-    })
+         })
 )(EditProxy);

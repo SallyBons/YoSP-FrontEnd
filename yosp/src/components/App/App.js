@@ -21,6 +21,9 @@ import './styles.css';
 import AddProxy from '../Proxies/AddProxy';
 import EditProxy from '../Proxies/EditProxy';
 import { selectUser } from '../../reducer/user';
+import Projects from '../Projects/ProjectManager'
+import Users from '../Users/UserManager';
+import AddProject from '../Projects/Creation/AddProject'
 
 class App extends PureComponent {
 
@@ -101,6 +104,18 @@ class App extends PureComponent {
               <Route
                 path="/dashboard"
                 render={() => <Dashboard />}
+              />
+               <Route exact
+                path="/projects"
+                render={() => <Projects />}
+              />
+              <Route
+                path="/users"
+                render={() => <Users />}
+              />
+              <Route exact
+                path="/projects/add"
+                component={AddProject}
               />
             </Switch>
           </div>

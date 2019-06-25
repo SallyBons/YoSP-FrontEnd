@@ -21,14 +21,21 @@ class Sidebars extends PureComponent {
                     <div className="sidebars__logout-wrapper">
                         <NavLink className="uk-button uk-button-default" to="/logout">Log Out</NavLink>
                     </div>
-                    <div className="sidebars__right-menu-wrapper" >
-                        <ul className="sidebars__right-menu-wrapper__menu uk-navbar-left">
-                            <li>
-                                <Link to="/useragents">User Agent</Link>
+                    <div className="sidebars__left-menu-wrapper" >
+                        <ul className="sidebars__left-menu-wrapper__menu uk-navbar-left">
+                            <li className="sidebars__left-menu-wrapper__menu__li">
+                                <Link to="/projects">Projects</Link>
                             </li>
-                            <li>
+                            <li  className="sidebars__left-menu-wrapper__menu__li">
+                                <Link to="/useragents">User Agent</Link>
+                            </li >
+                            <li  className="sidebars__left-menu-wrapper__menu__li">
                                 <Link to="/proxies">Proxies</Link>
                             </li>
+                            <li  className="sidebars__left-menu-wrapper__menu__li">
+                                <Link to="/users">Users</Link>
+                            </li>
+
                         </ul>
                     </div>
                 </React.Fragment>

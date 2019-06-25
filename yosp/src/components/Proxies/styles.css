@@ -19,39 +19,50 @@
 
 .proxy-manager__content {
     display: flex;
-    flex-direction:column;
-       
+    flex-direction: column;
+
 }
-.proxy__buttons-wrapper{
+
+.proxy__buttons-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 .proxy-wrapper {
     display: flex;
     -webkit-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     -moz-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     height: 60px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
 .proxy__status-indicator {
     border: 7px solid transparent;
     border-radius: 100%;
 }
-.proxy__status-indicator.active{
+
+.proxy__status-indicator:hover {
+    cursor: pointer;
+}
+
+.proxy__status-indicator.active {
     border-color: green;
 }
-.proxy__status-indicator.suspended{
+
+.proxy__status-indicator.suspended {
     border-color: grey;
 }
-.proxy__status-indicator.pending{
+
+.proxy__status-indicator.pending {
     border-color: yellow;
 }
-.proxy__status-indicator.down{
+
+.proxy__status-indicator.down {
     border-color: red;
 }
+
 .proxy__status-indicator-wrapper {
     height: 60px;
     width: 60px;
@@ -60,14 +71,18 @@
     justify-content: center;
 }
 
-.proxy__server-info, .proxy__user-info, .proxy__additional-info{
+.proxy__server-info,
+.proxy__user-info,
+.proxy__additional-info {
     display: flex;
     flex-direction: column;
     padding: 6px 15px 6px 0px;
 }
-.proxy-manager__header__button:nth-of-type(1){
-margin-left: 15px;
+
+.proxy-manager__header__button:nth-of-type(1) {
+    margin-left: 15px;
 }
-.edit-proxy-form__input{
-    width:450px;
+
+.edit-proxy-form__input {
+    width: 450px;
 }

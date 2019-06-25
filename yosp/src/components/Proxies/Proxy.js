@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
- import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
@@ -9,6 +9,7 @@ class Proxy extends PureComponent {
     state = {
         indicatorFlag: "down",
     }
+
     returnIndicatorClass = (type) => {
         switch (type) {
             case "active":
@@ -21,6 +22,20 @@ class Proxy extends PureComponent {
                 return "down";
         }
     }
+
+    returnTooltipText = (type) => {
+        switch (type) {
+            case "active":
+                return "Proxy is alive";
+            case "suspended":
+                return "Proxy is suspended";
+            case "pending":
+                return "Check is pending";
+            default:
+                return "Proxy is down";
+        }
+    }
+
     handleDeleteButton = () => {
         const { toggleDeleteButton, id, login, password, ip, port } = this.props;
         toggleDeleteButton(id, login, password, ip, port);
@@ -31,7 +46,7 @@ class Proxy extends PureComponent {
         return (
             <div className="proxy-wrapper">
                 <div className="proxy__status-indicator-wrapper">
-                    <div className={`proxy__status-indicator ${this.returnIndicatorClass(incomingProxy.status)}`} ></div>
+                    <div className={`proxy__status-indicator ${this.returnIndicatorClass(incomingProxy.status)}`} data-uk-tooltip={`${this.returnTooltipText(incomingProxy.status)}`}></div>
                 </div>
                 <div className="proxy__server-info">
                     <span> IP:{incomingProxy.ip}</span>
@@ -47,8 +62,7 @@ class Proxy extends PureComponent {
                     <span> Updated:{incomingProxy.updated}</span>
                 </div>
                 <div className="proxy__buttons-wrapper">
-                    {/* <Link className=" proxy__button uk-button uk-button-default" to="/proxies/edit" incomingProxy={incomingProxy}>Edit</Link> */}
-                    <Link className="proxy__button uk-button uk-button-default" to={{ pathname: "/proxies/edit", incomingProxy:  incomingProxy  }}>Edit</Link>
+                    <Link className="proxy__button uk-button uk-button-default" to={{ pathname: "/proxies/edit", incomingProxy: incomingProxy }}>Edit</Link>
 
                     <button className=" proxy__button uk-button uk-button-default" onClick={this.handleDeleteButton}>Delete</button>
                 </div>

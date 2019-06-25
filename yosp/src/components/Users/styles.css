@@ -1,0 +1,21 @@
+.user-manager-wrapper {
+    min-height: 60px;
+    background-color: #fff;
+    margin-bottom: 50px;
+    padding: 0px 15px;
+    position: relative;
+}
+
+.user-manager__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* border-bottom: 1px solid lightgrey; */
+}
+
+.user-manager__header__headline {
+    width: fit-content;
+}
+.user-manager__header__button:nth-of-type(1){
+    margin-left: 15px;
+    }
