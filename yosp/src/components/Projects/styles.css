@@ -16,6 +16,23 @@
 .project-manager__header__headline {
     width: fit-content;
 }
-.project-manager__header__button:nth-of-type(1){
+
+.project-manager__header__button:nth-of-type(1) {
     margin-left: 15px;
-    }
+}
+
+.scan-depth__buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.scan-depth-wrapper{
+    margin-bottom:20px;
+}
+
+/* .scan-depth__button:nth-of-type(1){
+    margin-right:10px;
+} */
+
+.scan-depth__button.active {
+    border:1px solid rgb(139, 6, 139)
+}

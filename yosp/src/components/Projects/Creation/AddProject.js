@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import InputField from '../../Special/InputField';
 import TextArea from '../../Special/TextArea';
+import ScanDepth from './ScanDepth';
 import '../styles.css';
 
 class AddProject extends Component {
@@ -51,7 +52,7 @@ class AddProject extends Component {
                             name="scandepth"
                             label="Scan depth"
                             type="text"
-                            component={InputField}
+                            component={ScanDepth}
                         />
                     </div>
                     <div className="add-project-form__input">
