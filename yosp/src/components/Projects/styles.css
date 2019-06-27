@@ -25,7 +25,7 @@
     display: flex;
     flex-direction: row;
 }
-.scan-depth-wrapper{
+.scan-depth-wrapper, .search-engine-wrapper{
     margin-bottom:20px;
 }
 
@@ -33,6 +33,6 @@
     margin-right:10px;
 } */
 
-.scan-depth__button.active {
+.scan-depth__button.active, .search-engine__button.active {
     border:1px solid rgb(139, 6, 139)
 }

@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import InputField from '../../Special/InputField';
 import TextArea from '../../Special/TextArea';
 import ScanDepth from './ScanDepth';
+import SearchEngine from './SearchEngine';
 import '../styles.css';
 
 class AddProject extends Component {
@@ -60,7 +61,7 @@ class AddProject extends Component {
                             name="searchengines"
                             label="Search Engines"
                             type="text"
-                            component={InputField}
+                            component={SearchEngine}
                         />
                     </div>
                     <div className="add-project-form__input">
