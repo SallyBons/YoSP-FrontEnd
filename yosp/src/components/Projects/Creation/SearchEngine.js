@@ -21,7 +21,7 @@ class SearchEngine extends Component {
         if (isButtonActiveMob) {
             arrayToReturn.push('mobile');
         }
-        
+
         input.onChange(arrayToReturn);
     }
 
@@ -47,18 +47,19 @@ class SearchEngine extends Component {
         }
     }
 
-    
+
 
     render() {
-        const { isButtonActiveDesc, isButtonActiveMob } = this.state;
+        const { isButtonActiveDesc } = this.state;
+        // const { isButtonActiveMob } = this.state;
         return (
             <div className='search-engine-wrapper' >
                 <span className='search-engine__header'>Search Engine</span>
                 <div className='search-engine__buttons-wrapper'>
                     <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveDesc === true ? 'active ' : ''}`} onClick={() => this.setValues('desktop')} >G Desktop
                 </div>
-                    <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveMob === true ? 'active ' : ''}`} onClick={() => this.setValues('mobile')} >G Mobile
-                </div>
+                    {/* <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveMob === true ? 'active ' : ''}`} onClick={() => this.setValues('mobile')} >G Mobile
+                </div> */}
                 </div>
 
             </div>

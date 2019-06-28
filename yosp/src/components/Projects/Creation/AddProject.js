@@ -6,6 +6,7 @@ import InputField from '../../Special/InputField';
 import TextArea from '../../Special/TextArea';
 import ScanDepth from './ScanDepth';
 import SearchEngine from './SearchEngine';
+import Location from './Location';
 import '../styles.css';
 
 class AddProject extends Component {
@@ -64,12 +65,20 @@ class AddProject extends Component {
                             component={SearchEngine}
                         />
                     </div>
-                    <div className="add-project-form__input">
+                    {/* <div className="add-project-form__input">
                         <Field
                             name="proxies"
                             label="Proxies"
                             type="text"
                             component={InputField}
+                        />
+                    </div> */}
+                    <div className="add-project-form__input">
+                        <Field
+                            name="location"
+                            label="Location"
+                            type="text"
+                            component={Location}
                         />
                     </div>
 

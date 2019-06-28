@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import UserAgentsDesktop from './UserAgentsDesktop';
-import UserAgentsMobile from './UserAgentsMobile';
+// import UserAgentsMobile from './UserAgentsMobile';
 import './styles.css';
 
 
@@ -30,7 +30,8 @@ class UserAgent extends PureComponent {
   }
 
   render() {
-    const { statisticsCountD, statisticsCountM } = this.state;
+    // const { statisticsCountD, statisticsCountM } = this.state;
+    const { statisticsCountD} = this.state;
     return (
       <div className="user-agent-wrapper">
         <h1 className="user-agent__headline">Useragents</h1>
