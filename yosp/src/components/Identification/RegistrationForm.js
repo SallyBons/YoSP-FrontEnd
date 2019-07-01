@@ -9,7 +9,7 @@ import {
     required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin
 } from '../../components/Special/validation';
 import {
-    Redirect
+    Redirect, Link
 } from 'react-router-dom';
 import GLOBAL_CONFIG from '../../config';
 import Spiner from '../Special/Spiner';
@@ -57,12 +57,14 @@ class RegistrationForm extends PureComponent {
         return (
             <div>
                 <div className="registration-form-wrapper">
+                <h2 className="registration-form__headline">Let’s create new YoSP account </h2>
                     <form className="registration-form__form" onSubmit={handleSubmit(this.addNewUser)} >
                         <div className="registration-form__input">
                             <Field
                                 name="name"
-                                label="Name"
+                                label="Enter your name"
                                 type="text"
+                                placeholder="Example: Jason"
                                 component={InputField}
                                 validate={[required, maxLengthName, specialSymbols]}
                             />
@@ -71,8 +73,9 @@ class RegistrationForm extends PureComponent {
                         <div className="registration-form__input">
                             <Field
                                 name="surname"
-                                label="Surname"
+                                label="Enter your surname"
                                 type="text"
+                                placeholder="Example: Bourne"
                                 component={InputField}
                                 validate={[required, maxLengthSurname, specialSymbols]}
                             />
@@ -80,8 +83,9 @@ class RegistrationForm extends PureComponent {
                         <div className="registration-form__input">
                             <Field
                                 name="email"
-                                label="E-mail"
+                                label="Enter your email address"
                                 type="text"
+                                placeholder="Example: jason.bourne@cia.gov"
                                 component={InputField}
                                 validate={[required, email]}
                             />
@@ -89,18 +93,20 @@ class RegistrationForm extends PureComponent {
                         <div className="registration-form__input">
                             <Field
                                 name="password"
-                                label="Password"
+                                label="Your password"
                                 type="text"
+                                placeholder="***********************"
                                 component={InputField}
                                 validate={[required, passwordMax, passwordMin]}
                             />
                         </div>
-                        <div className="registration-form__input"> 
+                        <div className="registration-form__input">
 
                             <Field
                                 name="confirmPassword"
-                                label="Confirm Password"
+                                label="Confirm password"
                                 type="text"
+                                placeholder="***********************"
                                 component={InputField}
                                 validate={[required, matchesPassword]}
                             />
@@ -112,7 +118,7 @@ class RegistrationForm extends PureComponent {
 
 
                         <div className="registration-form__button-wrapper">
-                            <button type="submit" className=" registration-form__button uk-button uk-button-default" disabled={invalid}>Confirm registration</button>
+                            <button type="submit" className=" registration-form__button" disabled={invalid}>Create new account</button>
                         </div>
 
                         {showSpiner ?
@@ -127,6 +133,10 @@ class RegistrationForm extends PureComponent {
                         }
 
                     </form>
+                    <div className="registration__link-wrapper">
+                        <h2 className="registration__link-headline">Already have an account?</h2>
+                        <Link className="registration__link" to="/login">Sign in!</Link>
+                    </div>
                 </div>
 
             </div>

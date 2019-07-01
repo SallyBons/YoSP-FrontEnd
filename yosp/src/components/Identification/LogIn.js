@@ -58,14 +58,16 @@ class LogIn extends PureComponent {
     return (
 
       <div className="login-form-wrapper">
-
+        <h2 className="login-form__headline">Sign In to your YoSP account </h2>
         <form className="login-form__form" onSubmit={handleSubmit(this.loginFunction)}>
+
 
           <div className="login-form__input">
             <Field
               name="email"
-              label="E-mail"
+              label="Enter your email to get started"
               type="text"
+              placeholder="Email address"
               component={InputField}
             />
           </div>
@@ -74,8 +76,9 @@ class LogIn extends PureComponent {
           <div className="login-form__input">
             <Field
               name="password"
-              label="Password"
+              label="Your password"
               type="text"
+              placeholder="***********************"
               component={InputField}
             />
           </div>
@@ -84,8 +87,8 @@ class LogIn extends PureComponent {
 
 
           <div className="login-form__button-wrapper">
-            <button type="submit" className="login-form__button uk-button uk-button-default" disabled={invalid}>Login</button>
-            <Link className="uk-button uk-button-default" to="/registration">Registration</Link>
+            <button type="submit" className="login-form__button" disabled={invalid}>Sign In to Dashboard</button>
+            {/* <Link className="uk-button uk-button-default" to="/registration">Registration</Link> */}
           </div>
 
           {showSpiner ?
@@ -95,6 +98,10 @@ class LogIn extends PureComponent {
           }
 
         </form>
+        <div className="login__link-wrapper">
+                        <h2 className="login__link-headline">Don’t have an account yet?</h2>
+                        <Link className="login__link" to="/registration">Get started!</Link>
+                    </div>
       </div>
 
 
