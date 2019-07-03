@@ -24,6 +24,7 @@ import { selectUser } from '../../reducer/user';
 import Projects from '../Projects/ProjectManager'
 import Users from '../Users/UserManager';
 import AddProject from '../Projects/Creation/AddProject'
+import ProjectCard from '../Projects/Creation/ProjectCard'
 
 class App extends PureComponent {
 
@@ -36,7 +37,7 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    document.title = 'YoSP: Dashboard';
+    // document.title = 'YoSP: Dashboard';
     this.checkBack();
 
     let { loadUser } = this.props;
@@ -117,6 +118,7 @@ class App extends PureComponent {
                 path="/projects/add"
                 component={AddProject}
               />
+              <Route exact path="/projects/:id" component={ProjectCard} />
             </Switch>
           </div>
         </div>

@@ -20,7 +20,7 @@ import 'uikit/dist/css/uikit.min.css';
 class RegistrationForm extends PureComponent {
 
     componentDidMount() {
-        document.title = 'YoSP: Registration';
+        document.title = 'YoSP: Sign Up';
     }
 
 

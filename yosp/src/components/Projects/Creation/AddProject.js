@@ -8,19 +8,48 @@ import ScanDepth from './ScanDepth';
 import SearchEngine from './SearchEngine';
 import Location from './Location';
 import '../styles.css';
+import GLOBAL_CONFIG from '../../../config';
+import { addAlert } from '../../../reducer/alerts';
+import { selectUser } from '../../../reducer/user';
+import {
+    Redirect
+} from 'react-router-dom';
 
 class AddProject extends Component {
-    
+    state = {
+        operationSuccessfull: false,
+    }
+
+    sendProjectToBack = (values) => {
+        let { user, addAlert } = this.props;
+        fetch(`${GLOBAL_CONFIG.backendUrl}/projects/add?token=${user.token}`, {
+            method: 'post',
+            body: JSON.stringify({
+                "project": values.project.split('\n'),
+            })
+        })
+            .then(result => result.text())
+            .then(result => {
+                let answer = JSON.parse(result);
+                if (answer.status === 200) {
+                    addAlert("success", "Project are added successfully");
+                    this.setState({ operationSuccessfull: true });
+                } else {
+                    addAlert("warning", answer.error);
+                }
+            });
+    }
     render() {
 
         const { handleSubmit } = this.props;
+        const { operationSuccessfull } = this.state;
         return (
 
             <div className="add-project-proxy-form-wrapper">
 
                 <h1 className="add-project-form__headline">Create new project</h1>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(this.sendProjectToBack)}>
 
                     <div className="add-project-form__input">
                         <Field
@@ -88,7 +117,11 @@ class AddProject extends Component {
                         <button type="submit" className="add-project-form__button uk-button uk-button-default" >Add </button>
                         <button type="submit" className="add-project-form__button uk-button uk-button-default" >Cancel </button>
                     </div>
-
+                    {operationSuccessfull ?
+                        <Redirect to="/projects" />
+                        :
+                        ''
+                    }
                 </form>
 
             </div>
@@ -101,10 +134,11 @@ class AddProject extends Component {
 
 const mapStateToProps = state => ({
     formData: getFormValues('AddProject')(state),
+    user: selectUser(state),
 });
 
 const mapDispatchToProps = {
-
+    addAlert
 };
 
 export default compose(
