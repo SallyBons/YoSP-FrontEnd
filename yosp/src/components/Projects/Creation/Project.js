@@ -15,7 +15,7 @@ class Project extends PureComponent {
         return (
             <div className="project-wrapper">
                 <div className="project__main-info">
-                    <span> Name:{incomingProject.name}</span>
+                    <span> Name:{incomingProject.project_name}</span>
                     <span> Location:{incomingProject.location}</span>
                 </div>
                 <div className="project__additional-info">

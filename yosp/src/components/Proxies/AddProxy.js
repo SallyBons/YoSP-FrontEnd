@@ -21,6 +21,7 @@ class AddProxy extends Component {
 
     sendProxyToBack = (values) => {
         let { user, addAlert } = this.props;
+        console.log(values);
         fetch(`${GLOBAL_CONFIG.backendUrl}/proxies/add?token=${user.token}`, {
             method: 'post',
             body: JSON.stringify({

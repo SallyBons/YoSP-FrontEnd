@@ -12,16 +12,16 @@ class ProjectManager extends PureComponent {
     state = {
         projects: [],
     }
-    // componentDidMount() {
-    //     this.handleInitialize()
-    // }
+    componentDidMount() {
+        this.handleInitialize()
+    }
 
-    // handleInitialize() {
-    //     setTimeout(() => {
-    //         let { user } = this.props;
-    //         this.getListOfProjects(user)//without this we have empty user at props on initialazing
-    //     }, 1);
-    // }
+    handleInitialize() {
+        setTimeout(() => {
+            let { user } = this.props;
+            this.getListOfProjects(user)//without this we have empty user at props on initialazing
+        }, 1);
+    }
 
 
 

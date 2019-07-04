@@ -25,12 +25,20 @@ class AddProject extends Component {
         fetch(`${GLOBAL_CONFIG.backendUrl}/projects/add?token=${user.token}`, {
             method: 'post',
             body: JSON.stringify({
-                "project": values.project.split('\n'),
+                "new_project": {
+                    "project_name": values.name,
+                    "project_description": values.description,
+                    "target_website": values.target,
+                    "scan_depth": values.scandepth,
+                    "search_engines": values.searchengines,
+                    "location": values.location
+                },
             })
         })
             .then(result => result.text())
             .then(result => {
                 let answer = JSON.parse(result);
+                console.log(answer);
                 if (answer.status === 200) {
                     addAlert("success", "Project are added successfully");
                     this.setState({ operationSuccessfull: true });

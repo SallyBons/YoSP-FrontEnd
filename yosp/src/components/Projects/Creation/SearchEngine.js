@@ -15,7 +15,7 @@ class SearchEngine extends Component {
         let arrayToReturn = [];
 
         if (isButtonActiveDesc) {
-            arrayToReturn.push('desktop');
+            arrayToReturn.push('Google Desktop');
         }
 
         if (isButtonActiveMob) {
@@ -28,7 +28,7 @@ class SearchEngine extends Component {
     setValues = (type) => {
 
         switch (type) {
-            case 'desktop':
+            case 'Google Desktop':
                 const { isButtonActiveDesc } = this.state;
                 this.setState({ isButtonActiveDesc: !isButtonActiveDesc }, () => {
                     this.passValuesToParent()
@@ -56,7 +56,7 @@ class SearchEngine extends Component {
             <div className='search-engine-wrapper' >
                 <span className='search-engine__header'>Search Engine</span>
                 <div className='search-engine__buttons-wrapper'>
-                    <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveDesc === true ? 'active ' : ''}`} onClick={() => this.setValues('desktop')} >G Desktop
+                    <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveDesc === true ? 'active ' : ''}`} onClick={() => this.setValues('Google Desktop')} >G Desktop
                 </div>
                     {/* <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveMob === true ? 'active ' : ''}`} onClick={() => this.setValues('mobile')} >G Mobile
                 </div> */}
