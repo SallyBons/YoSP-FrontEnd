@@ -58,7 +58,9 @@ class EditProxy extends Component {
                     addAlert("warning", answer.error)
                 }
                 
-            });
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });;
     }
 
 

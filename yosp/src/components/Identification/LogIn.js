@@ -44,6 +44,8 @@ class LogIn extends PureComponent {
           addAlert("warning", user.error);
           this.setState({ showSpiner: false })
         }
+      }).catch(() => {
+        addAlert("danger", "Server is not responding. Something went wrong");
       });
   }
 

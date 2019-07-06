@@ -76,7 +76,9 @@ const setDataToBackEnd = (values, user, props) => {
       if (answer.status === 200) {
         props.addAlert("success", "Useragents are successfully updated")
       }
-    });
+    }).catch(() => {
+      addAlert("danger", "Server is not responding. Something went wrong");
+    });;
 };
 
 const mapStateToProps = state => ({

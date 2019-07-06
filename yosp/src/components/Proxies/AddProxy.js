@@ -37,7 +37,9 @@ class AddProxy extends Component {
                 } else {
                     addAlert("warning", answer.error);
                 }
-            });
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });;
     }
 
     render() {

@@ -25,6 +25,7 @@ import Projects from '../Projects/ProjectManager'
 import Users from '../Users/UserManager';
 import AddProject from '../Projects/Creation/AddProject'
 import ProjectCard from '../Projects/Creation/ProjectCard'
+import NotFound from '../Special/NotFound'
 
 class App extends PureComponent {
 
@@ -119,6 +120,11 @@ class App extends PureComponent {
                 component={AddProject}
               />
               <Route exact path="/projects/:id" component={ProjectCard} />
+              <Route
+              path="/404"
+              render={() => <NotFound />}
+            />
+            <Redirect to="/404" />
             </Switch>
           </div>
         </div>

@@ -43,7 +43,9 @@ class ProjectManager extends PureComponent {
                     addAlert("warning", answer.error);
                 }
 
-            })
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });
     }
 
 

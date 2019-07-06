@@ -46,7 +46,9 @@ class ProxyManager extends PureComponent {
                     addAlert("warning", answer.error);
                 }
 
-            })
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });
     }
 
 
@@ -61,7 +63,9 @@ class ProxyManager extends PureComponent {
                 } else {
                     this.setState({ proxies: answer.proxies })
                 }
-            });
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });;
     }
 
 
