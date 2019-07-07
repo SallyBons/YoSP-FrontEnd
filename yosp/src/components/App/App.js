@@ -23,9 +23,11 @@ import EditProxy from '../Proxies/EditProxy';
 import { selectUser } from '../../reducer/user';
 import Projects from '../Projects/ProjectManager'
 import Users from '../Users/UserManager';
-import AddProject from '../Projects/Creation/AddProject'
-import ProjectCard from '../Projects/Creation/ProjectCard'
-import NotFound from '../Special/NotFound'
+import AddProject from '../Projects/Creation/AddProject';
+import ProjectCard from '../Projects/Creation/ProjectCard';
+import NotFound from '../Special/NotFound';
+import Keywords from '../Projects/Creation/Keywords';
+import ProjectProxies from '../Projects/Creation/ProjectProxies';
 
 class App extends PureComponent {
 
@@ -120,6 +122,14 @@ class App extends PureComponent {
                 component={AddProject}
               />
               <Route exact path="/projects/:id" component={ProjectCard} />
+              <Route exact
+                path="/projects/:id/keywords"
+                component={Keywords}
+              />
+              <Route exact
+                path="/projects/:id/proxies"
+                component={ProjectProxies}
+              />
               <Route
               path="/404"
               render={() => <NotFound />}

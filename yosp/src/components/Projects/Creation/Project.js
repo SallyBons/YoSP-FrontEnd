@@ -15,7 +15,7 @@ class Project extends PureComponent {
             return (
             
             <div className="project-wrapper">
-                 <Link  className="project__link" to={`/projects/${incomingProject.project_id}`}>
+                 <Link className="project__link" to={`/projects/${incomingProject.project_id}`}>
 
                
                 <div className="project__main-info">
