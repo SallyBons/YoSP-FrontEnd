@@ -67,3 +67,61 @@
     color: black;
     text-decoration: none;
 }
+.proxy-card-wrapper {
+    display: flex;
+    -webkit-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
+    -moz-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
+    box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
+    height: 60px;
+    margin-bottom: 20px;
+    border:1px solid transparent;
+}
+
+.proxy-card-wrapper:hover{
+    cursor: pointer;
+}
+
+.proxy-card-wrapper.active {
+    border:1px solid rgb(139, 6, 139)
+}
+
+.proxy-card__status-indicator {
+    border: 7px solid transparent;
+    border-radius: 100%;
+}
+
+.proxy-card__status-indicator:hover {
+    cursor: pointer;
+}
+
+.proxy-card__status-indicator.active {
+    border-color: green;
+}
+
+.proxy-card__status-indicator.suspended {
+    border-color: grey;
+}
+
+.proxy-card__status-indicator.pending {
+    border-color: yellow;
+}
+
+.proxy-card__status-indicator.down {
+    border-color: red;
+}
+
+.proxy-card__status-indicator-wrapper {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.proxy-card__server-info,
+.proxy-card__user-info,
+.proxy-card__additional-info {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 15px 6px 0px;
+}
