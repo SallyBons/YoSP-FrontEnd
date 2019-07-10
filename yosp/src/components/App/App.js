@@ -24,6 +24,7 @@ import { selectUser } from '../../reducer/user';
 import Projects from '../Projects/ProjectManager'
 import Users from '../Users/UserManager';
 import AddProject from '../Projects/Creation/AddProject';
+import EditProject from '../Projects/Creation/EditProject';
 import ProjectCard from '../Projects/Creation/ProjectCard';
 import NotFound from '../Special/NotFound';
 import Keywords from '../Projects/Creation/Keywords';
@@ -129,6 +130,10 @@ class App extends PureComponent {
               <Route exact
                 path="/projects/:id/proxies"
                 component={ProjectProxies}
+              />
+              <Route exact
+                path="/projects/:id/edit"
+                component={EditProject}
               />
               <Route
               path="/404"

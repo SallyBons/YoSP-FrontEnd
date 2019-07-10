@@ -35,7 +35,7 @@ class ProxyCard extends PureComponent {
 
     selection = () => {
         const { isButtonActive } = this.state;
-        this.setState({ isButtonActive: !isButtonActive })
+        this.setState({ isButtonActive: !isButtonActive });
     }
 
     render() {

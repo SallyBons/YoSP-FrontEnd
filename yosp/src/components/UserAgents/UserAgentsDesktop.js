@@ -69,7 +69,13 @@ class UserAgentsDesktop extends PureComponent {
 const selector = formValueSelector('UserAgentDesktop');
 
 const setDataToBackEnd = (values, user, props) => {
-  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}&useragent_type=desktop&useragent=${JSON.stringify(values.textarea1.split('\n'))}`)
+  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}`,{
+    // &useragent_type=desktop&useragent=${JSON.stringify(values.textarea1.split('\n'))}
+    body: JSON.stringify({
+      "useragents": [values.textarea1.split('\n')],
+      "useragents_type": "desktop",
+  })
+  })
     .then(result => result.text())
     .then(result => {
       let answer = JSON.parse(result);

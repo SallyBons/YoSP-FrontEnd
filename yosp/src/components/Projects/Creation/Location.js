@@ -16,6 +16,7 @@ class Location extends Component {
     }
 
     render() {
+        const { meta } = this.props;
         return (
             <div className="location-wrapper">
                 <div className="location__header">
@@ -28,6 +29,7 @@ class Location extends Component {
                     defaultCountry="US"
                     // placeholder="Select Location"
                     onSelect={this.onSelectFlag} />
+                     {(meta.error && meta.touched) && <span style={{color: 'red'}}>{meta.error}</span>}
             </div>
 
         )

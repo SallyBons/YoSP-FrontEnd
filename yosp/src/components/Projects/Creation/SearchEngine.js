@@ -52,6 +52,7 @@ class SearchEngine extends Component {
     render() {
         const { isButtonActiveDesc } = this.state;
         // const { isButtonActiveMob } = this.state;
+        const { meta } = this.props;
         return (
             <div className='search-engine-wrapper' >
                 <span className='search-engine__header'>Search Engine</span>
@@ -61,7 +62,7 @@ class SearchEngine extends Component {
                     {/* <div className={`uk-button uk-button-default search-engine__button ${isButtonActiveMob === true ? 'active ' : ''}`} onClick={() => this.setValues('mobile')} >G Mobile
                 </div> */}
                 </div>
-
+                {(meta.error && meta.touched) && <span style={{color: 'red'}}>{meta.error}</span>}
             </div>
         );
     }

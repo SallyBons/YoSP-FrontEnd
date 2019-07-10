@@ -6,6 +6,8 @@ const required = value => (value ? undefined : 'This field is required');
 const passwordMin = value => (value.length >= 6 ? undefined : 'Password must be 6 at least');
 const passwordMax = value => (value.length <= 24 ? undefined : 'Password must be no longer then 24');
 const maxLengthName = value => (value.length <= 24 ? undefined : 'Max length - 24');
+const maxLengthTitle = value => (value.length <= 255 ? undefined : 'Max length of title - 255');
+const maxLengthOverview = value => (value.length <= 1024 ? undefined : 'Max length of overview - 1024');
 const maxLengthSurname = value => (value.length <= 32 ? undefined : 'Max length - 32');
 const specialSymbols = value => (value && /[!@#$%^&*]/i.test(value) ? 'Dont use special symbols!' : undefined);
 const matchesPassword = (value, allValues) => (value === allValues.password ? undefined : 'Passwords must match');
@@ -37,5 +39,7 @@ export {
   specialSymbols,
   matchesPassword,
   email,
-  asyncValidateEmail
+  asyncValidateEmail,
+  maxLengthTitle,
+  maxLengthOverview
 };
