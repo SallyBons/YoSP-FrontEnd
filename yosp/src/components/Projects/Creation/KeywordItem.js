@@ -47,6 +47,7 @@ class KeywordItem extends Component {
                 <form className="add-keywords-form__form">
                     <div className="add-keywords-form__label">
                         <p>Group name</p>
+                        <button type="submit" className="uk-button uk-button-default add-keywords-form__button-remove"> Remove </button>
                     </div>
                     <div className="add-keywords-form__input">
                         <input className="uk-input" onChange={event => this.inputOnChange(event)}></input>

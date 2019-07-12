@@ -37,35 +37,37 @@ class Keywords extends Component {
         return (
 
             <div className="add-keywords-form-wrapper">
-
-                <h1 className="add-keywords-form__headline">Keyword groups</h1>
-                <div className="add-keywords-form__button-wrapper">
-                    <button type="submit" className="add-keywords-form__button uk-button uk-button-default" onClick={this.handleAddClick}> Add </button>
+                <div className="add-keywords-form__header">
+                    <h1 className="add-keywords-form__headline">Keyword groups</h1>
+                    <div className="add-keywords-form__button-wrapper">
+                        <button type="submit" className="uk-button uk-button-default add-keywords-form__button" onClick={this.handleAddClick}> Add </button>
+                        <button type="submit" className="uk-button uk-button-default add-keywords-form__button"> Save </button>
+                    </div>
                 </div>
+
                 <div className="add-keywords-form__content">
                     {keywordGroups.map(keyword => (
-                        // <KeywordItem
-                        //     key={Math.random()}
-                        //     incomingKeyword={keyword}
-                        //     {...keyword}
-                        // />
-                        <Field
-                            // TODO: Check this code later. Looks like shit.
-                            name={keyword["group_id"]}
-                            key={keyword["group_id"]}
-                            // name="test"
-                            label="Group name"
-                            type="text"
-                            component={KeywordItem}
-                        />
+                        <div className="add-keywords-form__field">
+                            <Field
+                                name={keyword["group_id"]}
+                                key={keyword["group_id"]}
+                                type="text"
+                                component={KeywordItem}
+                            />
+                        </div>
+
+
                     ))}
+                </div>
+                <div className="add-keywords-form__button-wrapper">
+
                 </div>
             </div>
         );
 
     }
 }
-
+//3457
 
 // export default
 //     // connect(mapStateToProps, mapDispatchToProps),
