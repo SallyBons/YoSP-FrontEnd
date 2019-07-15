@@ -30,10 +30,14 @@ class Keywords extends Component {
         const value = Math.random().toString(36).substring(2);
         return value
     }
+    handleDeleteKeywords = (key) => {
+        console.log(key);
+        const { keywordGroups} = this.state;
+        this.setState({keywordGroups:keywordGroups.filter(group => group.group_id !== key)});
+    }
 
     render() {
         const { keywordGroups } = this.state;
-        console.log(this.generateFieldName)
         return (
 
             <div className="add-keywords-form-wrapper">
@@ -47,12 +51,12 @@ class Keywords extends Component {
 
                 <div className="add-keywords-form__content">
                     {keywordGroups.map(keyword => (
-                        <div className="add-keywords-form__field">
+                        <div className="add-keywords-form__field" key={keyword["group_id"]}>
                             <Field
                                 name={keyword["group_id"]}
-                                key={keyword["group_id"]}
                                 type="text"
                                 component={KeywordItem}
+                                toggleDeleteButton={this.handleDeleteKeywords}
                             />
                         </div>
 

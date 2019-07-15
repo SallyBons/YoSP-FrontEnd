@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles.css'; 
+import '../styles.css';
 
 
 
@@ -38,16 +38,22 @@ class KeywordItem extends Component {
         })
         this.passValuesToParent()
     }
+    handleDeleteButton = () => {
+        const { toggleDeleteButton} = this.props;
+        const {name} = this.props.input;
+        console.log(name);
+        toggleDeleteButton(name);
+    }
 
     render() {
-        
+      
         return (
 
             <div className="add-keywords-form-wrapper">
                 <form className="add-keywords-form__form">
                     <div className="add-keywords-form__label">
                         <p>Group name</p>
-                        <button type="submit" className="uk-button uk-button-default add-keywords-form__button-remove"> Remove </button>
+                        <button type="button" className="uk-button uk-button-default add-keywords-form__button-remove" onClick={this.handleDeleteButton}> Remove </button>
                     </div>
                     <div className="add-keywords-form__input">
                         <input className="uk-input" onChange={event => this.inputOnChange(event)}></input>
