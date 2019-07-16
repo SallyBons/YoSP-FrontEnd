@@ -15,16 +15,19 @@ class AlertPanel extends PureComponent {
     const { alerts } = this.props
     return (
       <div className="alert-panel-wrapper">
-        <div className="alert-panel__header">
-          <p className="alert-panel__header__text">Recent alerts:</p>
-          <button className="uk-button uk-button-default alert-panel__header__button" onClick={this.deleteAllAlerts}>Clear all</button>
+        <div className="alert-panel-content">
+          <div className="alert-panel__header">
+            <p className="alert-panel__header__text">Notifications</p>
+            <p className="alert-panel__header__additional-text">Latest information from YoSP lifelog</p>
+          </div>
+          <div className="alert-panel__alerts">
+            {alerts.map((alert, index) => (
+              <Alert incommingAlert={alert} key={alert.id} />
+            ))}
+          </div>
+          <button className="uk-button uk-button-default alert-panel__button" onClick={this.deleteAllAlerts}>Clear all</button>
         </div>
-
-        {alerts.map((alert, index) => (
-          <Alert incommingAlert={alert} key={alert.id} />
-        ))}
       </div>
-
     );
   }
 

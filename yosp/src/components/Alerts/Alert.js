@@ -31,10 +31,9 @@ class Alert extends PureComponent {
         return (
             <div className="alert-wrapper">
                 <div className={this.returnAlertClass(incommingAlert.type)} data-uk-alert>
-
                     <a className="uk-alert-close" data-uk-close onClick={() => this.handleDeleteAlert(incommingAlert)} ></a>
-                    <h3  className="alert-wrapper__headline" >Notice</h3>
-                    <p>{incommingAlert.text}</p>
+                    {/* <h3  className="alert-wrapper__headline" >Notice</h3> */}
+                    <p className="alert-wrapper__alert-text">{incommingAlert.text}</p>
                 </div>
             </div>
 

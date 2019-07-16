@@ -6,8 +6,7 @@
 } */
 
 .sidebars__left-menu-wrapper {
-    max-width: 150px;
-    width: 100%;
+    width: 175px;
     background-color: #fff;
     -webkit-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     -moz-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
@@ -17,23 +16,20 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: -135px;
-    top: 0px;
-
+    left: 0px;
+    top: 75px;
 }
 
 .sidebars__left-menu-wrapper__menu {
     list-style: none;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     flex-direction: column;
-    width:100%;
-
+    width: 100%;
 }
 
 
 .sidebars__logout-wrapper {
-    min-height: 60px;
     background-color: #fff;
     -webkit-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
     -moz-box-shadow: 0px 0px 30px -10px rgba(214, 214, 214, 1);
@@ -41,12 +37,63 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 15px;
+    padding: 10px 15px;
+    width: calc(100% - 345px);
+    position: absolute;
+    left: 0px;
+    z-index: 999;
 }
-.sidebars__left-menu-wrapper__menu__li{
-    width:100%;
+
+.sidebars__left-menu-wrapper__menu__li {
+    width: 100%;
     padding: 15px;
 }
-.label{
+
+.label {
     padding-bottom: 10px;
+}
+
+.sidebars__logout-button {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid #ABABAB;
+    box-sizing: border-box;
+    max-height: 40px
+
+}
+
+.sidebars__username {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 16px;
+    color: #000000;
+    text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    margin:0px;
+    text-align: right;
+}
+
+.sidebars__status {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 13px;
+    /* identical to box height */
+    color: #858585;
+    text-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+    margin: 0px;
+    text-align: right;
+}
+.sidebars__logout-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 15px;
+}
+.sidebars__logo{
+    display: flex;
+    justify-content: flex-start; 
+}
+
+.sidebars__logout-header-elements{
+    display: flex;
 }
