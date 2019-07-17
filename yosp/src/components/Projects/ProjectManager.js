@@ -5,6 +5,7 @@ import GLOBAL_CONFIG from '../../config';
 import { Link } from 'react-router-dom';
 import { selectUser } from '../../reducer/user';
 import { addAlert } from '../../reducer/alerts';
+import { setCurrentPage } from '../../reducer/ui';
 import { connect } from 'react-redux';
 import Project from './Creation/Project'
 
@@ -13,7 +14,10 @@ class ProjectManager extends PureComponent {
         projects: [],
     }
     componentDidMount() {
-        this.handleInitialize()
+        document.title = 'YoSP: Projects';
+        this.handleInitialize();
+        const { setCurrentPage } = this.props;
+        setCurrentPage("projects")
     }
 
     handleInitialize() {
@@ -95,7 +99,8 @@ const mapStateToProps = state => ({
     user: selectUser(state),
 });
 const mapDispatchToProps = {
-    addAlert
+    addAlert,
+    setCurrentPage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectManager);

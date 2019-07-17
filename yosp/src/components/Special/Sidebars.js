@@ -1,19 +1,20 @@
 import React, { PureComponent } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './styles.css';
 // import { connect } from 'react-redux';
 // import { selectUser } from '../reducer/user';
 import 'uikit/dist/css/uikit.min.css';
 
 import { connect } from 'react-redux';
-import { selectUser } from '../../reducer/user'
+import { selectUser } from '../../reducer/user';
+import { selectCurrentState } from '../../reducer/ui'
 
 class Sidebars extends PureComponent {
 
     render() {
 
-        const { user } = this.props;
-
+        const { user, currentRoute } = this.props;
+        // console.log(routes)
         return (
 
             user !== undefined && user.name ?
@@ -34,18 +35,20 @@ class Sidebars extends PureComponent {
                     <div className="sidebars__left-menu-wrapper" >
                         <ul className="sidebars__left-menu-wrapper__menu uk-navbar-left">
                             <li className="sidebars__left-menu-wrapper__menu__li">
-                                <Link to="/projects">Projects</Link>
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "dashboard" ? 'active-sidebar-item' : ''}`} to="/dashboard">Dashboard</NavLink>
                             </li>
                             <li className="sidebars__left-menu-wrapper__menu__li">
-                                <Link to="/useragents">User Agent</Link>
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "projects" ? 'active-sidebar-item' : ''}`} to="/projects">Projects</NavLink>
+                            </li>
+                            <li className="sidebars__left-menu-wrapper__menu__li">
+                                <NavLink className="sidebars__left-menu-wrapper__li" to="/useragents">User Agent</NavLink>
                             </li >
                             <li className="sidebars__left-menu-wrapper__menu__li">
-                                <Link to="/proxies">Proxies</Link>
+                                <NavLink className="sidebars__left-menu-wrapper__li" to="/proxies">Proxies</NavLink>
                             </li>
                             <li className="sidebars__left-menu-wrapper__menu__li">
-                                <Link to="/users">Users</Link>
+                                <NavLink className="sidebars__left-menu-wrapper__li" to="/users">Users</NavLink>
                             </li>
-
                         </ul>
                     </div>
                 </React.Fragment>
@@ -58,7 +61,8 @@ class Sidebars extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    user: selectUser(state)
+    user: selectUser(state),
+    currentRoute: selectCurrentState(state),
 });
 
 export default connect(mapStateToProps)(Sidebars)
