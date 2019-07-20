@@ -71,6 +71,7 @@ const selector = formValueSelector('UserAgentDesktop');
 const setDataToBackEnd = (values, user, props) => {
   fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}`,{
     // &useragent_type=desktop&useragent=${JSON.stringify(values.textarea1.split('\n'))}
+    method: 'post',
     body: JSON.stringify({
       "useragents": [values.textarea1.split('\n')],
       "useragents_type": "desktop",

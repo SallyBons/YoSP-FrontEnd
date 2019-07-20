@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import UserAgentsDesktop from './UserAgentsDesktop';
 // import UserAgentsMobile from './UserAgentsMobile';
 import './styles.css';
+import { connect } from 'react-redux';
+import { setCurrentPage } from '../../reducer/ui';
 
 
 
@@ -9,6 +11,11 @@ class UserAgent extends PureComponent {
   state = {
     statisticsCountD: 0,
     statisticsCountM: 0,
+  }
+  componentDidMount() {
+    document.title = 'YoSP: User agents';
+    const { setCurrentPage } = this.props;
+    setCurrentPage("useragents")
   }
 
   setStatistics = (count, type) => {
@@ -54,7 +61,10 @@ class UserAgent extends PureComponent {
     );
   }
 }
+const mapDispatchToProps = {
+  setCurrentPage,
+};
 
 
 
-export default (UserAgent);
+export default connect(null, mapDispatchToProps)(UserAgent);

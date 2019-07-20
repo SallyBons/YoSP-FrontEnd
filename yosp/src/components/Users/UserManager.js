@@ -2,11 +2,14 @@ import React, { PureComponent } from 'react';
 import 'uikit/dist/css/uikit.min.css';
 import './styles.css';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { setCurrentPage } from '../../reducer/ui';
 
 class UserManager extends PureComponent {
     componentDidMount() {
         document.title = 'YoSP: Users';
+        const { setCurrentPage } = this.props;
+    setCurrentPage("users")
     }
 
     render() {
@@ -25,5 +28,8 @@ class UserManager extends PureComponent {
         );
     }
 }
+const mapDispatchToProps = {
+    setCurrentPage,
+  };
 
-export default UserManager;
+export default connect(null, mapDispatchToProps)(UserManager);
