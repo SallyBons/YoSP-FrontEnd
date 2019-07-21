@@ -6,6 +6,7 @@ import 'uikit/dist/css/uikit.min.css';
 import GLOBAL_CONFIG from '../../../config';
 import { selectUser } from '../../../reducer/user';
 import { addAlert } from '../../../reducer/alerts';
+import { setCurrentPage } from '../../../reducer/ui';
 
 
 class ProjectProxies extends PureComponent {
@@ -13,7 +14,10 @@ class ProjectProxies extends PureComponent {
         proxies: [],
     }
     componentDidMount() {
-        this.handleInitialize()
+        this.handleInitialize();
+        document.title = 'YoSP: Project Proxies';
+        const { setCurrentPage } = this.props;
+        setCurrentPage("projects")
     }
 
     handleInitialize() {
@@ -67,7 +71,8 @@ const mapStateToProps = state => ({
     user: selectUser(state),
 });
 const mapDispatchToProps = {
-    addAlert
+    addAlert,
+    setCurrentPage,
 };
 
 

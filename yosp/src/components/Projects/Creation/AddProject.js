@@ -17,11 +17,17 @@ import {
 import {
     required, maxLengthTitle, maxLengthOverview
 } from '../../../components/Special/validation';
+import { setCurrentPage } from '../../../reducer/ui';
 
 class AddProject extends Component {
     state = {
         operationSuccessfull: false,
     }
+    componentDidMount() {
+        document.title = 'YoSP: Add Project';
+        const { setCurrentPage } = this.props;
+        setCurrentPage("projects")
+      }
 
     sendProjectToBack = (values) => {
         let { user, addAlert } = this.props;
@@ -149,7 +155,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addAlert
+    addAlert,
+    setCurrentPage,
 };
 
 export default compose(

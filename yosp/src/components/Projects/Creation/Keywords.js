@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import '../styles.css';
-import KeywordItem from './KeywordItem'
+import KeywordItem from './KeywordItem';
+import { setCurrentPage } from '../../../reducer/ui';
 
 
 class Keywords extends Component {
@@ -13,6 +14,11 @@ class Keywords extends Component {
     state = {
         keywordGroups: [],
     }
+    componentDidMount() {
+        document.title = 'YoSP: Keywords groups';
+        const { setCurrentPage } = this.props;
+        setCurrentPage("projects")
+      }
 
     handleAddClick = () => {
         const { keywordGroups } = this.state;
@@ -80,9 +86,11 @@ class Keywords extends Component {
 const mapStateToProps = state => ({
     formData: getFormValues('Keywords')(state),
 });
-
+const mapDispatchToProps = {
+    setCurrentPage,
+};
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     reduxForm({
         form: 'Keywords',
     })

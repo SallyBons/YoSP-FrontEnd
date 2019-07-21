@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../styles.css';
+import { connect } from 'react-redux';
+import { setCurrentPage } from '../../../reducer/ui';
 
 
 
@@ -9,6 +11,11 @@ class KeywordItem extends Component {
         groupName: '',
         keywords: []
     }
+    componentDidMount() {
+        document.title = 'YoSP: Keywords groups';
+        const { setCurrentPage } = this.props;
+        setCurrentPage("projects")
+      }
 
     passValuesToParent = () => {
         const { input } = this.props;
@@ -70,5 +77,8 @@ class KeywordItem extends Component {
 
     }
 }
+const mapDispatchToProps = {
+    setCurrentPage,
+};
 
-export default (KeywordItem);
+export default connect(null, mapDispatchToProps) (KeywordItem);

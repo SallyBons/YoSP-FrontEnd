@@ -3,7 +3,6 @@ import 'uikit/dist/css/uikit.min.css';
 import { connect } from 'react-redux';
 import { setCurrentPage } from '../../reducer/ui';
 // import './styles.css';
-// import Sidebars from '../../components/Special/Sidebars';
 
 class Dashboard extends PureComponent {
   componentDidMount() {
@@ -16,7 +15,7 @@ class Dashboard extends PureComponent {
     return (
 
       <div >
-        {/* <Sidebars /> */}
+     
       </div>
 
     );

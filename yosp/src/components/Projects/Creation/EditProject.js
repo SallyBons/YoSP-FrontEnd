@@ -14,11 +14,17 @@ import { selectUser } from '../../../reducer/user';
 import {
     Redirect
 } from 'react-router-dom';
+import { setCurrentPage } from '../../../reducer/ui';
 
 class EditProject extends Component {
     state = {
         operationSuccessfull: false,
     }
+    componentDidMount() {
+        document.title = 'YoSP: Edit Project';
+        const { setCurrentPage } = this.props;
+        setCurrentPage("project")
+      }
 
     // sendProjectToBack = (values) => {
     //     let { user, addAlert } = this.props;
@@ -146,7 +152,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    addAlert
+    addAlert,
+    setCurrentPage
 };
 
 export default compose(

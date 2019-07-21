@@ -37,7 +37,7 @@ class Sidebars extends PureComponent {
                 <React.Fragment>
                     <div className="sidebars__logout-wrapper">
                         <div className="sidebars__logo-wrapper">
-                            <div className="sidebars__logo-button" onClick ={this.hideMenuFunction}> <img src={hide_sidebar_icon} alt="hidden" /></div>
+                            <div className="sidebars__logo-button" onClick={this.hideMenuFunction}> <img src={hide_sidebar_icon} alt="hidden" /></div>
                             <div className="sidebars__logo"> <img src={yosp_logo} alt="logo" /></div>
                         </div>
                         <div className="sidebars__logout-header-elements">
@@ -50,30 +50,40 @@ class Sidebars extends PureComponent {
 
 
                     </div>
-                    {isHidden === false ?  <div className="sidebars__left-menu-wrapper" >
+                    {isHidden === false ? <div className="sidebars__left-menu-wrapper" >
                         <ul className="sidebars__left-menu-wrapper__menu uk-navbar-left">
-                            <li className="sidebars__left-menu-wrapper__menu__li  ">
-                                <div className="sidebars__left-menu-wrapper__img"><img src={dashboard_icon} alt="dashboard" /></div>
-                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "dashboard" ? 'active-sidebar-item' : ''}`} to="/dashboard">Dashboard</NavLink>
+                            <li className="sidebars__left-menu-wrapper__menu__li underlined">
+                                <NavLink className={`sidebars__left-menu-wrapper__li  ${currentRoute === "dashboard" ? 'active-sidebar-item' : ''}`} to="/dashboard">
+                                    <div className="sidebars__left-menu-wrapper__img"><img src={dashboard_icon} alt="dashboard" /></div>
+                                    Dashboard
+                                </NavLink>
                             </li>
-                            <li className="sidebars__left-menu-wrapper__menu__li ">
-                                <div className="sidebars__left-menu-wrapper__img"><img src={projects_icon} alt="projects" /></div>
-                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "projects" ? 'active-sidebar-item' : ''}`} to="/projects">Projects</NavLink>
+                            <li className="sidebars__left-menu-wrapper__menu__li underlined">
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "projects" ? 'active-sidebar-item' : ''}`} to="/projects">
+                                    <div className="sidebars__left-menu-wrapper__img"><img src={projects_icon} alt="projects" /></div>
+                                    Projects
+                                </NavLink>
                             </li>
                             <li className="sidebars__left-menu-wrapper__menu__li">
-                                <div className="sidebars__left-menu-wrapper__img"><img src={proxies_icon} alt="proxies" /></div>
-                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "proxies" ? 'active-sidebar-item' : ''}`} to="/proxies">Proxies</NavLink>
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "proxies" ? 'active-sidebar-item' : ''}`} to="/proxies">
+                                    <div className="sidebars__left-menu-wrapper__img"><img src={proxies_icon} alt="proxies" /></div>
+                                    Proxies
+                                </NavLink>
                             </li>
                             <li className="sidebars__left-menu-wrapper__menu__li ">
-                                <div className="sidebars__left-menu-wrapper__img"><img src={useragents_icon} alt="useragents" /></div>
-                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "useragents" ? 'active-sidebar-item' : ''}`} to="/useragents">Useragents</NavLink>
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "useragents" ? 'active-sidebar-item' : ''}`} to="/useragents">
+                                    <div className="sidebars__left-menu-wrapper__img"><img src={useragents_icon} alt="useragents" /></div>
+                                    Useragents
+                                </NavLink>
                             </li >
                             <li className="sidebars__left-menu-wrapper__menu__li ">
-                                <div className="sidebars__left-menu-wrapper__img"><img src={users_icon} alt="users" /></div>
-                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "users" ? 'active-sidebar-item' : ''}`} to="/users">Users </NavLink>
+                                <NavLink className={`sidebars__left-menu-wrapper__li ${currentRoute === "users" ? 'active-sidebar-item' : ''}`} to="/users">
+                                    <div className="sidebars__left-menu-wrapper__img"><img src={users_icon} alt="users" /></div>
+                                    Users & Roles
+                                </NavLink>
                             </li>
                         </ul>
-                    </div>: ''}
+                    </div> : ''}
                 </React.Fragment>
                 : <React.Fragment></React.Fragment>
 
