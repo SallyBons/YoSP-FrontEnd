@@ -38,22 +38,24 @@ class UserAgent extends PureComponent {
 
   render() {
     // const { statisticsCountD, statisticsCountM } = this.state;
-    const { statisticsCountD} = this.state;
-    return (
+       return (
       <div className="user-agent-wrapper">
-        <h1 className="user-agent__headline">Useragents</h1>
-        <h2>Statistics</h2>
+        <h2 className="user-agent__headline">Useragents</h2>
+        <p className="user-agent__headline-statistic" >Statistics</p>
         <div className="user-agent__statistic-windows">
-          <div className="user-agent__statistic-windows__statistics-panel desktop">
+          {/* <div className="user-agent__statistic-windows__statistics-panel desktop">
             <h3 className="user-agent__statistic-windows__statistics-panel__headline">Desktop useragents</h3>
             <p className="user-agent__statistic-windows__statistics-panel__count" >{statisticsCountD}</p>
-          </div>
+          </div> */}
           {/* <div className="user-agent__statistic-windows__statistics-panel mobile">
             <h3 className="user-agent__statistic-windows__statistics-panel__headline">Mobile useragents</h3>
             <p className="user-agent__statistic-windows__statistics-panel__count">{statisticsCountM}</p>
           </div> */}
         </div>
+        <div className = "user-agent-desktop__content" >
         <UserAgentsDesktop setStatistics={this.setStatistics} />
+        </div>
+       
         {/* <UserAgentsMobile setStatistics={this.setStatistics} /> */}
       </div>
 

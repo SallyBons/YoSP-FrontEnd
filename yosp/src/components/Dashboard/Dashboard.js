@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import 'uikit/dist/css/uikit.min.css';
 import { connect } from 'react-redux';
 import { setCurrentPage } from '../../reducer/ui';
-// import './styles.css';
+ import './styles.css';
 
 class Dashboard extends PureComponent {
   componentDidMount() {
@@ -14,8 +14,8 @@ class Dashboard extends PureComponent {
   render() {
     return (
 
-      <div >
-     
+      <div className="dashboard__wrapper" >
+       <h2 className="dashboard__header__headline">Dashboard</h2>
       </div>
 
     );

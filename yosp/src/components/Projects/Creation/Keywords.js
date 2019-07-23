@@ -48,7 +48,7 @@ class Keywords extends Component {
 
             <div className="add-keywords-form-wrapper">
                 <div className="add-keywords-form__header">
-                    <h1 className="add-keywords-form__headline">Keyword groups</h1>
+                    <h2 className="add-keywords-form__headline">Keyword groups</h2>
                     <div className="add-keywords-form__button-wrapper">
                         <button type="submit" className="uk-button uk-button-default add-keywords-form__button" onClick={this.handleAddClick}> Add </button>
                         <button type="submit" className="uk-button uk-button-default add-keywords-form__button"> Save </button>

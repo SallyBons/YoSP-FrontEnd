@@ -63,7 +63,7 @@ class EditProject extends Component {
 
             <div className="edit-project-proxy-form-wrapper">
 
-                <h1 className="edit-project-form__headline">Edit project</h1>
+                <h2 className="edit-project-form__headline">Edit settings</h2>
 
                 <form>
 

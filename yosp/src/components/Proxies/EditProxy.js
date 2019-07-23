@@ -74,7 +74,7 @@ class EditProxy extends Component {
 
                 {emptyProxyFlag ? <Redirect to="/proxies" /> : true}
 
-                <h1 className="edit-proxy-form__headline">Edit proxies</h1>
+                <h2 className="edit-proxy-form__headline">Edit proxies</h2>
 
                 <form onSubmit={handleSubmit(this.updateProxyOnBack)}>
 

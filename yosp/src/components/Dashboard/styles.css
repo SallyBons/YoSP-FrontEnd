@@ -1,0 +1,11 @@
+.dashboard__wrapper {
+    min-height: 60px;
+    margin-bottom: 50px;
+    padding: 0px 15px;
+    position: relative;
+}
+
+
+.dashboard__header__headline {
+    width: fit-content;
+}

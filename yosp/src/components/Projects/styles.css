@@ -15,7 +15,20 @@
 .project-manager__header__headline {
     width: fit-content;
 }
-
+.project-card-wrapper{
+    min-height: 60px;
+    margin-bottom: 50px;
+    padding: 0px 15px;
+    position: relative;
+}
+.project-card__heading-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+}
+.project-card__heading__button{
+    margin-left: 15px;   
+}
 .project-manager__header__button:nth-of-type(1) {
     margin-left: 15px;
 }
@@ -23,6 +36,7 @@
 .scan-depth__buttons-wrapper {
     display: flex;
     flex-direction: row;
+    
 }
 .scan-depth-wrapper, .search-engine-wrapper{
     margin-bottom:20px;
