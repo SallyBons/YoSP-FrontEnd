@@ -6,7 +6,6 @@ import {
     Redirect
 } from 'react-router-dom';
 import TextArea from '../Special/TextArea';
-import { selectProxy } from '../../reducer/proxies';
 import GLOBAL_CONFIG from '../../config';
 import { addAlert } from '../../reducer/alerts';
 import './styles.css';
@@ -82,8 +81,7 @@ class AddProxy extends Component {
 
 const mapStateToProps = state => ({
     formData: getFormValues('AddProxy')(state),
-    proxy: selectProxy(state),
-    user: selectUser(state),
+     user: selectUser(state),
 });
 
 const mapDispatchToProps = {

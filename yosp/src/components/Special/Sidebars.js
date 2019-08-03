@@ -30,10 +30,9 @@ class Sidebars extends PureComponent {
     render() {
         const { isHidden } = this.state;
         const { user, currentRoute } = this.props;
-        // console.log(routes)
-        return (
+         return (
 
-            user !== undefined && user.name ?
+            user !== undefined && user ?
                 <React.Fragment>
                     <div className="sidebars__logout-wrapper">
                         <div className="sidebars__logo-wrapper">

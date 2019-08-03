@@ -31,9 +31,19 @@ class RegistrationForm extends PureComponent {
     }
 
     addNewUser = (values) => {
-        this.setState({ showSpiner: true })
-        const { addAlert } = this.props;
-        fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?name=${values.name}&surname=${values.surname}&email=${values.email}&password=${values.password}`)
+         let { addAlert } = this.props;
+         this.setState({ showSpiner: true })
+        fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?`, {
+            method: 'post',
+            body: JSON.stringify({
+                "new_user": {
+                    "name": values.name,
+                    "surname": values.surname,
+                    "email": values.email,
+                    "password": values.password
+                },
+            })
+        })
             .then(result => result.text())
             .then(result => {
                 console.log(result);

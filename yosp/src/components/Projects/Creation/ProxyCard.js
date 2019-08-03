@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-
+import { loadProxy } from '../../../reducer/proxies';
+import { connect } from 'react-redux';
 
 class ProxyCard extends PureComponent {
 
@@ -35,7 +36,20 @@ class ProxyCard extends PureComponent {
 
     selection = () => {
         const { isButtonActive } = this.state;
-        this.setState({ isButtonActive: !isButtonActive });
+        this.setState({ isButtonActive: !isButtonActive }, () => {
+            this.setProxiesToRedux()
+        })
+
+    }
+    setProxiesToRedux = ()=>{
+        const { isButtonActive } = this.state;
+        const { loadProxy,incomingProxy } = this.props;
+        let arrayOfProxies = [];
+        let proxy =  incomingProxy;
+        if (isButtonActive) {
+            arrayOfProxies.push(proxy);
+        }
+        loadProxy(arrayOfProxies);
     }
 
     render() {
@@ -65,7 +79,9 @@ class ProxyCard extends PureComponent {
         );
     }
 }
+const mapDispatchToProps = {
+      loadProxy,
+  };
 
 
-
-export default (ProxyCard);
+export default  connect(null, mapDispatchToProps) (ProxyCard);

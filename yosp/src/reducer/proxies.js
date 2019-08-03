@@ -1,5 +1,5 @@
 const initialState = {
-    proxy: {},
+    proxies: [],
   
   };
   
@@ -9,13 +9,15 @@ const initialState = {
   
   // Reducer
   
-  const proxy = (state = initialState, action) => {
-    switch (action.type) {
+  const proxies = (state = initialState, action) => {
+      switch (action.type) {
       case LOAD_PROXY:
         return {
           ...state,
-         proxy: action.payload
+          proxies: [...action.payload]
+         
         };
+        
       default:
         return state;
     }
@@ -28,10 +30,10 @@ const initialState = {
     });
   };
     
-  const getState = state => state.proxy;
-  const selectProxy = state => getState(state).proxy;
+  const getState = state => state.proxies;
+  const selectProxy = state => getState(state).proxies;
   
-  export default proxy;
+  export default proxies;
   export {
     //
     // actions

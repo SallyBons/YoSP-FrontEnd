@@ -33,7 +33,7 @@ class UserAgentsDesktop extends PureComponent {
           
           
 
-          this.props.change('textarea1',parsedUserAgents.join('\n'));
+          // this.props.change('textarea1', parsedUserAgents.join('\n'));
         }
       });
   }
@@ -69,23 +69,24 @@ class UserAgentsDesktop extends PureComponent {
 const selector = formValueSelector('UserAgentDesktop');
 
 const setDataToBackEnd = (values, user, props) => {
-  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}`,{
-    // &useragent_type=desktop&useragent=${JSON.stringify(values.textarea1.split('\n'))}
+  fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/add?token=${user.token}`, {
     method: 'post',
     body: JSON.stringify({
-      "useragents": [values.textarea1.split('\n')],
-      "useragents_type": "desktop",
-  })
-  })
-    .then(result => result.text())
+      "useragents": {
+        "useragent_type": "desktop",
+        "useragents": values.textarea1.split('\n')
+      }    
+    })
+  }).then(result => result.text())
     .then(result => {
       let answer = JSON.parse(result);
       if (answer.status === 200) {
-        props.addAlert("success", "Useragents are successfully updated")
+        props.addAlert("success", "Useragents are successfully added")
       }
     }).catch(() => {
       addAlert("danger", "Server is not responding. Something went wrong");
     });;
+    
 };
 
 const mapStateToProps = state => ({

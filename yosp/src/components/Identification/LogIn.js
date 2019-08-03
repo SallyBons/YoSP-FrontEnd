@@ -30,10 +30,18 @@ class LogIn extends PureComponent {
     const cookies = new Cookies();
     let { loadUser, addAlert } = this.props;
     this.setState({ showSpiner: true })
-    fetch(`${GLOBAL_CONFIG.backendUrl}/user/auth?email=${values.email}&password=${values.password}`)
+    fetch(`${GLOBAL_CONFIG.backendUrl}/user/auth?`, {
+      method: 'post',
+      body: JSON.stringify({
+          "user": {
+              "email": values.email,
+              "password": values.password
+          },
+      })
+    })
       .then(result => result.text())
       .then(result => {
-        let user = JSON.parse(result);
+       let user = JSON.parse(result)["user"];
         if (user.name) {
           loadUser(user);
           cookies.set('user', user, { path: '/' });
