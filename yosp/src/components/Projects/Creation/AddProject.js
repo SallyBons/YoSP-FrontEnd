@@ -35,8 +35,8 @@ class AddProject extends Component {
             method: 'post',
             body: JSON.stringify({
                 "new_project": {
-                    "project_name": values.name,
-                    "project_description": values.description,
+                    "name": values.name,
+                    "description": values.description,
                     "target_website": values.target,
                     "scan_depth": values.scandepth,
                     "search_engines": values.searchengines,

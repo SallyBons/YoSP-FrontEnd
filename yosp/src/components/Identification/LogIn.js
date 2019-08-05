@@ -33,28 +33,31 @@ class LogIn extends PureComponent {
     fetch(`${GLOBAL_CONFIG.backendUrl}/user/auth?`, {
       method: 'post',
       body: JSON.stringify({
-          "user": {
-              "email": values.email,
-              "password": values.password
-          },
+        "user": {
+          "email": values.email,
+          "password": values.password
+        },
       })
     })
       .then(result => result.text())
-      .then(result => {
-       let user = JSON.parse(result)["user"];
-        if (user.name) {
-          loadUser(user);
-          cookies.set('user', user, { path: '/' });
+      .then(value => {
+        let result = JSON.parse(value);
+        console.log(result);
+        if ('user' in result) {
+          loadUser(result.user);
+          cookies.set('user', result.user, { path: '/' });
           this.setState({ showSpiner: false })
           this.setState({ authorisationSucceed: true });
         }
-        if (user.error) {
-          addAlert("warning", user.error);
+        if ('error' in result) {
+          console.log(result.error)
+          addAlert("warning", result.error);
           this.setState({ showSpiner: false })
         }
-      }).catch(() => {
-        addAlert("danger", "Server is not responding. Something went wrong");
-      });
+      })
+     .catch(() => {
+      addAlert("danger", "Server is not responding. Something went wrong");
+    });
   }
 
   render() {
@@ -109,9 +112,9 @@ class LogIn extends PureComponent {
 
         </form>
         <div className="login__link-wrapper">
-                        <h2 className="login__link-headline">Don’t have an account yet?</h2>
-                        <Link className="login__link" to="/registration">Get started!</Link>
-                    </div>
+          <h2 className="login__link-headline">Don’t have an account yet?</h2>
+          <Link className="login__link" to="/registration">Get started!</Link>
+        </div>
       </div>
 
 

@@ -10,12 +10,12 @@ class ProjectCard extends PureComponent {
       return (
       <div className="project-card-wrapper">
         <div className="project-card__heading-wrapper">
-          <h2 className="project-card__heading__headline">{incomingProjectInfo.project_name}</h2>
+          <h2 className="project-card__heading__headline">{incomingProjectInfo.name}</h2>
           <div className="project-card__heading__button-wrapper">
-            <Link className="project-card__heading__button uk-button uk-button-default" to="/projects/496a5bcb1a0e2762c7c72aa8dcd9002e/proxies">Proxies</Link>
+            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${incomingProjectInfo.id}/proxies`}}>Proxies</Link>
             <Link to="/projects/496a5bcb1a0e2762c7c72aa8dcd9002e/keywords" className="project-card__heading__button uk-button uk-button-default">Keywords</Link>
             {/* <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: "/projects/496a5bcb1a0e2762c7c72aa8dcd9002e/edit", incomingProject: incomingProject }}>Edit</Link> */}
-            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: "/projects/496a5bcb1a0e2762c7c72aa8dcd9002e/edit"}}>Settings</Link>
+            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${incomingProjectInfo.id}/edit`}}>Settings</Link>
             <button className=" project-card__heading__button uk-button uk-button-default">Update</button>
             <button className=" project-card__heading__button uk-button uk-button-default">Delete</button>
 

@@ -35,22 +35,23 @@ class ProxyCard extends PureComponent {
     }
 
     selection = () => {
-        const { isButtonActive } = this.state;
-        this.setState({ isButtonActive: !isButtonActive }, () => {
-            this.setProxiesToRedux()
-        })
+        // const { isButtonActive } = this.state;
 
+
+        // toggleUpdate(incomingProxy);
+        // this.setState({ isButtonActive: !isButtonActive }, () => {
+        this.passProxyToParent()
+        // })
     }
-    setProxiesToRedux = ()=>{
+    passProxyToParent = () => {
+        const { toggleUpdate, incomingProxy } = this.props;
         const { isButtonActive } = this.state;
-        const { loadProxy,incomingProxy } = this.props;
-        let arrayOfProxies = [];
-        let proxy =  incomingProxy;
-        if (isButtonActive) {
-            arrayOfProxies.push(proxy);
-        }
-        loadProxy(arrayOfProxies);
+        this.setState(
+            () => ({ isButtonActive: !isButtonActive }),
+            () => toggleUpdate(incomingProxy)
+        );
     }
+
 
     render() {
         const { incomingProxy } = this.props;
@@ -80,8 +81,8 @@ class ProxyCard extends PureComponent {
     }
 }
 const mapDispatchToProps = {
-      loadProxy,
-  };
+    loadProxy,
+};
 
 
-export default  connect(null, mapDispatchToProps) (ProxyCard);
+export default connect(null, mapDispatchToProps)(ProxyCard);

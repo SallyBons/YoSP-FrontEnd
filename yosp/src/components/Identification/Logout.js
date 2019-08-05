@@ -11,7 +11,7 @@ class LogOut extends Component {
 
   componentDidMount() {
     const { loadUser } = this.props;
-    loadUser({});
+    loadUser(undefined);
     const cookies = new Cookies();
     cookies.remove('user')
   }

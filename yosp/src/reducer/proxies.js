@@ -15,9 +15,7 @@ const initialState = {
         return {
           ...state,
           proxies: [...action.payload]
-         
         };
-        
       default:
         return state;
     }

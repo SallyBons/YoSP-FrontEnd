@@ -12,14 +12,13 @@ class Project extends PureComponent {
 
     render() {
         const { incomingProject } = this.props;
-        return (
+         return (
 
             <div className="project-wrapper">
                 {/* <Link className="project__link" to={`/projects/${incomingProject.project_id}`}> */}
-                <Link className="project__link" to={{ pathname: `/projects/${incomingProject.project_id}`, incomingProjectInfo: incomingProject }}>
-
+                <Link className="project__link" to={{ pathname: `/projects/${incomingProject.id}`, incomingProjectInfo: incomingProject }}>
                     <div className="project__main-info">
-                        <span> Name:{incomingProject.project_name}</span>
+                        <span> Name:{incomingProject.name}</span>
                         <span> Location:{incomingProject.location}</span>
                     </div>
                     <div className="project__additional-info">

@@ -29,7 +29,7 @@ class ProjectManager extends PureComponent {
 
 
 
-    handleDeleteProject = (login, password, ip, port) => {
+    handleDeleteProject = () => {
         let { user, addAlert } = this.props;
         fetch(`${GLOBAL_CONFIG.backendUrl}/projects/remove?token=${user.token}`, {
             method: 'post',
@@ -55,7 +55,7 @@ class ProjectManager extends PureComponent {
 
     getListOfProjects = (user) => {
         let { addAlert } = this.props;
-        fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get?token=${user.token}`)
+        fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-all?token=${user.token}`)
             .then(result => result.text())
             .then(result => {
                 let answer = JSON.parse(result);

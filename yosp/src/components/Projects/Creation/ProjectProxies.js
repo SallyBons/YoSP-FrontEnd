@@ -12,6 +12,7 @@ import { setCurrentPage } from '../../../reducer/ui';
 class ProjectProxies extends PureComponent {
     state = {
         proxies: [],
+        selectedProxies: [],
     }
     componentDidMount() {
         this.handleInitialize();
@@ -43,6 +44,14 @@ class ProjectProxies extends PureComponent {
             });;
     }
 
+    updateSelectedProxies = (selectedProxy) =>{
+        let newArray = [];
+        newArray.push(selectedProxy);
+        this.setState(
+            { selectedProxies: newArray }
+        )
+    }
+
 
 
     render() {
@@ -57,9 +66,12 @@ class ProjectProxies extends PureComponent {
                         <ProxyCard
                             key={Math.random()}
                             incomingProxy={proxy}
-                            {...proxy}
+                            toggleUpdate={this.updateSelectedProxies}
                         />
                     ))}
+                </div>
+                <div className="project-proxies__button-wrapper">
+                <button className=" project-proxies__button uk-button uk-button-default">Save</button>
                 </div>
             </div>
 
