@@ -1,8 +1,6 @@
-import React, { PureComponent } from 'react';
-import { loadProxy } from '../../../reducer/proxies';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
-class ProxyCard extends PureComponent {
+class ProxyCard extends Component {
 
     state = {
         isButtonActive: false
@@ -43,20 +41,31 @@ class ProxyCard extends PureComponent {
         this.passProxyToParent()
         // })
     }
+
     passProxyToParent = () => {
-        const { toggleUpdate, incomingProxy } = this.props;
+        let { toggleUpdate, incomingProxy } = this.props;
         const { isButtonActive } = this.state;
+
+        // incomingProxy.selected = true;
+
         this.setState(
             () => ({ isButtonActive: !isButtonActive }),
-            () => toggleUpdate(incomingProxy)
+            toggleUpdate(incomingProxy)
         );
     }
 
+    // componentDidMount() {
+    //     const { incomingProxy } = this.props;
+    //     const { isButtonActive } = this.state;
+    //     if (incomingProxy.selected === true) {
+    //         this.setState({ isButtonActive: !isButtonActive })
+    //     };
+    // }
 
     render() {
         const { incomingProxy } = this.props;
         const { isButtonActive } = this.state;
-        return (
+           return (
             <div className={`proxy-card-wrapper ${isButtonActive === true ? 'active ' : ''}`} onClick={this.selection} >
                 <div className="proxy-card__status-indicator-wrapper">
                     <div className={`proxy-card__status-indicator ${this.returnIndicatorClass(incomingProxy.status)}`} data-uk-tooltip={`${this.returnTooltipText(incomingProxy.status)}`}></div>
@@ -80,9 +89,7 @@ class ProxyCard extends PureComponent {
         );
     }
 }
-const mapDispatchToProps = {
-    loadProxy,
-};
 
 
-export default connect(null, mapDispatchToProps)(ProxyCard);
+
+export default (ProxyCard);
