@@ -5,4 +5,8 @@ const guid = () => {
 
     return `${s4()}${s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
 };
-export default guid;
+const getId = (incomingUrl) => {
+    return incomingUrl.split('/')[2];
+ 
+};
+export { guid, getId };

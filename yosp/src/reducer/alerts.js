@@ -1,4 +1,5 @@
-import guid from '../utils'
+import { guid } from '../utils';
+
 const initialValues = {
   alerts: [],
 };
