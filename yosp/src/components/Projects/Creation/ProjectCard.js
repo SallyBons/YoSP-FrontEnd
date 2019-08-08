@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getId } from '../../../utils';
 import GLOBAL_CONFIG from '../../../config';
@@ -6,14 +6,14 @@ import { selectUser } from '../../../reducer/user';
 import { loadProject, selectProject } from '../../../reducer/projects';
 import { connect } from 'react-redux';
 import { setCurrentPage } from '../../../reducer/ui';
-import {
-  Redirect
-} from 'react-router-dom';
 
 
 
-class ProjectCard extends PureComponent {
+
+class ProjectCard extends Component {
+
   componentDidMount() {
+    // TODO: Components renders three times
     const { pathname } = this.props.location;
     let awaitReduxLoad = () => {
       setTimeout(() => {
@@ -23,38 +23,49 @@ class ProjectCard extends PureComponent {
     }
     awaitReduxLoad();
     const { setCurrentPage } = this.props;
-        setCurrentPage("projects");
+    setCurrentPage("projects");
   }
 
+  // shouldComponentUpdate(nextProps) {
+  //   const { user, project } = nextProps;
+  //   if (!user === {}) {
+  //     if (!project === {}) {
+  //       return true
+  //     } else {
+  //       return false
+  //     }
+  //   } else {
+  //     return false
+  //   }
+  // }
+
   getProjectById = (user, id) => {
-    const { loadProject,history } = this.props;
+    const { loadProject, history } = this.props;
     fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-single?token=${user.token}&id=${id}`)
       .then(result => result.text())
       .then(result => {
         let answer = JSON.parse(result);
-        if (answer.error){
-history.push('/projects');
+        if (answer.error) {
+          history.push('/projects');
         }
         loadProject(answer);
       })
   }
 
-
-
-
   render() {
     const { project } = this.props;
+    console.log(project.proxies);
     return (
       <div className="project-card-wrapper">
         <div className="project-card__heading-wrapper">
           <h2 className="project-card__heading__headline">{project.name}</h2>
           <div className="project-card__heading__button-wrapper">
-            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/proxies` }}>Proxies</Link>
-            <Link to={{ pathname: `/projects/${project.id}/keywords` }} className="project-card__heading__button uk-button uk-button-default">Keywords</Link>
-            {/* <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: "/projects/496a5bcb1a0e2762c7c72aa8dcd9002e/edit", incomingProject: incomingProject }}>Edit</Link> */}
+            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/proxies` }} uk-toggle="target: #toggle-usage">Proxies</Link>
+            <Link to={{ pathname: `/projects/${project.id}/keywords` }} className="project-card__heading__button uk-button uk-button-default" uk-tooltip="Keywords are empty">Keywords</Link>
             <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/edit` }}>Settings</Link>
             <button className=" project-card__heading__button uk-button uk-button-default">Update</button>
             <button className=" project-card__heading__button uk-button uk-button-default">Delete</button>
+            {project.proxies === undefined || project.proxies.length === 0 ? <p id="toggle-usage">Proxies are empty! Click here to add it! </p> : <p id="toggle-usage"></p>}
 
           </div>
         </div>
