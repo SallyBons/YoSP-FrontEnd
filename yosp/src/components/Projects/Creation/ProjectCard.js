@@ -54,7 +54,6 @@ class ProjectCard extends Component {
 
   render() {
     const { project } = this.props;
-    console.log(project.proxies);
     return (
       <div className="project-card-wrapper">
         <div className="project-card__heading-wrapper">
@@ -65,8 +64,7 @@ class ProjectCard extends Component {
             <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/edit` }}>Settings</Link>
             <button className=" project-card__heading__button uk-button uk-button-default">Update</button>
             <button className=" project-card__heading__button uk-button uk-button-default">Delete</button>
-            {project.proxies === undefined || project.proxies.length === 0 ? <p id="toggle-usage">Proxies are empty! Click here to add it! </p> : <p id="toggle-usage"></p>}
-
+            {project.proxies !== undefined && project.proxies.length === 0 ? <p id="toggle-usage" className="project-card__heading__toggle">Proxies are empty! Click here to add it! </p> : <p id="toggle-usage"></p>}
           </div>
         </div>
 

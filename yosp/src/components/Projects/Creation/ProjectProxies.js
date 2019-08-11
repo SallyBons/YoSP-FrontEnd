@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import ProxyCard from './ProxyCard';
 import { connect } from 'react-redux';
 import '../styles.css';
@@ -9,9 +9,9 @@ import { selectProject } from '../../../reducer/projects';
 import { addAlert } from '../../../reducer/alerts';
 import { loadProxy, selectProxy, sendProxiesToServer } from '../../../reducer/proxies';
 import { setCurrentPage } from '../../../reducer/ui';
+import { getId } from '../../../utils';
 
-
-class ProjectProxies extends PureComponent {
+class ProjectProxies extends Component {
     state = {
         proxyList: [],
     }
@@ -21,10 +21,10 @@ class ProjectProxies extends PureComponent {
         const { setCurrentPage } = this.props;
         setCurrentPage("projects");
     }
+
     shouldComponentUpdate(nextProps, nextState) {
         if (this.props.proxies === nextProps.proxies) {
             return true
-
         } else {
             return false
         }
@@ -58,22 +58,33 @@ class ProjectProxies extends PureComponent {
         loadProxy(selectedProxy);
     }
 
-    assignProxies=(user)=>{
-        let {proxies,addAlert,project} = this.props;
-        console.log(this.props);
+    assignProxies = (user) => {
+        let { proxies, addAlert, project } = this.props;
+
+        if (Object.keys(project).length === 0 && project.constructor === Object) {
+            const { pathname } = this.props.location;
+            project.id = getId(pathname);
+        }
+
+
         fetch(`${GLOBAL_CONFIG.backendUrl}/projects/assign-proxies?token=${user.token}&id=${project.id}`, {
             method: 'post',
             body: JSON.stringify({
-              "proxies": [...proxies]
+                "proxies": proxies.reduce((accumulator, currentValue) => {
+                    accumulator.push(currentValue.login + ":" + currentValue.password + "@" + currentValue.ip + ":" + currentValue.port)
+                    return accumulator
+                }, []),
             })
-          }).then(result => result.text())
+        }).then(result => result.text())
             .then(result => {
-              let answer = JSON.parse(result);
-              if (answer.status === 200) {
-               addAlert("success", "Proxies are added succesful")
-              }
-            }).catch(() => {
-              addAlert("danger", "Server is not responding. Something went wrong");
+                let answer = JSON.parse(result);
+                if (answer.status === 200) {
+                    addAlert("success", "Proxies are added succesful")
+                }
+            }).then(
+                this.props.history.push(`/projects/${project.id}`)
+            ).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
             });;
 
     }
@@ -97,7 +108,7 @@ class ProjectProxies extends PureComponent {
                     ))}
                 </div>
                 <div className="project-proxies__button-wrapper">
-                    <button className="project-proxies__button uk-button uk-button-default" onClick={()=>this.assignProxies(user)} >Save</button>
+                    <button className="project-proxies__button uk-button uk-button-default" onClick={() => this.assignProxies(user)} >Save</button>
                 </div>
             </div>
         );
@@ -106,7 +117,7 @@ class ProjectProxies extends PureComponent {
 const mapStateToProps = state => ({
     user: selectUser(state),
     proxies: selectProxy(state),
-    project:selectProject(state),
+    project: selectProject(state),
 });
 
 const mapDispatchToProps = {

@@ -164,3 +164,13 @@
    .add-keywords-form__button-remove{
        height: 30px;
    }
+   .project-card__heading__toggle{
+       margin:0px;
+       margin-top: 5px;
+       padding: 3px;
+       color:rgb(177, 59, 59);
+       border:1px solid rgb(82, 5, 5);
+       justify-content: flex-start;
+       width: fit-content;
+
+   }
