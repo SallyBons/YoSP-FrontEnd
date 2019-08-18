@@ -8,7 +8,7 @@ import { setCurrentPage } from '../../../reducer/ui';
 class KeywordItem extends Component {
 
     state = {
-        groupName: '',
+        title: '',
         keywords: []
     }
     componentDidMount() {
@@ -19,13 +19,11 @@ class KeywordItem extends Component {
 
     passValuesToParent = () => {
         const { input } = this.props;
-        const { groupName, keywords } = this.state;
+        const { title, keywords } = this.state;
 
-        if (groupName.length !== 0 && keywords.length !== 0) {
-            console.log('Fired');
-            console.log(input)
-            input.onChange({
-                "group_name": groupName,
+        if (title.length !== 0 && keywords.length !== 0) {
+             input.onChange({
+                "title": title,
                 "keywords": [...keywords]
             });
         }
@@ -33,7 +31,7 @@ class KeywordItem extends Component {
 
     inputOnChange = (event) => {
         this.setState({
-            groupName: event.target.value
+            title: event.target.value
         })
         this.passValuesToParent()
     }
@@ -48,7 +46,6 @@ class KeywordItem extends Component {
     handleDeleteButton = () => {
         const { toggleDeleteButton} = this.props;
         const {name} = this.props.input;
-        console.log(name);
         toggleDeleteButton(name);
     }
 
