@@ -6,11 +6,14 @@ import { selectUser } from '../../../reducer/user';
 import { loadProject, selectProject } from '../../../reducer/projects';
 import { connect } from 'react-redux';
 import { setCurrentPage } from '../../../reducer/ui';
-
+import { addAlert } from '../../../reducer/alerts';
 
 
 
 class ProjectCard extends Component {
+  state = {
+    projectKeywords: [],
+  }
 
   componentDidMount() {
     // TODO: Components renders three times
@@ -19,6 +22,7 @@ class ProjectCard extends Component {
       setTimeout(() => {
         const { user } = this.props;
         this.getProjectById(user, getId(pathname))//without this we have empty user at props on initialazing
+        this.getKeywords(user)
       }, 1);
     }
     awaitReduxLoad();
@@ -26,18 +30,21 @@ class ProjectCard extends Component {
     setCurrentPage("projects");
   }
 
-  // shouldComponentUpdate(nextProps) {
-  //   const { user, project } = nextProps;
-  //   if (!user === {}) {
-  //     if (!project === {}) {
-  //       return true
-  //     } else {
-  //       return false
-  //     }
-  //   } else {
-  //     return false
-  //   }
-  // }
+  getKeywords = (user) => {
+    let { addAlert, project } = this.props;
+    fetch(`${GLOBAL_CONFIG.backendUrl}/keyword-groups/get-all?token=${user.token}&project_id=${project.id}`)
+      .then(result => result.text())
+      .then(result => {
+        let answer = JSON.parse(result);
+        if (answer.error) {
+          addAlert("warning", answer.error);
+        } else {
+          this.setState({ projectKeywords: answer.keyword_groups })
+        }
+      }).catch(() => {
+        addAlert("danger", "Server is not responding. Something went wrong");
+      });;
+  }
 
   getProjectById = (user, id) => {
     const { loadProject, history } = this.props;
@@ -53,7 +60,9 @@ class ProjectCard extends Component {
   }
 
   render() {
+    const { projectKeywords} = this.state;
     const { project } = this.props;
+    console.log(projectKeywords)
     return (
       <div className="project-card-wrapper">
         <div className="project-card__heading-wrapper">
@@ -69,7 +78,14 @@ class ProjectCard extends Component {
 
         <div className="project-card__toggle-wrapper">
           {project.proxies !== undefined && project.proxies.length === 0 ? <p id="toggle-proxies" className="project-card__toggle uk-alert-primary">Proxies are empty! Click here to add it! </p> : <p id="toggle-proxies"></p>}
-          {project.keyword_groups !== undefined && project.keyword_groups.length === 0 ? <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p> : <p id="toggle-keywords"></p>}
+          {projectKeywords === [] &&  projectKeywords.length === 0 ? <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p> : <p id="toggle-keywords"></p>}
+        </div>
+        <div className="project-card__content-wrapper">
+          {projectKeywords.map(keywords => (
+            <div>
+              {keywords.title}
+            </div>
+          ))}
         </div>
       </div>
     );
@@ -82,6 +98,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   loadProject,
   setCurrentPage,
+  addAlert,
 };
 
 
