@@ -47,7 +47,7 @@ class ProjectCard extends Component {
   }
 
   getProjectById = (user, id) => {
-    const { loadProject, history } = this.props;
+    const { loadProject, history, addAlert } = this.props;
     fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-single?token=${user.token}&id=${id}`)
       .then(result => result.text())
       .then(result => {
@@ -56,7 +56,10 @@ class ProjectCard extends Component {
           history.push('/projects');
         }
         loadProject(answer);
-      })
+      }).catch(() => {
+        history.push('/projects');
+        addAlert("danger", "Project with such id does not exist");
+      });
   }
 
   render() {

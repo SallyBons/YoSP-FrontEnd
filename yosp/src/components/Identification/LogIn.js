@@ -8,6 +8,7 @@ import InputField from '../Special/InputField';
 import Spiner from '../Special/Spiner'
 import GLOBAL_CONFIG from '../../config';
 import { loadUser } from '../../reducer/user';
+import { selectUser } from '../../reducer/user';
 import { addAlert } from '../../reducer/alerts';
 import 'uikit/dist/css/uikit.min.css';
 import Cookies from 'universal-cookie';
@@ -20,12 +21,20 @@ class LogIn extends PureComponent {
 
   componentDidMount() {
     document.title = 'YoSP: Login';
+    this.checkUser();
   }
 
   state = {
     showSpiner: false,
     authorisationSucceed: false,
   }
+  checkUser = ()=>{
+    const { user } = this.props;
+    if (user){
+      this.setState({ authorisationSucceed: true });
+    }
+     }
+
   loginFunction = (values) => {
     const cookies = new Cookies();
     let { loadUser, addAlert } = this.props;
@@ -101,8 +110,7 @@ class LogIn extends PureComponent {
 
           <div className="login-form__button-wrapper">
             <button type="submit" className="login-form__button" disabled={invalid}>Sign In to Dashboard</button>
-            {/* <Link className="uk-button uk-button-default" to="/registration">Registration</Link> */}
-          </div>
+           </div>
 
           {showSpiner ?
             <Spiner />
@@ -126,7 +134,8 @@ const selector = formValueSelector('LogInForm');
 
 const mapStateToProps = state => ({
   name: selector(state, 'email', 'password'),
-  formData: getFormValues('LogInForm')(state)
+  formData: getFormValues('LogInForm')(state),
+  user: selectUser(state),
 });
 const mapDispatchToProps = {
   addAlert,

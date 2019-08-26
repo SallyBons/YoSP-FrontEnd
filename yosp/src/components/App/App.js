@@ -52,7 +52,7 @@ class App extends PureComponent {
 
   checkExistingCookies = () => {
     const cookies = new Cookies();
-    return cookies.get('user');
+     return cookies.get('user');
   }
 
   render() {
@@ -68,7 +68,7 @@ class App extends PureComponent {
 
           <Sidebars />
 
-          <Route exact path="/" render={() => (
+          <Route exact path="/404" render={() => (
             this.checkExistingCookies() ? (
               <Redirect to="/dashboard" />
             ) : (
@@ -82,15 +82,15 @@ class App extends PureComponent {
                 path="/login"
                 render={() => <LogIn />}
               />
-              <Route
+              <Route exact
                 path="/registration"
                 render={() => <RegistrationForm />}
               />
-              <Route
+              <Route exact
                 path="/logout"
                 render={() => <Logout />}
               />
-              <Route
+              <Route exact
                 path="/useragents"
                 render={() => <UserAgent />}
               />
@@ -106,7 +106,7 @@ class App extends PureComponent {
                 path="/proxies/edit"
                 component={EditProxy}
               />
-              <Route
+              <Route exact
                 path="/dashboard"
                 render={() => <Dashboard />}
               />
@@ -114,7 +114,7 @@ class App extends PureComponent {
                 path="/projects"
                 render={() => <Projects />}
               />
-              <Route
+              <Route exact
                 path="/users"
                 render={() => <Users />}
               />
@@ -137,7 +137,7 @@ class App extends PureComponent {
               />
               <Route
               path="/404"
-              render={() => <NotFound />}
+              component={NotFound}
             />
             <Redirect to="/404" />
             </Switch>
