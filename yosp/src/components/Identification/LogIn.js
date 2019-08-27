@@ -51,15 +51,13 @@ class LogIn extends PureComponent {
       .then(result => result.text())
       .then(value => {
         let result = JSON.parse(value);
-        console.log(result);
-        if ('user' in result) {
+          if ('user' in result) {
           loadUser(result.user);
           cookies.set('user', result.user, { path: '/' });
           this.setState({ showSpiner: false })
           this.setState({ authorisationSucceed: true });
         }
         if ('error' in result) {
-          console.log(result.error)
           addAlert("warning", result.error);
           this.setState({ showSpiner: false })
         }

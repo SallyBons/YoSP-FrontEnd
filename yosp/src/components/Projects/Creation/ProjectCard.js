@@ -13,85 +13,130 @@ import { addAlert } from '../../../reducer/alerts';
 class ProjectCard extends Component {
   state = {
     projectKeywords: [],
+    pageFullyLoaded: false,
   }
 
   componentDidMount() {
-    // TODO: Components renders three times
+    const { setCurrentPage, user, project } = this.props;
     const { pathname } = this.props.location;
-    let awaitReduxLoad = () => {
-      setTimeout(() => {
-        const { user } = this.props;
-        this.getProjectById(user, getId(pathname))//without this we have empty user at props on initialazing
-        this.getKeywords(user)
-      }, 1);
+
+    if (Object.keys(user).length !== 0) {
+      this.getProjectById(getId(pathname));
     }
-    awaitReduxLoad();
-    const { setCurrentPage } = this.props;
+    if (Object.keys(user).length !== 0 && Object.keys(project).length !== 0) {
+      this.checkPageLoad();
+    }
+
+    // Sidebar
     setCurrentPage("projects");
   }
 
-  getKeywords = (user) => {
-    let { addAlert, project } = this.props;
-    fetch(`${GLOBAL_CONFIG.backendUrl}/keyword-groups/get-all?token=${user.token}&project_id=${project.id}`)
+  componentDidUpdate() {
+    const { pathname } = this.props.location;
+    const { project } = this.props;
+
+    if (Object.keys(project).length === 0) {
+      this.getProjectById(getId(pathname));
+    }
+
+    // Check if page is fully loaded
+    this.checkPageLoad()
+  }
+
+  checkPageLoad = () => {
+    const { pageFullyLoaded } = this.state;
+    const { project } = this.props;
+
+    if (Object.keys(project).length !== 0 && !pageFullyLoaded) {
+      this.getKeywords();
+    }
+  }
+
+  getKeywords = () => {
+    let { addAlert, project, user } = this.props;
+    const { pageFullyLoaded } = this.state;
+    const { pathname } = this.props.location;
+    // const { pathname } = this.props.location;
+
+    fetch(`${GLOBAL_CONFIG.backendUrl}/keyword-groups/get-all?token=${user.token}&project_id=${getId(pathname)}`)
       .then(result => result.text())
       .then(result => {
         let answer = JSON.parse(result);
         if (answer.error) {
           addAlert("warning", answer.error);
         } else {
-          this.setState({ projectKeywords: answer.keyword_groups })
+          // if (project.id === getId(pathname)) {
+          this.setState({
+            projectKeywords: answer.keyword_groups,
+            pageFullyLoaded: !pageFullyLoaded,
+          })
+          // }
         }
       }).catch(() => {
         addAlert("danger", "Server is not responding. Something went wrong");
-      });;
-  }
-
-  getProjectById = (user, id) => {
-    const { loadProject, history, addAlert } = this.props;
-    fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-single?token=${user.token}&id=${id}`)
-      .then(result => result.text())
-      .then(result => {
-        let answer = JSON.parse(result);
-        if (answer.error) {
-          history.push('/projects');
-        }
-        loadProject(answer);
-      }).catch(() => {
-        history.push('/projects');
-        addAlert("danger", "Project with such id does not exist");
       });
   }
 
-  render() {
-    const { projectKeywords} = this.state;
-    const { project } = this.props;
-    console.log(projectKeywords)
-    return (
-      <div className="project-card-wrapper">
-        <div className="project-card__heading-wrapper">
-          <h2 className="project-card__heading__headline">{project.name}</h2>
-          <div className="project-card__heading__button-wrapper">
-            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/proxies` }} uk-toggle="target: #toggle-proxies">Proxies</Link>
-            <Link to={{ pathname: `/projects/${project.id}/keywords` }} className="project-card__heading__button uk-button uk-button-default" uk-toggle="target: #toggle-keywords">Keywords</Link>
-            <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/edit` }}>Settings</Link>
-            <button className=" project-card__heading__button uk-button uk-button-default">Update</button>
-            <button className=" project-card__heading__button uk-button uk-button-default">Delete</button>
-          </div>
-        </div>
+  getProjectById = (id) => {
+    const { loadProject, history, addAlert, user, project } = this.props;
 
-        <div className="project-card__toggle-wrapper">
-          {project.proxies !== undefined && project.proxies.length === 0 ? <p id="toggle-proxies" className="project-card__toggle uk-alert-primary">Proxies are empty! Click here to add it! </p> : <p id="toggle-proxies"></p>}
-          {projectKeywords === [] &&  projectKeywords.length === 0 ? <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p> : <p id="toggle-keywords"></p>}
-        </div>
-        <div className="project-card__content-wrapper">
-          {projectKeywords.map(keywords => (
-            <div>
-              {keywords.title}
+    if (Object.keys(user).length !== 0 && id) {
+      fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-single?token=${user.token}&id=${id}`)
+        .then(result => result.text())
+        .then(result => {
+          let answer = JSON.parse(result);
+          if (answer.error) {
+            history.push('/projects');
+          }
+          loadProject(answer);
+        }).catch(() => {
+          history.push('/projects');
+          addAlert("danger", "Project with such id does not exist");
+        });
+    }
+  }
+
+  render() {
+    const { projectKeywords, pageFullyLoaded } = this.state;
+    const { project } = this.props;
+
+    // console.log(this.props, this.state);
+
+    if (pageFullyLoaded === true) {
+      return (
+        <div className="project-card-wrapper">
+
+          <div className="project-card__heading-wrapper">
+            <h2 className="project-card__heading__headline">{project.name}</h2>
+            <div className="project-card__heading__button-wrapper">
+              <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/proxies` }} uk-toggle="target: #toggle-proxies">Proxies</Link>
+              <Link to={{ pathname: `/projects/${project.id}/keywords` }} className="project-card__heading__button uk-button uk-button-default" uk-toggle="target: #toggle-keywords">Keywords</Link>
+              <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/edit` }}>Settings</Link>
+              <button className=" project-card__heading__button uk-button uk-button-default">Update</button>
+              <button className=" project-card__heading__button uk-button uk-button-default">Delete</button>
             </div>
-          ))}
-        </div>
-      </div>
-    );
+          </div>
+
+          <div className="project-card__toggle-wrapper">
+            {project.proxies !== undefined && project.proxies.length === 0 ? <p id="toggle-proxies" className="project-card__toggle uk-alert-primary">Proxies are empty! Click here to add it! </p> : <p id="toggle-proxies"></p>}
+            {projectKeywords.length === 0 ? <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p> : <p id="toggle-keywords"></p>}
+          </div>
+
+          {projectKeywords !== [] ?
+            <div className="project-card__content-wrapper">
+              {projectKeywords.map(keyword => (
+                <div>
+                  {keyword.title}
+                </div>
+              ))}
+            </div>
+            : <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p>}    </div>
+      );
+    } else {
+      return (
+        <div></div>
+      );
+    }
   }
 }
 const mapStateToProps = state => ({
