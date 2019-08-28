@@ -17,17 +17,13 @@ class ProjectCard extends Component {
   }
 
   componentDidMount() {
-    const { setCurrentPage, user, project } = this.props;
+    const { setCurrentPage} = this.props;
     const { pathname } = this.props.location;
 
-    if (Object.keys(user).length !== 0) {
-      this.getProjectById(getId(pathname));
-    }
-    if (Object.keys(user).length !== 0 && Object.keys(project).length !== 0) {
-      this.checkPageLoad();
-    }
+     this.getProjectById(getId(pathname));
+     this.checkPageLoad();
 
-    // Sidebar
+     // Sidebar
     setCurrentPage("projects");
   }
 
@@ -53,11 +49,9 @@ class ProjectCard extends Component {
   }
 
   getKeywords = () => {
-    let { addAlert, project, user } = this.props;
+    let { addAlert, user } = this.props;
     const { pageFullyLoaded } = this.state;
     const { pathname } = this.props.location;
-    // const { pathname } = this.props.location;
-
     fetch(`${GLOBAL_CONFIG.backendUrl}/keyword-groups/get-all?token=${user.token}&project_id=${getId(pathname)}`)
       .then(result => result.text())
       .then(result => {
@@ -65,21 +59,18 @@ class ProjectCard extends Component {
         if (answer.error) {
           addAlert("warning", answer.error);
         } else {
-          // if (project.id === getId(pathname)) {
-          this.setState({
+         this.setState({
             projectKeywords: answer.keyword_groups,
             pageFullyLoaded: !pageFullyLoaded,
           })
-          // }
-        }
+         }
       }).catch(() => {
         addAlert("danger", "Server is not responding. Something went wrong");
       });
   }
 
   getProjectById = (id) => {
-    const { loadProject, history, addAlert, user, project } = this.props;
-
+    const { loadProject, history, addAlert, user} = this.props;
     if (Object.keys(user).length !== 0 && id) {
       fetch(`${GLOBAL_CONFIG.backendUrl}/projects/get-single?token=${user.token}&id=${id}`)
         .then(result => result.text())
@@ -99,9 +90,6 @@ class ProjectCard extends Component {
   render() {
     const { projectKeywords, pageFullyLoaded } = this.state;
     const { project } = this.props;
-
-    // console.log(this.props, this.state);
-
     if (pageFullyLoaded === true) {
       return (
         <div className="project-card-wrapper">
@@ -122,15 +110,14 @@ class ProjectCard extends Component {
             {projectKeywords.length === 0 ? <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p> : <p id="toggle-keywords"></p>}
           </div>
 
-          {projectKeywords !== [] ?
-            <div className="project-card__content-wrapper">
+           <div className="project-card__content-wrapper">
               {projectKeywords.map(keyword => (
                 <div>
                   {keyword.title}
                 </div>
               ))}
             </div>
-            : <p id="toggle-keywords" className="project-card__toggle uk-alert-primary">Keyword groups are empty! Click here to add it! </p>}    </div>
+          </div> 
       );
     } else {
       return (
