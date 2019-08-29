@@ -15,6 +15,11 @@ import {
     Redirect
 } from 'react-router-dom';
 import { setCurrentPage } from '../../../reducer/ui';
+import { getId } from '../../../utils';
+import { selectProject } from '../../../reducer/projects';
+import {
+    required, maxLengthTitle, maxLengthOverview
+} from '../../../components/Special/validation';
 
 class EditProject extends Component {
     state = {
@@ -26,35 +31,37 @@ class EditProject extends Component {
         setCurrentPage("project")
       }
 
-    // sendProjectToBack = (values) => {
-    //     let { user, addAlert } = this.props;
-    //     fetch(`${GLOBAL_CONFIG.backendUrl}/projects/add?token=${user.token}`, {
-    //         method: 'post',
-    //         body: JSON.stringify({
-    //             "new_project": {
-    //                 "project_name": values.name,
-    //                 "project_description": values.description,
-    //                 "target_website": values.target,
-    //                 "scan_depth": values.scandepth,
-    //                 "search_engines": values.searchengines,
-    //                 "location": values.location
-    //             },
-    //         })
-    //     })
-    //         .then(result => result.text())
-    //         .then(result => {
-    //             let answer = JSON.parse(result);
-    //             console.log(answer);
-    //             if (answer.status === 200) {
-    //                 addAlert("success", "Project are added successfully");
-    //                 this.setState({ operationSuccessfull: true });
-    //             } else {
-    //                 addAlert("warning", answer.error);
-    //             }
-    //         }).catch(() => {
-    //             addAlert("danger", "Server is not responding. Something went wrong");
-    //           });;
-    // }
+    sendProjectToBack = (values) => {
+        let { user, addAlert } = this.props;
+        let { pathname } = this.props.location;
+        fetch(`${GLOBAL_CONFIG.backendUrl}/projects/update?token=${user.token}`, {
+            method: 'post',
+            body: JSON.stringify({
+                "project": {
+                    "id": getId(pathname),
+                    "name": values.name,
+                    "description": values.description,
+                    "target_website": values.target,
+                    "scan_depth": values.scandepth,
+                    "search_engines": values.searchengines,
+                    "location": values.location
+                },
+            })
+        })
+            .then(result => result.text())
+            .then(result => {
+                let answer = JSON.parse(result);
+                console.log(answer);
+                if (answer.status === 200) {
+                    addAlert("success", "Project is edited successfully");
+                    this.setState({ operationSuccessfull: true });
+                } else {
+                    addAlert("warning", answer.error);
+                }
+            }).catch(() => {
+                addAlert("danger", "Server is not responding. Something went wrong");
+              });;
+    }
     render() {
 
         const { handleSubmit } = this.props;
@@ -65,7 +72,7 @@ class EditProject extends Component {
 
                 <h2 className="edit-project-form__headline">Edit settings</h2>
 
-                <form>
+                <form onSubmit={handleSubmit(this.sendProjectToBack)}>
 
                     <div className="edit-project-form__input">
                         <Field
@@ -73,7 +80,7 @@ class EditProject extends Component {
                             label="Project name"
                             type="text"
                             component={InputField}
-                           
+                            validate={[required, maxLengthTitle]}
                         />
                     </div>
 
@@ -83,7 +90,7 @@ class EditProject extends Component {
                             label="Description"
                             type="text"
                             component={TextArea}
-                            
+                            validate={[required,  maxLengthOverview]}
                         />
                     </div>
 
@@ -93,7 +100,7 @@ class EditProject extends Component {
                             label="Target website"
                             type="text"
                             component={InputField}
-                            
+                            validate={[required]}
                         />
                     </div>
 
@@ -103,7 +110,7 @@ class EditProject extends Component {
                             label="Scan depth"
                             type="text"
                             component={ScanDepth}
-                            
+                            validate={[required]}
                         />
                     </div>
                     <div className="edit-project-form__input">
@@ -112,7 +119,7 @@ class EditProject extends Component {
                             label="Search Engines"
                             type="text"
                             component={SearchEngine}
-                           
+                            validate={[required]}
                              />
                     </div>
                      <div className="edit-project-form__input">
@@ -121,14 +128,14 @@ class EditProject extends Component {
                             label="Location"
                             type="text"
                             component={Location}
-                            
+                            validate={[required]}
                         />
                     </div>
 
 
 
                     <div className="edit-project-form__button-wrapper">
-                        <button type="submit" className="add-project-form__button uk-button uk-button-default" >Edit </button>
+                        <button type="submit" className="add-project-form__button uk-button uk-button-default" > Save </button>
                         <button type="submit" className="add-project-form__button uk-button uk-button-default" >Cancel </button>
                     </div>
                     {operationSuccessfull ?
@@ -149,6 +156,16 @@ class EditProject extends Component {
 const mapStateToProps = state => ({
     formData: getFormValues('EditProject')(state),
     user: selectUser(state),
+    project: selectProject(state),
+    initialValues: { 
+                    "id": selectProject(state).id,
+                    "name":selectProject(state).name,
+                    "description": selectProject(state).description,
+                    "target": selectProject(state).target_website,
+                    "scandepth": selectProject(state).scandepth,
+                    "searchengines": selectProject(state).searchengines,
+                    "location": selectProject(state).location
+ },
 });
 
 const mapDispatchToProps = {
@@ -160,6 +177,9 @@ export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     reduxForm({
         form: 'EditProject',
+        // initialValues:{
+        //     "name":project.name,
+        // },
         enableReinitialize: true,
     })
 )(EditProject);

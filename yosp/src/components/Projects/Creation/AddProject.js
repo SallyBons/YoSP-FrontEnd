@@ -49,7 +49,7 @@ class AddProject extends Component {
                 let answer = JSON.parse(result);
                 console.log(answer);
                 if (answer.status === 200) {
-                    addAlert("success", "Project are added successfully");
+                    addAlert("success", "Project is added successfully");
                     this.setState({ operationSuccessfull: true });
                 } else {
                     addAlert("warning", answer.error);
