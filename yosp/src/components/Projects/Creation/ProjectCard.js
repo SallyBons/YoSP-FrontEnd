@@ -113,7 +113,7 @@ class ProjectCard extends Component {
            <div className="project-card__content-wrapper">
               {projectKeywords.map(keyword => (
                 <div>
-                  {keyword.title}
+                  <Link className="project-card__heading__button uk-button uk-button-default" to={{ pathname: `/projects/${project.id}/keywords/charts` }}> {keyword.title}</Link>
                 </div>
               ))}
             </div>

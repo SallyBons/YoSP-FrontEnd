@@ -29,6 +29,7 @@ import ProjectCard from '../Projects/Creation/ProjectCard';
 import NotFound from '../Special/NotFound';
 import Keywords from '../Projects/Creation/Keywords';
 import ProjectProxies from '../Projects/Creation/ProjectProxies';
+import Chart from '../Projects/Creation/Chart';
 
 class App extends PureComponent {
 
@@ -134,6 +135,10 @@ class App extends PureComponent {
               <Route exact
                 path="/projects/:id/edit"
                 component={EditProject}
+              />
+              <Route exact
+                path="/projects/:id/keywords/charts"
+                component={Chart}
               />
               <Route
               path="/404"
