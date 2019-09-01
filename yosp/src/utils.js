@@ -9,4 +9,5 @@ const getId = (incomingUrl) => {
     return incomingUrl.split('/')[2];
  
 };
+
 export { guid, getId };

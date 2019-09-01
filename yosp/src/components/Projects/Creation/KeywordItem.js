@@ -66,7 +66,7 @@ class KeywordItem extends Component {
                         <p>Keywords</p>
                     </div>
                     <div className="add-keywords-form__input">
-                        <textarea className="uk-input" onChange={event => this.textareaOnChange(event)}></textarea>
+                        <textarea rows="10" className="uk-input" onChange={event => this.textareaOnChange(event)}></textarea>
                     </div>
                 </form>
             </div>

@@ -30,6 +30,7 @@ import NotFound from '../Special/NotFound';
 import Keywords from '../Projects/Creation/Keywords';
 import ProjectProxies from '../Projects/Creation/ProjectProxies';
 import Chart from '../Projects/Creation/Chart';
+import KeywordGroup from '../Projects/Creation/KeywordGroup';
 
 class App extends PureComponent {
 
@@ -137,8 +138,12 @@ class App extends PureComponent {
                 component={EditProject}
               />
               <Route exact
-                path="/projects/:id/keywords/charts"
+                path="/keywords/:id"
                 component={Chart}
+              />
+              <Route exact
+                path="/keyword_group/:id"
+                component={KeywordGroup}
               />
               <Route
               path="/404"
