@@ -178,3 +178,9 @@
        margin:0;
        margin-bottom: 1px;
    }
+   .lineChart-container-wrapper__heading{
+    padding: 0px 15px;
+   }
+   .lineChart-container-wrapper__heading__text{
+      margin-top:0px; 
+   }

@@ -12,6 +12,7 @@ class LineChart extends Component {
     chartRef = React.createRef();
     state = {
         keywordInfo: {},
+        keywordData: [],
     }
     componentDidMount() {
 
@@ -37,24 +38,22 @@ class LineChart extends Component {
                 let answer = JSON.parse(result);
                 if (answer.error) {
                     addAlert("warning", answer.error);
+                } else {
+                    this.setState({ keywordInfo: answer.keyword });
+                    this.setState({ keywordData: answer.keyword_data })
                 }
                 return answer.keyword_data;
 
-                // else {
-                //      this.setState({
-                //        keywordInfo: answer.keyword,
-                //         })
-                // }
             }).then(result => {
                 const myChartRef = this.chartRef.current.getContext("2d");
-                const labels = result.map(value => Object.keys(value)[0]); 
+                const labels = result.map(value => Object.keys(value)[0]);
                 const data = result.map(value => {
                     return {
                         x: Object.keys(value)[0],
                         y: value[Object.keys(value)[0]],
                     }
                 });
-                            
+
 
                 new Chart(myChartRef, {
                     type: "line",
@@ -64,16 +63,27 @@ class LineChart extends Component {
                         datasets: [
                             {
                                 label: "Position",
-                                // data: [86, 67, 91],
-                                // data: result,
                                 data: data,
                                 fill: false,
-                                borderColor: "#6610f2"
+                                borderColor: "#0362BF"
                             }
                         ]
                     },
                     options: {
-                        //Customize chart options
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    reverse: true,
+                                    beginAtZero: true
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    reverse: false,
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
                 });
             }
@@ -86,13 +96,22 @@ class LineChart extends Component {
 
 
     render() {
+        const { keywordInfo,keywordData } = this.state;
+        const timeLine = keywordData.map(value => Object.keys(value)[0]);
         return (
-            <div className="lineChart-container">
-                <canvas
-                    id="myChart"
-                    ref={this.chartRef}
-                />
+            <div className="lineChart-container-wrapper">
+                <div className="lineChart-container-wrapper__heading">
+                    <h2 className="lineChart-container-wrapper__heading__headline">Chart: {keywordInfo.keyword}</h2>
+                    <h3 className="lineChart-container-wrapper__heading__text"> Time Line:  {timeLine[0]} - {timeLine[timeLine.length-1]}</h3>
+                </div>
+                <div className="lineChart-container">
+                    <canvas
+                        id="myChart"
+                        ref={this.chartRef}
+                    />
+                </div>
             </div>
+
         )
     }
 }
