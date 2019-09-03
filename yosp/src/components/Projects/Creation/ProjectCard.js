@@ -90,6 +90,7 @@ class ProjectCard extends Component {
   render() {
     const { projectKeywords, pageFullyLoaded } = this.state;
     const { project } = this.props;
+    console.log( projectKeywords);
     if (pageFullyLoaded === true) {
       return (
         <div className="project-card-wrapper">

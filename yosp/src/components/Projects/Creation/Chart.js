@@ -93,22 +93,51 @@ class LineChart extends Component {
             });
     }
 
+    positionDifference = (currentValue, previousValue) => {
+        return (currentValue - previousValue) * -1;
+        // return ((currentValue - previousValue) * -1 !== 0 ? (currentValue - previousValue) * -1 : "-");
+    }
+
+    renderList = (dataReworked) => {
+        let resultArray = []
+        for (let index = 0; index < dataReworked.length; index++) {
+            const currentKeyword = dataReworked[index];
+            const previousKeyword = dataReworked[index - 1];
+            if (!previousKeyword) {
+                resultArray.push(<div><span>{currentKeyword.date}</span> : <span>{currentKeyword.position}</span> : <span>0</span></div>)
+            } else {
+                resultArray.push(<div><span>{currentKeyword.date}</span> : <span>{currentKeyword.position}</span> : <span> {this.positionDifference(currentKeyword.position, previousKeyword.position)} </span></div>)
+            }
+        }
+        return resultArray;
+    }
+
 
 
     render() {
-        const { keywordInfo,keywordData } = this.state;
+        const { keywordInfo, keywordData } = this.state;
         const timeLine = keywordData.map(value => Object.keys(value)[0]);
+        const dataReworked = keywordData.map(value => {
+            return {
+                date: Object.keys(value)[0],
+                position: value[Object.keys(value)[0]],
+            }
+        });
         return (
             <div className="lineChart-container-wrapper">
                 <div className="lineChart-container-wrapper__heading">
                     <h2 className="lineChart-container-wrapper__heading__headline">Chart: {keywordInfo.keyword}</h2>
-                    <h3 className="lineChart-container-wrapper__heading__text"> Time Line:  {timeLine[0]} - {timeLine[timeLine.length-1]}</h3>
+                    <h3 className="lineChart-container-wrapper__heading__text"> Time Line:  {timeLine[0]} - {timeLine[timeLine.length - 1]}</h3>
                 </div>
                 <div className="lineChart-container">
                     <canvas
                         id="myChart"
                         ref={this.chartRef}
                     />
+                </div>
+                <div className="lineChart-container-dynamics">
+                    <h3 className="lineChart-container-dynamics__heading">Dynamics</h3>
+                    {this.renderList(dataReworked)}
                 </div>
             </div>
 

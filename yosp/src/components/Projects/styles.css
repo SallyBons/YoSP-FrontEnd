@@ -184,3 +184,8 @@
    .lineChart-container-wrapper__heading__text{
       margin-top:0px; 
    }
+   .lineChart-container-dynamics__table{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+   }
