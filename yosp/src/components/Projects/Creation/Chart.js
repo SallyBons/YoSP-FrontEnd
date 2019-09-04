@@ -104,9 +104,18 @@ class LineChart extends Component {
             const currentKeyword = dataReworked[index];
             const previousKeyword = dataReworked[index - 1];
             if (!previousKeyword) {
-                resultArray.push(<div><span>{currentKeyword.date}</span> : <span>{currentKeyword.position}</span> : <span>0</span></div>)
+                resultArray.push(<div className="lineChart-container-dynamics__renderList"><span className="lineChart-container-dynamics__element">{currentKeyword.date}  </span> <div className="lineChart-container-dynamics__position"> <span className="lineChart-container-dynamics__element">{currentKeyword.position}</span> <span className="lineChart-container-dynamics__element-changes " >0</span> </div> </div>)
             } else {
-                resultArray.push(<div><span>{currentKeyword.date}</span> : <span>{currentKeyword.position}</span> : <span> {this.positionDifference(currentKeyword.position, previousKeyword.position)} </span></div>)
+                resultArray.push(
+                    <div className="lineChart-container-dynamics__renderList">
+                        <span className="lineChart-container-dynamics__element">{currentKeyword.date} </span>
+                        <div className="lineChart-container-dynamics__position">
+                            <span className="lineChart-container-dynamics__element">{currentKeyword.position}</span>
+                            <span className={`lineChart-container-dynamics__element-changes ${this.positionDifference(currentKeyword.position, previousKeyword.position) < 0 ? 'red ' : ''} ${this.positionDifference(currentKeyword.position, previousKeyword.position) > 0 ? 'green' : ''}`}>
+                                {this.positionDifference(currentKeyword.position, previousKeyword.position)}
+                            </span>
+                        </div>
+                    </div>)
             }
         }
         return resultArray;
