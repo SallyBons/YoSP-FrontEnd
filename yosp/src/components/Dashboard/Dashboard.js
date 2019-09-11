@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
-import 'uikit/dist/css/uikit.min.css';
 import { connect } from 'react-redux';
+
 import { setCurrentPage } from '../../reducer/ui';
- import './styles.css';
+
+import 'uikit/dist/css/uikit.min.css';
+
+import './styles.css';
+ 
 
 class Dashboard extends PureComponent {
   componentDidMount() {

@@ -43,9 +43,6 @@
     padding-right: 15px;
 }
 
-/* .alert-wrapper p {
-    margin-top: initial
-} */
 
 .alert-panel-wrapper {
     width: 100%;
@@ -53,9 +50,7 @@
 
 .alert-panel__header {
     display: flex;
-    /* justify-content: flex-start; */
     flex-direction: column;
-    /* align-items: center; */
     padding: 13.5px;
     position: relative;
     border-bottom: 1px solid #F2F2F2;

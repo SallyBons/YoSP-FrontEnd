@@ -2,7 +2,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+
 import { deleteAlert } from '../../reducer/alerts';
+
 import 'uikit/dist/css/uikit.min.css';
 
 class Alert extends PureComponent {
@@ -32,7 +34,6 @@ class Alert extends PureComponent {
             <div className="alert-wrapper">
                 <div className={this.returnAlertClass(incommingAlert.type)} data-uk-alert>
                     <a className="uk-alert-close" data-uk-close onClick={() => this.handleDeleteAlert(incommingAlert)} ></a>
-                    {/* <h3  className="alert-wrapper__headline" >Notice</h3> */}
                     <p className="alert-wrapper__alert-text">{incommingAlert.text}</p>
                 </div>
             </div>

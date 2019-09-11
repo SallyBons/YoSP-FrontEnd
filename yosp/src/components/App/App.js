@@ -2,27 +2,33 @@ import React, { PureComponent } from 'react';
 import {
   BrowserRouter, Route, Switch, Redirect
 } from 'react-router-dom';
-import RegistrationForm from '../Identification/RegistrationForm';
-import 'uikit/dist/css/uikit.min.css';
-import 'uikit/dist/js/uikit.min.js';
-import LogIn from '../Identification/LogIn';
-import UserAgent from '../UserAgents/UserAgent';
-import GLOBAL_CONFIG from '../../config';
-import Dashboard from '../Dashboard/Dashboard'
+import { connect } from 'react-redux';
 import Cookies from 'universal-cookie';
+
+import GLOBAL_CONFIG from '../../config';
+
+import 'uikit/dist/js/uikit.min.js';
+
+import 'uikit/dist/css/uikit.min.css';
+import './styles.css';
+
 import { loadUser } from '../../reducer/user';
 import { addAlert } from '../../reducer/alerts';
-import { connect } from 'react-redux';
+import { selectUser } from '../../reducer/user';
+
+import RegistrationForm from '../Identification/RegistrationForm';
+import LogIn from '../Identification/LogIn';
+import UserAgent from '../UserAgents/UserAgent';
+import Dashboard from '../Dashboard/Dashboard'
 import Logout from '../Identification/Logout';
 import ProxyManager from '../Proxies/ProxyManager'
 import Sidebars from '../../components/Special/Sidebars';
 import AlertPanel from '../Alerts/AlertPanel'
-import './styles.css';
 import AddProxy from '../Proxies/AddProxy';
 import EditProxy from '../Proxies/EditProxy';
-import { selectUser } from '../../reducer/user';
 import Projects from '../Projects/ProjectManager'
 import Users from '../Users/UserManager';
+import KeywordGroup from '../Projects/Creation/KeywordGroup';
 import AddProject from '../Projects/Creation/AddProject';
 import EditProject from '../Projects/Creation/EditProject';
 import ProjectCard from '../Projects/Creation/ProjectCard';
@@ -30,7 +36,6 @@ import NotFound from '../Special/NotFound';
 import Keywords from '../Projects/Creation/Keywords';
 import ProjectProxies from '../Projects/Creation/ProjectProxies';
 import Chart from '../Projects/Creation/Chart';
-import KeywordGroup from '../Projects/Creation/KeywordGroup';
 
 class App extends PureComponent {
 
@@ -43,18 +48,15 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    // document.title = 'YoSP: Dashboard';
-    this.checkBack();
-
     let { loadUser } = this.props;
-
+    this.checkBack();
     loadUser(this.checkExistingCookies());
 
   }
 
   checkExistingCookies = () => {
     const cookies = new Cookies();
-     return cookies.get('user');
+    return cookies.get('user');
   }
 
   render() {
@@ -102,7 +104,7 @@ class App extends PureComponent {
               />
               <Route exact
                 path="/proxies/add"
-                component={AddProxy}
+                render={() => <AddProxy />}
               />
               <Route exact
                 path="/proxies/edit"
@@ -112,7 +114,7 @@ class App extends PureComponent {
                 path="/dashboard"
                 render={() => <Dashboard />}
               />
-               <Route exact
+              <Route exact
                 path="/projects"
                 render={() => <Projects />}
               />
@@ -122,9 +124,12 @@ class App extends PureComponent {
               />
               <Route exact
                 path="/projects/add"
-                component={AddProject}
+                render={() => <AddProject />}
               />
-              <Route exact path="/projects/:id" component={ProjectCard} />
+              <Route exact
+                path="/projects/:id"
+                component={ProjectCard} 
+               />
               <Route exact
                 path="/projects/:id/keywords"
                 component={Keywords}
@@ -146,10 +151,10 @@ class App extends PureComponent {
                 component={KeywordGroup}
               />
               <Route
-              path="/404"
-              component={NotFound}
-            />
-            <Redirect to="/404" />
+                path="/404"
+                component={NotFound}
+              />
+              <Redirect to="/404" />
             </Switch>
           </div>
         </div>

@@ -4,18 +4,24 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import {
+    Redirect, Link
+} from 'react-router-dom';
+
+import GLOBAL_CONFIG from '../../config';
+
+import './styles.css';
+
+import 'uikit/dist/css/uikit.min.css';
+
 import InputField from '../Special/InputField';
 import {
     required, maxLengthName, maxLengthSurname, specialSymbols, matchesPassword, email, passwordMax, passwordMin
 } from '../../components/Special/validation';
-import {
-    Redirect, Link
-} from 'react-router-dom';
-import GLOBAL_CONFIG from '../../config';
 import Spiner from '../Special/Spiner';
+
 import { addAlert } from '../../reducer/alerts';
-import './styles.css';
-import 'uikit/dist/css/uikit.min.css';
+
 
 class RegistrationForm extends PureComponent {
 
@@ -27,12 +33,11 @@ class RegistrationForm extends PureComponent {
     state = {
         showSpiner: false,
         registrationSucceed: false,
-
     }
 
     addNewUser = (values) => {
-         let { addAlert } = this.props;
-         this.setState({ showSpiner: true })
+        let { addAlert } = this.props;
+        this.setState({ showSpiner: true })
         fetch(`${GLOBAL_CONFIG.backendUrl}/user/add?`, {
             method: 'post',
             body: JSON.stringify({
@@ -46,9 +51,7 @@ class RegistrationForm extends PureComponent {
         })
             .then(result => result.text())
             .then(result => {
-                console.log(result);
                 let answer = JSON.parse(result);
-
                 this.setState({ showSpiner: false });
                 if (answer.error) {
                     addAlert("warning", answer.error);
@@ -67,7 +70,7 @@ class RegistrationForm extends PureComponent {
         return (
             <div>
                 <div className="registration-form-wrapper">
-                <h2 className="registration-form__headline">Let’s create new YoSP account </h2>
+                    <h2 className="registration-form__headline">Let’s create new YoSP account </h2>
                     <form className="registration-form__form" onSubmit={handleSubmit(this.addNewUser)} >
                         <div className="registration-form__input">
                             <Field
@@ -79,7 +82,6 @@ class RegistrationForm extends PureComponent {
                                 validate={[required, maxLengthName, specialSymbols]}
                             />
                         </div>
-
                         <div className="registration-form__input">
                             <Field
                                 name="surname"
@@ -111,7 +113,6 @@ class RegistrationForm extends PureComponent {
                             />
                         </div>
                         <div className="registration-form__input">
-
                             <Field
                                 name="confirmPassword"
                                 label="Confirm password"
@@ -121,16 +122,9 @@ class RegistrationForm extends PureComponent {
                                 validate={[required, matchesPassword]}
                             />
                         </div>
-
-
-
-
-
-
                         <div className="registration-form__button-wrapper">
                             <button type="submit" className=" registration-form__button" disabled={invalid}>Create new account</button>
                         </div>
-
                         {showSpiner ?
                             <Spiner />
                             :
@@ -141,23 +135,18 @@ class RegistrationForm extends PureComponent {
                             :
                             ''
                         }
-
                     </form>
                     <div className="registration__link-wrapper">
                         <h2 className="registration__link-headline">Already have an account?</h2>
                         <Link className="registration__link" to="/login">Sign in!</Link>
                     </div>
                 </div>
-
             </div>
-
-
         );
     }
 }
 
 const selector = formValueSelector('RegistrationForm');
-
 const mapStateToProps = state => ({
     name: selector(state, 'name', 'surname'),
     formData: getFormValues('RegistrationForm')(state)

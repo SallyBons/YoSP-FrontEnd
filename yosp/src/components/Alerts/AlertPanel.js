@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
-import './styles.css';
 import { connect } from 'react-redux';
+
+import './styles.css';
+
+import { selectAllAlerts, loadAlerts } from '../../reducer/alerts';
+
 import Alert from './Alert';
-import { selectAllAlerts, loadAlerts } from '../../reducer/alerts'
+
 
 
 class AlertPanel extends PureComponent {
@@ -21,7 +25,7 @@ class AlertPanel extends PureComponent {
             <p className="alert-panel__header__additional-text">Latest information from YoSP lifelog</p>
           </div>
           <div className="alert-panel__alerts">
-            {alerts.map((alert, index) => (
+            {alerts.map((alert) => (
               <Alert incommingAlert={alert} key={alert.id} />
             ))}
           </div>

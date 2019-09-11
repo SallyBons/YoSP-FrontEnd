@@ -2,22 +2,27 @@ import React, { Component } from 'react';
 import { Field, reduxForm, getFormValues } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import {
+    Redirect
+} from 'react-router-dom';
+
+import '../styles.css';
+
+import GLOBAL_CONFIG from '../../../config';
+
+import { addAlert } from '../../../reducer/alerts';
+import { selectUser } from '../../../reducer/user';
+import { setCurrentPage } from '../../../reducer/ui';
+
 import InputField from '../../Special/InputField';
 import TextArea from '../../Special/TextArea';
 import ScanDepth from './ScanDepth';
 import SearchEngine from './SearchEngine';
 import Location from './Location';
-import '../styles.css';
-import GLOBAL_CONFIG from '../../../config';
-import { addAlert } from '../../../reducer/alerts';
-import { selectUser } from '../../../reducer/user';
-import {
-    Redirect
-} from 'react-router-dom';
 import {
     required, maxLengthTitle, maxLengthOverview
 } from '../../../components/Special/validation';
-import { setCurrentPage } from '../../../reducer/ui';
+
 
 class AddProject extends Component {
     state = {
@@ -27,8 +32,7 @@ class AddProject extends Component {
         document.title = 'YoSP: Add Project';
         const { setCurrentPage } = this.props;
         setCurrentPage("projects")
-      }
-
+    }
     sendProjectToBack = (values) => {
         let { user, addAlert } = this.props;
         fetch(`${GLOBAL_CONFIG.backendUrl}/projects/add?token=${user.token}`, {
@@ -47,7 +51,6 @@ class AddProject extends Component {
             .then(result => result.text())
             .then(result => {
                 let answer = JSON.parse(result);
-                console.log(answer);
                 if (answer.status === 200) {
                     addAlert("success", "Project is added successfully");
                     this.setState({ operationSuccessfull: true });
@@ -56,10 +59,9 @@ class AddProject extends Component {
                 }
             }).catch(() => {
                 addAlert("danger", "Server is not responding. Something went wrong");
-              });;
+            });;
     }
     render() {
-
         const { handleSubmit } = this.props;
         const { operationSuccessfull } = this.state;
         return (
@@ -79,17 +81,15 @@ class AddProject extends Component {
                             validate={[required, maxLengthTitle]}
                         />
                     </div>
-
                     <div className="add-project-form__input">
                         <Field
                             name="description"
                             label="Description"
                             type="text"
                             component={TextArea}
-                            validate={[required,  maxLengthOverview]}
+                            validate={[required, maxLengthOverview]}
                         />
                     </div>
-
                     <div className="add-project-form__input">
                         <Field
                             name="target"
@@ -99,7 +99,6 @@ class AddProject extends Component {
                             validate={[required]}
                         />
                     </div>
-
                     <div className="add-project-form__input">
                         <Field
                             name="scandepth"
@@ -116,9 +115,9 @@ class AddProject extends Component {
                             type="text"
                             component={SearchEngine}
                             validate={[required]}
-                             />
+                        />
                     </div>
-                     <div className="add-project-form__input">
+                    <div className="add-project-form__input">
                         <Field
                             name="location"
                             label="Location"
@@ -127,9 +126,6 @@ class AddProject extends Component {
                             validate={[required]}
                         />
                     </div>
-
-
-
                     <div className="add-project-form__button-wrapper">
                         <button type="submit" className="add-project-form__button uk-button uk-button-default" >Add </button>
                         <button type="submit" className="add-project-form__button uk-button uk-button-default" >Cancel </button>
@@ -140,13 +136,9 @@ class AddProject extends Component {
                         ''
                     }
                 </form>
-
             </div>
         );
-
     }
-
-
 }
 
 const mapStateToProps = state => ({

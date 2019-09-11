@@ -4,17 +4,28 @@ import {
 } from 'redux-form';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import InputField from '../Special/InputField';
-import Spiner from '../Special/Spiner'
-import GLOBAL_CONFIG from '../../config';
-import { loadUser } from '../../reducer/user';
-import { selectUser } from '../../reducer/user';
-import { addAlert } from '../../reducer/alerts';
-import 'uikit/dist/css/uikit.min.css';
 import Cookies from 'universal-cookie';
 import {
   Redirect, Link
 } from 'react-router-dom';
+
+import GLOBAL_CONFIG from '../../config';
+
+import 'uikit/dist/css/uikit.min.css';
+
+import { loadUser } from '../../reducer/user';
+import { selectUser } from '../../reducer/user';
+import { addAlert } from '../../reducer/alerts';
+
+import InputField from '../Special/InputField';
+import Spiner from '../Special/Spiner'
+
+
+
+
+
+
+
 
 
 class LogIn extends PureComponent {
@@ -28,12 +39,13 @@ class LogIn extends PureComponent {
     showSpiner: false,
     authorisationSucceed: false,
   }
-  checkUser = ()=>{
+
+  checkUser = () => {
     const { user } = this.props;
-    if (user){
+    if (user) {
       this.setState({ authorisationSucceed: true });
     }
-     }
+  }
 
   loginFunction = (values) => {
     const cookies = new Cookies();
@@ -51,7 +63,7 @@ class LogIn extends PureComponent {
       .then(result => result.text())
       .then(value => {
         let result = JSON.parse(value);
-          if ('user' in result) {
+        if ('user' in result) {
           loadUser(result.user);
           cookies.set('user', result.user, { path: '/' });
           this.setState({ showSpiner: false })
@@ -62,9 +74,9 @@ class LogIn extends PureComponent {
           this.setState({ showSpiner: false })
         }
       })
-     .catch(() => {
-      addAlert("danger", "Server is not responding. Something went wrong");
-    });
+      .catch(() => {
+        addAlert("danger", "Server is not responding. Something went wrong");
+      });
   }
 
   render() {
@@ -80,8 +92,6 @@ class LogIn extends PureComponent {
       <div className="login-form-wrapper">
         <h2 className="login-form__headline">Sign In to your YoSP account </h2>
         <form className="login-form__form" onSubmit={handleSubmit(this.loginFunction)}>
-
-
           <div className="login-form__input">
             <Field
               name="email"
@@ -91,8 +101,6 @@ class LogIn extends PureComponent {
               component={InputField}
             />
           </div>
-
-
           <div className="login-form__input">
             <Field
               name="password"
@@ -102,20 +110,14 @@ class LogIn extends PureComponent {
               component={InputField}
             />
           </div>
-
-
-
-
           <div className="login-form__button-wrapper">
             <button type="submit" className="login-form__button" disabled={invalid}>Sign In to Dashboard</button>
-           </div>
-
+          </div>
           {showSpiner ?
             <Spiner />
             :
             ''
           }
-
         </form>
         <div className="login__link-wrapper">
           <h2 className="login__link-headline">Don’t have an account yet?</h2>

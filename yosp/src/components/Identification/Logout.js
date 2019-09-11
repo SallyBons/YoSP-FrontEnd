@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { selectUser, loadUser } from '../../reducer/user';
 import {
   Redirect
 } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+
+import { selectUser, loadUser } from '../../reducer/user';
 
 class LogOut extends Component {
 
@@ -17,8 +18,6 @@ class LogOut extends Component {
   }
 
   render() {
-    // const {history} = this.props;
-    // history.goBack();
     return (
       <Redirect to="/login" />
     );
