@@ -24,15 +24,13 @@ class UserAgentsDesktop extends PureComponent {
   }
 
   getDataFromBackEnd = (user) => {
-    fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/get?token=${user.token}&useragent_type=desktop`)
+     fetch(`${GLOBAL_CONFIG.backendUrl}/useragents/get?token=${user.token}&useragent_type=desktop`)
       .then(result => result.text())
       .then(result => {
         let answer = JSON.parse(result);
+        console.log(answer)
         if (answer.useragents) {
           let parsedUserAgents = JSON.parse(answer.useragents);
-          
-          
-
           // this.props.change('textarea1', parsedUserAgents.join('\n'));
         }
       });

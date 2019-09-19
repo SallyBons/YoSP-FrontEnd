@@ -6,6 +6,6 @@ YoSP is a small non-commercial marketing tech project. The main goal of a projec
 
 --- 
 
-Check out live demo at: http://95.216.157.218
-Username: demo@yosp.com
-Password: demo000
+Check out live demo at: http://95.216.157.218  
+Username: demo@yosp.com  
+Password: demo000  
