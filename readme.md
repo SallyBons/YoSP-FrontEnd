@@ -1,1 +1,1 @@
-## Hello YoSP
+## YoSP Application Frontend
